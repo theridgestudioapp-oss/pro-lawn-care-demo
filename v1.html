@@ -40,9 +40,12 @@
 
   /* ── Top sign bar ── */
   .topbar{
+    position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:100;
+    width:calc(100% - 28px);max-width:1100px;
     background:var(--soil);color:var(--cream);
     display:flex;justify-content:space-between;align-items:center;
-    padding:12px 24px;gap:16px;flex-wrap:wrap;
+    padding:12px 20px;gap:16px;
+    border:2px solid #241b10;box-shadow:0 12px 30px -12px rgba(0,0,0,.5);
   }
   .brandmark{font-family:'Oswald';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:15px;display:flex;align-items:center;gap:10px}
   .brandmark .chip{width:14px;height:14px;background:var(--orange);display:inline-block;transform:rotate(45deg)}
@@ -60,7 +63,7 @@
     content:"";position:absolute;inset:0;opacity:.07;pointer-events:none;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
-  .hero .wrap{position:relative;padding:72px 24px 64px}
+  .hero .wrap{position:relative;padding:108px 24px 64px}
   .hero .kicker{color:var(--cream);opacity:.9}
   .hero .kicker .num{color:var(--cream);opacity:.55}
   h1.sign{
@@ -131,12 +134,12 @@
 
   /* ── Work-photo strip (intentional placeholder, not a broken box) ── */
   .gallery{background:var(--soil)}
-  .gallery .wrap{padding:0}
-  .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+  .gallery .wrap{padding:30px 24px}
+  .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   .shot{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;text-align:center;
     background:repeating-linear-gradient(108deg,#33401d 0 28px,#3b4a22 28px 56px);
     color:rgba(244,240,230,.55);font-family:'Oswald';text-transform:uppercase;letter-spacing:.12em;font-size:12px;padding:16px;
-    position:relative;overflow:hidden}
+    position:relative;overflow:hidden;border-radius:14px}
   .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
   /* before / after — side by side, static labels (orange = after) */
   .shot .lbl{position:absolute;left:0;bottom:0;z-index:2;font-family:'Oswald';font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:12px;color:var(--cream);background:rgba(26,22,15,.85);padding:7px 14px}
