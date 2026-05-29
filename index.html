@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pro Lawn Care — Site Preview</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#16191F; --cream:#F4F1EA; --paper:#FBFAF6; --line:#E3DED2; --mute:#6F6A5E; --clay:#B45D3F; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--cream);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.55;
+    background-image:radial-gradient(rgba(0,0,0,.018) 1px,transparent 1px);background-size:4px 4px}
+  .wrap{max-width:680px;margin:0 auto;padding:40px 22px 56px}
+
+  .kicker{font-family:'Inter';font-weight:600;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--clay)}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(30px,8vw,46px);line-height:1.04;letter-spacing:-.01em;margin:12px 0 14px}
+  .lede{font-size:16px;color:var(--mute);max-width:42ch}
+
+  .rule{height:1px;background:var(--line);margin:30px 0 26px}
+
+  .cards{display:flex;flex-direction:column;gap:16px}
+  .card{display:block;background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    text-decoration:none;color:inherit;transition:transform .18s ease-out,box-shadow .18s ease-out,border-color .18s ease-out}
+  .card:hover,.card:active{transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(22,25,31,.4);border-color:#d4cdba}
+  .swatch{height:8px;display:flex}
+  .swatch span{flex:1}
+  .card .body{padding:18px 20px;display:flex;align-items:center;gap:16px}
+  .num{font-family:'Fraunces',serif;font-weight:600;font-size:30px;color:var(--ink);line-height:1;min-width:34px}
+  .meta{flex:1;min-width:0}
+  .meta h2{font-family:'Fraunces',serif;font-weight:600;font-size:20px;line-height:1.1;margin-bottom:3px}
+  .meta p{font-size:14px;color:var(--mute);line-height:1.45}
+  .go{font-size:22px;color:var(--clay);line-height:1;transition:transform .18s ease-out}
+  .card:hover .go{transform:translateX(3px)}
+
+  .foot{margin-top:34px;text-align:center;font-size:12px;color:var(--mute);letter-spacing:.02em}
+  .foot .pb{display:inline-block;margin-top:6px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:10px;color:#9a937f}
+
+  @media(min-width:560px){ .card .body{padding:20px 24px} .num{font-size:34px} .meta h2{font-size:22px} }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="kicker">MT Slate · Website preview</div>
+    <h1>Three looks for<br>Pro&nbsp;Lawn&nbsp;Care.</h1>
+    <p class="lede">Tap each one and see how it feels. Same site underneath — three different styles on top. Then tell me which one is you.</p>
+
+    <div class="rule"></div>
+
+    <div class="cards">
+      <a class="card" href="v1.html">
+        <div class="swatch"><span style="background:#6B7233"></span><span style="background:#3A2C1E"></span><span style="background:#C8521F"></span></div>
+        <div class="body">
+          <div class="num">01</div>
+          <div class="meta">
+            <h2>The Workhorse</h2>
+            <p>Rugged and loud — built like the truck. For the no-nonsense pro.</p>
+          </div>
+          <div class="go">→</div>
+        </div>
+      </a>
+
+      <a class="card" href="v2.html">
+        <div class="swatch"><span style="background:#0C0E0B"></span><span style="background:#5FB72B"></span><span style="background:#15180F"></span></div>
+        <div class="body">
+          <div class="num">02</div>
+          <div class="meta">
+            <h2>The Signature</h2>
+            <p>Dark, sleek, brand-forward — built around your logo and green.</p>
+          </div>
+          <div class="go">→</div>
+        </div>
+      </a>
+
+      <a class="card" href="v3.html">
+        <div class="swatch"><span style="background:#FFFFFF;border-bottom:1px solid var(--line)"></span><span style="background:#2F8F4E"></span><span style="background:#EAF6EE"></span></div>
+        <div class="body">
+          <div class="num">03</div>
+          <div class="meta">
+            <h2>The Classic</h2>
+            <p>Bright, clean, easy to trust — the friendly-neighbor look.</p>
+          </div>
+          <div class="go">→</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="foot">
+      A preview prepared for Blas &amp; Pro Lawn Care.<br>
+      <span class="pb">Powered by MT&nbsp;Slate</span>
+    </div>
+  </div>
+</body>
+</html>
