@@ -48,7 +48,19 @@
   }
   .brandmark{font-family:'Oswald';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:15px;display:flex;align-items:center;gap:10px}
   .brandmark .chip{width:14px;height:14px;background:var(--orange);display:inline-block;transform:rotate(45deg)}
+  .topbar .right{display:flex;align-items:center;gap:18px}
   .topbar .phone{font-family:'Oswald';font-weight:600;color:var(--orange);font-size:16px;letter-spacing:.04em}
+  /* language pills — sharp-edged, Oswald, soil/cream/orange */
+  .langs{display:flex;gap:5px}
+  .lang-btn{
+    font-family:'Oswald';font-weight:600;font-size:12px;letter-spacing:.06em;
+    color:var(--cream);background:transparent;
+    border:1.5px solid rgba(244,240,230,.32);
+    padding:5px 9px;min-width:34px;text-align:center;cursor:pointer;
+    text-transform:uppercase;line-height:1;transition:all .15s ease-out;
+  }
+  .lang-btn[lang="ar"]{font-size:14px;letter-spacing:0}
+  .lang-btn.on,.lang-btn:hover{color:var(--soil);background:var(--orange);border-color:var(--orange)}
 
   /* ── Hero with mowing stripes ── */
   .hero{
@@ -165,6 +177,34 @@
   .cta h2{font-family:'Anton';text-transform:uppercase;font-size:clamp(32px,5vw,56px);line-height:.98;color:var(--cream)}
   .cta .phone-big{font-family:'Anton';color:var(--orange);font-size:clamp(40px,8vw,84px);line-height:1;margin-top:18px;display:inline-block;text-shadow:0 3px 0 rgba(0,0,0,.2)}
   .cta .free{font-family:'Oswald';text-transform:uppercase;letter-spacing:.14em;font-size:14px;margin-top:18px;opacity:.92}
+  .cta-fine{font-family:'Barlow';margin-top:22px;font-size:12.5px;color:var(--cream);opacity:.78;line-height:1.55;max-width:520px}
+  .cta-fine a{color:var(--cream);text-decoration:underline;text-underline-offset:2px;font-weight:600}
+  .cta-fine a:hover{color:var(--orange)}
+
+  /* ── AI-translation notice modal ── */
+  .tmodal[hidden]{display:none}
+  .tmodal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+  .tmodal-backdrop{position:absolute;inset:0;background:rgba(15,11,6,.62)}
+  .tmodal-box{position:relative;background:var(--soil);border:1.5px solid rgba(244,240,230,.18);max-width:380px;width:100%;padding:26px;box-shadow:0 24px 60px -20px rgba(0,0,0,.7);text-align:left}
+  .tmodal-box .kick{font-family:'Oswald';font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:var(--orange);margin-bottom:10px}
+  .tmodal-box p{font-family:'Barlow';font-size:15px;color:var(--cream);line-height:1.6;margin:0 0 20px}
+  .tmodal-actions{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .tmodal-report{font-family:'Barlow';font-size:13px;font-weight:600;color:var(--cream);opacity:.7;text-decoration:underline;text-underline-offset:2px}
+  .tmodal-report:hover{opacity:1;color:var(--orange)}
+  .tmodal-ok{font-family:'Oswald';font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:13px;background:var(--orange);color:var(--soil);border:none;padding:10px 20px;cursor:pointer;transition:background .15s ease-out}
+  .tmodal-ok:hover{background:#f0723a}
+  .tmodal[dir="rtl"] .tmodal-box{text-align:right}
+  .tmodal[dir="rtl"] .tmodal-actions{flex-direction:row-reverse}
+
+  /* ── RTL mirroring ── */
+  html[dir="rtl"] .topbar{flex-direction:row-reverse}
+  html[dir="rtl"] .topbar .right{flex-direction:row-reverse}
+  html[dir="rtl"] .eyebrow{flex-direction:row-reverse}
+  html[dir="rtl"] .svc-row{grid-template-columns:1fr 88px;direction:rtl}
+  html[dir="rtl"] .svc-row .no{order:2}
+  html[dir="rtl"] .feat{border-left:none;border-right:6px solid var(--orange);padding-left:0;padding-right:26px}
+  html[dir="rtl"] .twoq .by .stars,html[dir="rtl"] .feat .by .stars{margin-right:0;margin-left:10px}
+  html[dir="rtl"] .callbtn small{text-align:right}
 
   /* ── Footer ── */
   footer{background:var(--soil);color:var(--cream)}
@@ -185,20 +225,27 @@
 
   <div class="topbar">
     <div class="brandmark"><span class="chip"></span> Pro Lawn Care</div>
-    <a class="phone" href="tel:6155002187">(615)&nbsp;500-2187</a>
+    <div class="right">
+      <a class="phone nowrap" href="tel:6155002187">(615)&nbsp;500-2187</a>
+      <div class="langs">
+        <button class="lang-btn on" data-lang="en" onclick="pickLang('en')">EN</button>
+        <button class="lang-btn" data-lang="es" onclick="pickLang('es')">ES</button>
+        <button class="lang-btn" data-lang="ar" onclick="pickLang('ar')" lang="ar">عر</button>
+      </div>
+    </div>
   </div>
 
   <!-- HERO -->
   <header class="hero">
     <div class="wrap">
-      <span class="eyebrow kicker"><span class="num">EST. NASHVILLE · VETERAN-OWNED</span></span>
-      <h1 class="sign">Grass is<br>what we do.</h1>
-      <p class="lede">Lawn &amp; property care done right the first time — mowing, trees, gutters, cleanup. Eleven years on Nashville yards.</p>
+      <span class="eyebrow kicker"><span class="num" data-i18n="kicker">EST. NASHVILLE · VETERAN-OWNED</span></span>
+      <h1 class="sign" data-i18n="h1">Grass is<br>what we do.</h1>
+      <p class="lede" data-i18n="lede">Lawn &amp; property care done right the first time — mowing, trees, gutters, cleanup. Eleven years on Nashville yards.</p>
       <div class="callbar">
         <a class="callbtn" href="tel:6155002187">
-          <span><small>Call Blas</small>(615)&nbsp;500-2187</span>
+          <span><small data-i18n="callLabel">Call Blas</small>(615)&nbsp;500-2187</span>
         </a>
-        <span class="micro">Free estimates · Same-day service · Se habla español</span>
+        <span class="micro" data-i18n="micro">Free estimates · Same-day service · Se habla español</span>
       </div>
     </div>
   </header>
@@ -206,40 +253,40 @@
   <!-- STATS -->
   <div class="stats">
     <div class="wrap">
-      <div class="stat"><div class="big">11</div><div class="lab">Years on the job</div></div>
-      <div class="stat"><div class="big">5.0<span class="star">★</span></div><div class="lab">Customer rating</div></div>
-      <div class="stat"><div class="big">13</div><div class="lab">Five-star jobs</div></div>
-      <div class="stat"><div class="big">Same<br>day</div><div class="lab">When you need it</div></div>
+      <div class="stat"><div class="big">11</div><div class="lab" data-i18n="s.years">Years on the job</div></div>
+      <div class="stat"><div class="big">5.0<span class="star">★</span></div><div class="lab" data-i18n="s.rating">Customer rating</div></div>
+      <div class="stat"><div class="big">13</div><div class="lab" data-i18n="s.jobs">Five-star jobs</div></div>
+      <div class="stat"><div class="big" data-i18n="s.sdv">Same<br>day</div><div class="lab" data-i18n="s.sdl">When you need it</div></div>
     </div>
   </div>
 
   <!-- SERVICES -->
   <section class="block">
     <div class="wrap">
-      <span class="eyebrow"><span class="num">01–03</span> What we do</span>
-      <h2>Full-property care.</h2>
-      <p class="sub">Residential and commercial. One crew that shows up, does the work, and cleans up after.</p>
+      <span class="eyebrow"><span class="num">01–03</span> <span data-i18n="svcEy">What we do</span></span>
+      <h2 data-i18n="svcH">Full-property care.</h2>
+      <p class="sub" data-i18n="svcSub">Residential and commercial. One crew that shows up, does the work, and cleans up after.</p>
 
       <div class="svc">
         <div class="svc-row">
           <div class="no">01</div>
           <div>
-            <h3>Lawn &amp; Mowing</h3>
-            <div class="items"><b>Mowing &amp; edging</b> · trimming · yard &amp; leaf cleanup · seasonal maintenance · residential &amp; commercial</div>
+            <h3 data-i18n="svc1h">Lawn &amp; Mowing</h3>
+            <div class="items" data-i18n="svc1i"><b>Mowing &amp; edging</b> · trimming · yard &amp; leaf cleanup · seasonal maintenance · residential &amp; commercial</div>
           </div>
         </div>
         <div class="svc-row">
           <div class="no">02</div>
           <div>
-            <h3>Trees &amp; Shrubs</h3>
-            <div class="items"><b>Tree trimming &amp; removal</b> · shrub trimming &amp; removal · shaped, cleared, hauled off</div>
+            <h3 data-i18n="svc2h">Trees &amp; Shrubs</h3>
+            <div class="items" data-i18n="svc2i"><b>Tree trimming &amp; removal</b> · shrub trimming &amp; removal · shaped, cleared, hauled off</div>
           </div>
         </div>
         <div class="svc-row">
           <div class="no">03</div>
           <div>
-            <h3>Gutters</h3>
-            <div class="items"><b>Seamless metal install</b> · galvanized gutters · cleaning &amp; downspouts · residential &amp; commercial</div>
+            <h3 data-i18n="svc3h">Gutters</h3>
+            <div class="items" data-i18n="svc3i"><b>Seamless metal install</b> · galvanized gutters · cleaning &amp; downspouts · residential &amp; commercial</div>
           </div>
         </div>
       </div>
@@ -250,18 +297,18 @@
   <section class="about">
     <div class="wrap">
       <div>
-        <span class="eyebrow" style="color:var(--orange)">The operator</span>
-        <h2>Eleven years.<br>One standard.</h2>
+        <span class="eyebrow" style="color:var(--orange)" data-i18n="abEy">The operator</span>
+        <h2 data-i18n="abH">Eleven years.<br>One standard.</h2>
       </div>
       <div>
-        <p>Pro Lawn Care is veteran-owned and run by <b>Blas Melendez Diaz</b>, who's kept Nashville lawns and properties sharp for over a decade. We show up when we say we will — often the same day — quote honest up front, and treat your property like it's our own.</p>
+        <p data-i18n="abBody">Pro Lawn Care is veteran-owned and run by <b>Blas Melendez Diaz</b>, who's kept Nashville lawns and properties sharp for over a decade. We show up when we say we will — often the same day — quote honest up front, and treat your property like it's our own.</p>
         <div class="badges">
-          <span class="badge">Veteran owned</span>
-          <span class="badge">Free estimates</span>
-          <span class="badge">Same-day service</span>
-          <span class="badge">Se habla español</span>
+          <span class="badge" data-i18n="b1">Veteran owned</span>
+          <span class="badge" data-i18n="b2">Free estimates</span>
+          <span class="badge" data-i18n="b3">Same-day service</span>
+          <span class="badge" data-i18n="b4">Se habla español</span>
         </div>
-        <div class="signed">— Blas, owner</div>
+        <div class="signed" data-i18n="signed">— Blas, owner</div>
       </div>
     </div>
   </section>
@@ -269,8 +316,8 @@
   <!-- REVIEWS -->
   <section class="block reviews">
     <div class="wrap">
-      <span class="eyebrow"><span class="num">5.0 · 13 reviews</span> What Nashville says</span>
-      <h2>The neighbors talk.</h2>
+      <span class="eyebrow"><span class="num">5.0 · 13 reviews</span> <span data-i18n="rvEy">What Nashville says</span></span>
+      <h2 data-i18n="rvH">The neighbors talk.</h2>
 
       <div class="feat">
         <blockquote>“Blas was fantastic — came right over, gave a fair and honest quote, and took care of my yard that same morning. He's on my regular schedule now.”</blockquote>
@@ -294,11 +341,11 @@
   <section class="gallery">
     <div class="wrap">
       <div class="strip">
-        <div class="shot"><img src="Blaz%20Images/blas-before.jpg" alt="Before Pro Lawn Care"><span class="lbl">Before</span></div>
-        <div class="shot"><img src="Blaz%20Images/blas-after.jpg" alt="After Pro Lawn Care"><span class="lbl after">After</span></div>
+        <div class="shot"><img src="Blaz%20Images/blas-before.jpg" alt="Before Pro Lawn Care"><span class="lbl" data-i18n="gBefore">Before</span></div>
+        <div class="shot"><img src="Blaz%20Images/blas-after.jpg" alt="After Pro Lawn Care"><span class="lbl after" data-i18n="gAfter">After</span></div>
         <div class="shot zoom">
           <img src="Blaz%20Images/blas-tree.jpg" alt="Tree work — Blas at the top">
-          <span class="cap">Tree work · hello from up here</span>
+          <span class="cap" data-i18n="gTree">Tree work · hello from up here</span>
         </div>
       </div>
     </div>
@@ -307,18 +354,116 @@
   <!-- FINAL CTA -->
   <section class="cta">
     <div class="wrap">
-      <h2>Free estimates.<br>Same-day service.</h2>
-      <a class="phone-big" href="tel:6155002187">(615)&nbsp;500-2187</a>
-      <div class="free">Call Blas — or text for a quote. Nashville &amp; surrounding.</div>
+      <h2 data-i18n="ctaH">Free estimates.<br>Same-day service.</h2>
+      <a class="phone-big nowrap" href="tel:6155002187">(615)&nbsp;500-2187</a>
+      <div class="free" data-i18n="ctaFree">Call Blas — or text for a quote. Nashville &amp; surrounding.</div>
+      <div class="cta-fine">
+        <span data-i18n="trFine">This page was translated with AI — it may not be perfect.</span>
+        <a href="mailto:hello@mtslate.com?subject=Translation%20issue%20%E2%80%94%20Pro%20Lawn%20Care" data-i18n="trLink">Spot an error? Contact us.</a>
+      </div>
     </div>
   </section>
 
   <footer>
     <div class="wrap">
-      <div>Pro Lawn Care · Nashville, TN · (615)&nbsp;500-2187 · Veteran owned &amp; operated</div>
+      <div data-i18n="foot">Pro Lawn Care · Nashville, TN · (615)&nbsp;500-2187 · Veteran owned &amp; operated</div>
       <div class="pb">Powered by MT&nbsp;Slate</div>
     </div>
   </footer>
 
+  <!-- AI-translation notice (shown on first switch to ES/AR) -->
+  <div class="tmodal" id="trModal" hidden>
+    <div class="tmodal-backdrop" onclick="closeTrModal()"></div>
+    <div class="tmodal-box" role="dialog" aria-modal="true" aria-labelledby="trKick">
+      <div class="kick" id="trKick">AI translation</div>
+      <p id="trMsg"></p>
+      <div class="tmodal-actions">
+        <a class="tmodal-report" id="trReport" href="mailto:hello@mtslate.com?subject=Translation%20issue%20%E2%80%94%20Pro%20Lawn%20Care">Report an error</a>
+        <button class="tmodal-ok" id="trOk" onclick="closeTrModal()">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* EN base lives in markup. ES + AR swap in. AR flips RTL.
+     NOTE: Arabic is machine-drafted MSA — have a native speaker review before going live. */
+  const I18N = {
+    es:{
+      kicker:'EST. NASHVILLE · DE UN VETERANO', h1:'El césped es<br>lo nuestro.',
+      lede:'Cuidado de césped y jardín bien hecho a la primera — corte, árboles, canaletas y limpieza. Once años en los jardines de Nashville.',
+      callLabel:'Llama a Blas', micro:'Presupuestos gratis · Servicio el mismo día · Se habla español',
+      's.years':'Años trabajando','s.rating':'Calificación','s.jobs':'Trabajos de 5 estrellas','s.sdv':'El mismo<br>día','s.sdl':'Cuando lo necesites',
+      svcEy:'Lo que hacemos', svcH:'Cuidado de toda la propiedad.', svcSub:'Residencial y comercial. Un equipo que llega, hace el trabajo y limpia al terminar.',
+      svc1h:'Césped y corte', svc1i:'<b>Corte y bordes</b> · recorte · limpieza de hojas · mantenimiento por temporada · residencial y comercial',
+      svc2h:'Árboles y arbustos', svc2i:'<b>Poda y remoción de árboles</b> · poda y remoción de arbustos · damos forma, despejamos y nos llevamos los restos',
+      svc3h:'Canaletas', svc3i:'<b>Instalación de canaleta continua</b> · canaletas galvanizadas · limpieza y bajantes · residencial y comercial',
+      abEy:'El dueño', abH:'Once años.<br>Un solo estándar.',
+      abBody:'Pro Lawn Care es de un veterano y lo dirige <b>Blas Melendez Diaz</b>, que ha mantenido los jardines de Nashville impecables por más de una década. Llegamos cuando decimos — muchas veces el mismo día — cotizamos honesto por adelantado y tratamos su propiedad como si fuera nuestra.',
+      b1:'De veterano', b2:'Presupuestos gratis', b3:'Servicio el mismo día', b4:'Se habla español', signed:'— Blas, dueño',
+      rvEy:'Lo que dice Nashville', rvH:'Los vecinos hablan.',
+      gBefore:'Antes', gAfter:'Después', gTree:'Trabajo en árboles · saludos desde arriba',
+      ctaH:'Presupuestos gratis.<br>Servicio el mismo día.', ctaFree:'Llama a Blas — o manda un texto para cotizar. Nashville y alrededores.',
+      foot:'Pro Lawn Care · Nashville, TN · (615)&nbsp;500-2187 · De un veterano',
+      trFine:'Esta página se tradujo con IA — puede no ser perfecta.', trLink:'¿Ves un error? Escríbenos.'
+    },
+    ar:{
+      kicker:'تأسست في ناشفيل · مملوكة لمُحارب قديم', h1:'العُشب<br>هو شُغلنا.',
+      lede:'العناية بالعُشب والممتلكات تُنجَز بإتقان من أول مرة — جزّ، أشجار، مزاريب، وتنظيف. إحدى عشرة سنة في حدائق ناشفيل.',
+      callLabel:'اتصل ببلاس', micro:'تقديرات مجانية · خدمة في نفس اليوم · نتحدث الإسبانية',
+      's.years':'سنوات في العمل','s.rating':'تقييم العملاء','s.jobs':'أعمال بخمس نجوم','s.sdv':'نفس<br>اليوم','s.sdl':'عند الحاجة',
+      svcEy:'ما نقوم به', svcH:'عناية كاملة بالممتلكات.', svcSub:'سكني وتجاري. فريق واحد يحضُر، يُنجز العمل، ويُنظّف بعده.',
+      svc1h:'العُشب والجزّ', svc1i:'<b>جزّ وتحديد الحواف</b> · تشذيب · تنظيف الأوراق · صيانة موسمية · سكني وتجاري',
+      svc2h:'الأشجار والشُجيرات', svc2i:'<b>تقليم وإزالة الأشجار</b> · تقليم وإزالة الشُجيرات · تشكيل وإزالة ونقل المخلفات',
+      svc3h:'المزاريب', svc3i:'<b>تركيب مزاريب معدنية متصلة</b> · مزاريب مجلفنة · تنظيف ومواسير تصريف · سكني وتجاري',
+      abEy:'صاحب العمل', abH:'إحدى عشرة سنة.<br>معيار واحد.',
+      abBody:'شركة Pro Lawn Care مملوكة لمُحارب قديم ويُديرها <b>بلاس ميلينديز دياز</b>، الذي حافظ على حدائق ناشفيل أنيقة لأكثر من عقد. نحضُر في الموعد — غالباً في نفس اليوم — ونُسعّر بصدق مُسبقاً، ونعامل ممتلكاتك كأنها لنا.',
+      b1:'مملوكة لمُحارب', b2:'تقديرات مجانية', b3:'خدمة في نفس اليوم', b4:'نتحدث الإسبانية', signed:'— بلاس، المالك',
+      rvEy:'ما يقوله أهل ناشفيل', rvH:'الجيران يتحدثون.',
+      gBefore:'قبل', gAfter:'بعد', gTree:'العمل على الأشجار · تحية من الأعلى',
+      ctaH:'تقديرات مجانية.<br>خدمة في نفس اليوم.', ctaFree:'اتصل ببلاس — أو أرسل رسالة لطلب عرض سعر. ناشفيل وما حولها.',
+      foot:'Pro Lawn Care · ناشفيل · (615)&nbsp;500-2187 · مملوكة لمُحارب قديم',
+      trFine:'تُرجِمت هذه الصفحة بالذكاء الاصطناعي — قد لا تكون مثالية.', trLink:'وجدت خطأً؟ راسلنا.'
+    }
+  };
+  const EN = {}; // capture English defaults from the DOM on load
+  function setLang(lang){
+    const html=document.documentElement;
+    html.lang=lang; html.dir = lang==='ar'?'rtl':'ltr';
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const k=el.getAttribute('data-i18n');
+      if(lang==='en'){ el.innerHTML = EN[k]; }
+      else if(I18N[lang] && I18N[lang][k]!=null){ el.innerHTML = I18N[lang][k]; }
+    });
+    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));
+    try{localStorage.setItem('plc_lang',lang);}catch(e){}
+  }
+
+  /* AI-translation notice — shown on user-initiated switch to ES/AR (once per language per visit) */
+  const TR_NOTICE = {
+    es:{kick:'Traducción con IA', msg:'Esta página se tradujo con inteligencia artificial y puede no ser perfectamente precisa. ¿Ves un error? Escríbenos y lo corregimos.', ok:'Entendido', report:'Reportar un error'},
+    ar:{kick:'ترجمة بالذكاء الاصطناعي', msg:'تُرجِمت هذه الصفحة بالذكاء الاصطناعي وقد لا تكون دقيقة تماماً. وجدت خطأً؟ راسلنا وسنُصلحه.', ok:'حسناً', report:'أبلغ عن خطأ'}
+  };
+  const trShown = {};
+  function pickLang(lang){ setLang(lang); if(lang==='es'||lang==='ar') showTranslationNotice(lang); }
+  function showTranslationNotice(lang){
+    const n = TR_NOTICE[lang]; if(!n || trShown[lang]) return;
+    trShown[lang] = true;
+    document.getElementById('trKick').textContent = n.kick;
+    document.getElementById('trMsg').textContent = n.msg;
+    document.getElementById('trOk').textContent = n.ok;
+    document.getElementById('trReport').textContent = n.report;
+    const m = document.getElementById('trModal');
+    m.setAttribute('dir', lang==='ar' ? 'rtl' : 'ltr');
+    m.hidden = false;
+  }
+  function closeTrModal(){ document.getElementById('trModal').hidden = true; }
+  document.addEventListener('DOMContentLoaded',()=>{
+    document.querySelectorAll('[data-i18n]').forEach(el=>{EN[el.getAttribute('data-i18n')]=el.innerHTML;});
+    setLang(localStorage.getItem('plc_lang')||'en');
+  });
+  </script>
+
+  <!-- Internal analytics (privacy-first, no cookies). Activate: claim the free GoatCounter code "prolawncare" at goatcounter.com — then this counts automatically. -->
+  <script data-goatcounter="https://prolawncare.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

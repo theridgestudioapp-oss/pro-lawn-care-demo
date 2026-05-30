@@ -51,13 +51,55 @@
   .expect .d{font-size:13.5px;color:var(--mute);line-height:1.5;margin-top:2px}
 
   @media(min-width:560px){ .card .body{padding:20px 24px} .num{font-size:34px} .meta h2{font-size:22px} }
+
+  /* language switch — compact pills, clay-on-active, matched to .kicker */
+  .topline{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+  .langs{display:flex;gap:5px;flex-shrink:0}
+  .lang-btn{font-family:'Inter';font-weight:600;font-size:11px;letter-spacing:.04em;color:var(--mute);
+    background:transparent;border:1px solid var(--line);border-radius:8px;padding:5px 9px;min-width:32px;
+    cursor:pointer;text-align:center;line-height:1;transition:color .15s ease-out,background .15s ease-out,border-color .15s ease-out}
+  .lang-btn[lang="ar"]{font-size:13px;letter-spacing:0}
+  .lang-btn:hover{color:var(--clay);border-color:#d4cdba}
+  .lang-btn.on{color:var(--paper);background:var(--clay);border-color:var(--clay)}
+
+  /* RTL — mirror the whole chooser */
+  html[dir="rtl"] body{text-align:right}
+  html[dir="rtl"] .expect li{flex-direction:row-reverse}
+  html[dir="rtl"] .card .body{flex-direction:row-reverse}
+  html[dir="rtl"] .go{transform:scaleX(-1)}
+  html[dir="rtl"] .card:hover .go{transform:scaleX(-1) translateX(3px)}
+  html[dir="rtl"] .foot{text-align:center}
+
+  /* AI-translation notice modal — clay/cream */
+  .tmodal[hidden]{display:none}
+  .tmodal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+  .tmodal-backdrop{position:absolute;inset:0;background:rgba(22,25,31,.5)}
+  .tmodal-box{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:14px;max-width:380px;width:100%;
+    padding:24px 24px 20px;box-shadow:0 24px 60px -20px rgba(22,25,31,.45);text-align:left}
+  .tmodal-box .kick{font-family:'Inter';font-weight:600;text-transform:uppercase;letter-spacing:.22em;font-size:11px;color:var(--clay);margin-bottom:9px}
+  .tmodal-box p{font-size:15px;color:var(--mute);line-height:1.6;margin:0 0 18px}
+  .tmodal-actions{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .tmodal-report{font-size:13px;font-weight:600;color:var(--mute);text-decoration:underline;text-underline-offset:2px}
+  .tmodal-report:hover{color:var(--clay)}
+  .tmodal-ok{font-family:'Inter';font-weight:600;font-size:14px;background:var(--clay);color:var(--paper);border:none;border-radius:9px;
+    padding:10px 18px;cursor:pointer;transition:opacity .15s ease-out}
+  .tmodal-ok:hover{opacity:.88}
+  .tmodal[dir="rtl"] .tmodal-box{text-align:right}
+  .tmodal[dir="rtl"] .tmodal-actions{flex-direction:row-reverse}
 </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="kicker">MT Slate · Website preview</div>
-    <h1>Three looks for<br>Pro&nbsp;Lawn&nbsp;Care.</h1>
-    <p class="lede">Tap each one and see how it feels. Same site underneath — three different styles on top. Then tell me which one is you.</p>
+    <div class="topline">
+      <div class="kicker" data-i18n="kicker">MT Slate · Website preview</div>
+      <div class="langs">
+        <button class="lang-btn on" data-lang="en" onclick="pickLang('en')">EN</button>
+        <button class="lang-btn" data-lang="es" onclick="pickLang('es')">ES</button>
+        <button class="lang-btn" data-lang="ar" onclick="pickLang('ar')" lang="ar">عر</button>
+      </div>
+    </div>
+    <h1 data-i18n="h1">Three looks for<br>Pro&nbsp;Lawn&nbsp;Care.</h1>
+    <p class="lede" data-i18n="lede">Tap each one and see how it feels. Same site underneath — three different styles on top. Then tell me which one is you.</p>
 
     <div class="rule"></div>
 
@@ -67,8 +109,8 @@
         <div class="body">
           <div class="num">01</div>
           <div class="meta">
-            <h2>The Original</h2>
-            <p>Dark, sleek, brand-forward — built around the logo you already have.</p>
+            <h2 data-i18n="c1h">The Original</h2>
+            <p data-i18n="c1p">Dark, sleek, brand-forward — built around the logo you already have.</p>
           </div>
           <div class="go">→</div>
         </div>
@@ -79,8 +121,8 @@
         <div class="body">
           <div class="num">02</div>
           <div class="meta">
-            <h2>The Classic</h2>
-            <p>Bright, clean, easy to trust — the friendly-neighbor look.</p>
+            <h2 data-i18n="c2h">The Classic</h2>
+            <p data-i18n="c2p">Bright, clean, easy to trust — the friendly-neighbor look.</p>
           </div>
           <div class="go">→</div>
         </div>
@@ -91,8 +133,8 @@
         <div class="body">
           <div class="num">03</div>
           <div class="meta">
-            <h2>The Workhorse</h2>
-            <p>Rugged and loud — built like the truck. For the no-nonsense pro.</p>
+            <h2 data-i18n="c3h">The Workhorse</h2>
+            <p data-i18n="c3p">Rugged and loud — built like the truck. For the no-nonsense pro.</p>
           </div>
           <div class="go">→</div>
         </div>
@@ -100,22 +142,114 @@
     </div>
 
     <div class="expect">
-      <div class="kicker">A quick heads up</div>
-      <h3>What to expect after you pick</h3>
-      <p class="sub">No surprises — here's how it works once you choose a look. We'll go over exact costs together.</p>
+      <div class="kicker" data-i18n="exEy">A quick heads up</div>
+      <h3 data-i18n="exH">What to expect after you pick</h3>
+      <p class="sub" data-i18n="exSub">No surprises — here's how it works once you choose a look. We'll go over exact costs together.</p>
       <ul>
-        <li><span class="n">1</span><div><div class="t">You pick, I build it.</div><div class="d">Choose the look you like and I build out your full site — pages, booking, the works.</div></div></li>
-        <li><span class="n">2</span><div><div class="t">You'll need a domain.</div><div class="d">Your own web address (like prolawncare.com). A small yearly cost — I help you find one and hook it up.</div></div></li>
-        <li><span class="n">3</span><div><div class="t">Small monthly running costs.</div><div class="d">Things like text reminders, email, and online payments run on pay-as-you-go services. Usually small, and it depends on how much you use.</div></div></li>
-        <li><span class="n">4</span><div><div class="t">Changes &amp; fixes are easy.</div><div class="d">Want to update info, photos, or how the page flows? You can — or just call me and I'll handle it.</div></div></li>
-        <li><span class="n">5</span><div><div class="t">You launch when you're ready.</div><div class="d">It's set up plug-and-play. Go live on your own time — no pressure.</div></div></li>
+        <li><span class="n">1</span><div><div class="t" data-i18n="e1t">You pick, I build it.</div><div class="d" data-i18n="e1d">Choose the look you like and I build out your full site — pages, booking, the works.</div></div></li>
+        <li><span class="n">2</span><div><div class="t" data-i18n="e2t">You'll need a domain.</div><div class="d" data-i18n="e2d">Your own web address (like prolawncare.com). A small yearly cost — I help you find one and hook it up.</div></div></li>
+        <li><span class="n">3</span><div><div class="t" data-i18n="e3t">Small monthly running costs.</div><div class="d" data-i18n="e3d">Things like text reminders, email, and online payments run on pay-as-you-go services. Usually small, and it depends on how much you use.</div></div></li>
+        <li><span class="n">4</span><div><div class="t" data-i18n="e4t">Changes &amp; fixes are easy.</div><div class="d" data-i18n="e4d">Want to update info, photos, or how the page flows? You can — or just call me and I'll handle it.</div></div></li>
+        <li><span class="n">5</span><div><div class="t" data-i18n="e5t">You launch when you're ready.</div><div class="d" data-i18n="e5d">It's set up plug-and-play. Go live on your own time — no pressure.</div></div></li>
       </ul>
     </div>
 
     <div class="foot">
-      A preview prepared for Blas &amp; Pro Lawn Care.<br>
+      <span data-i18n="foot">A preview prepared for Blas &amp; Pro Lawn Care.</span><br>
       <span class="pb">Powered by MT&nbsp;Slate</span>
     </div>
   </div>
+
+  <!-- AI-translation notice (shown on first switch to ES/AR) -->
+  <div class="tmodal" id="trModal" hidden>
+    <div class="tmodal-backdrop" onclick="closeTrModal()"></div>
+    <div class="tmodal-box" role="dialog" aria-modal="true" aria-labelledby="trKick">
+      <div class="kick" id="trKick">AI translation</div>
+      <p id="trMsg"></p>
+      <div class="tmodal-actions">
+        <a class="tmodal-report" id="trReport" href="mailto:hello@mtslate.com?subject=Translation%20issue%20%E2%80%94%20Pro%20Lawn%20Care%20preview">Report an error</a>
+        <button class="tmodal-ok" id="trOk" onclick="closeTrModal()">Got it</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* i18n — ES + AR swap in; AR flips RTL.
+   NOTE: Arabic is machine-drafted MSA — have a native speaker review before going live. */
+const I18N = {
+  es:{
+    kicker:'MT Slate · Vista previa del sitio',
+    h1:'Tres estilos para<br>Pro&nbsp;Lawn&nbsp;Care.',
+    lede:'Toca cada uno y mira cómo se siente. El mismo sitio por debajo — tres estilos distintos por encima. Luego dime cuál eres tú.',
+    c1h:'El Original', c1p:'Oscuro, elegante, centrado en la marca — hecho alrededor del logo que ya tienes.',
+    c2h:'El Clásico', c2p:'Claro, limpio y fácil de confiar — el estilo del vecino amable.',
+    c3h:'El Resistente', c3p:'Rudo y llamativo — construido como la camioneta. Para el profesional sin rodeos.',
+    exEy:'Un aviso rápido', exH:'Qué esperar después de elegir',
+    exSub:'Sin sorpresas — así funciona una vez que eliges un estilo. Repasamos los costos exactos juntos.',
+    e1t:'Tú eliges, yo lo construyo.', e1d:'Elige el estilo que te guste y construyo tu sitio completo — páginas, reservas, todo.',
+    e2t:'Necesitarás un dominio.', e2d:'Tu propia dirección web (como prolawncare.com). Un pequeño costo anual — te ayudo a encontrarlo y conectarlo.',
+    e3t:'Pequeños costos mensuales.', e3d:'Cosas como recordatorios por texto, correo y pagos en línea funcionan con servicios de pago por uso. Suele ser poco, y depende de cuánto uses.',
+    e4t:'Cambios y arreglos son fáciles.', e4d:'¿Quieres actualizar información, fotos o cómo fluye la página? Puedes hacerlo — o solo llámame y yo me encargo.',
+    e5t:'Lanzas cuando estés listo.', e5d:'Queda listo para usar. Sal en vivo a tu propio ritmo — sin presión.',
+    foot:'Una vista previa preparada para Blas y Pro Lawn Care.',
+    trFine:'Esta página se tradujo con IA — puede no ser perfecta.', trLink:'¿Ves un error? Escríbenos.'
+  },
+  ar:{
+    kicker:'MT Slate · معاينة الموقع',
+    h1:'ثلاثة تصاميم لـ<br>Pro&nbsp;Lawn&nbsp;Care.',
+    lede:'انقر على كل واحد وشاهد إحساسه. الموقع نفسه في الأساس — وثلاثة تصاميم مختلفة فوقه. ثم أخبرني أيها يناسبك.',
+    c1h:'الأصلي', c1p:'داكن وأنيق ويُبرز العلامة التجارية — مبني حول الشعار الذي تملكه بالفعل.',
+    c2h:'الكلاسيكي', c2p:'مشرق ونظيف وسهل الثقة به — مظهر الجار الودود.',
+    c3h:'المتين', c3p:'قوي ولافت — مبني مثل الشاحنة. للمحترف المباشر بلا تعقيد.',
+    exEy:'تنبيه سريع', exH:'ما الذي تتوقعه بعد الاختيار',
+    exSub:'بلا مفاجآت — هكذا تسير الأمور بعد أن تختار تصميماً. سنراجع التكاليف الدقيقة معاً.',
+    e1t:'أنت تختار، وأنا أبنيه.', e1d:'اختر التصميم الذي يعجبك وأبني لك موقعك الكامل — الصفحات والحجز وكل شيء.',
+    e2t:'ستحتاج إلى اسم نطاق.', e2d:'عنوان ويب خاص بك (مثل prolawncare.com). تكلفة سنوية صغيرة — أساعدك في إيجاده وربطه.',
+    e3t:'تكاليف تشغيل شهرية بسيطة.', e3d:'أشياء مثل تذكيرات الرسائل والبريد والمدفوعات عبر الإنترنت تعمل بخدمات الدفع حسب الاستخدام. عادةً قليلة، وتعتمد على مقدار استخدامك.',
+    e4t:'التعديلات والإصلاحات سهلة.', e4d:'تريد تحديث المعلومات أو الصور أو طريقة عرض الصفحة؟ يمكنك ذلك — أو اتصل بي وأتولى الأمر.',
+    e5t:'تُطلق الموقع عندما تكون جاهزاً.', e5d:'جاهز للاستخدام مباشرةً. انطلق في الوقت الذي يناسبك — دون ضغط.',
+    foot:'معاينة أُعدّت لبلاس وشركة Pro Lawn Care.',
+    trFine:'تُرجِمت هذه الصفحة بالذكاء الاصطناعي — قد لا تكون مثالية.', trLink:'وجدت خطأً؟ راسلنا.'
+  }
+};
+const EN = {};
+function setLang(lang){
+  const html=document.documentElement;
+  html.lang=lang; html.dir = lang==='ar'?'rtl':'ltr';
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    if(lang==='en'){ el.innerHTML = EN[k]; }
+    else if(I18N[lang] && I18N[lang][k]!=null){ el.innerHTML = I18N[lang][k]; }
+  });
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));
+  try{localStorage.setItem('plc_lang',lang);}catch(e){}
+}
+
+/* AI-translation notice — shown on user-initiated switch to ES/AR (once per language per visit) */
+const TR_NOTICE = {
+  es:{kick:'Traducción con IA', msg:'Esta página se tradujo con inteligencia artificial y puede no ser perfectamente precisa. ¿Ves un error? Escríbenos y lo corregimos.', ok:'Entendido', report:'Reportar un error'},
+  ar:{kick:'ترجمة بالذكاء الاصطناعي', msg:'تُرجِمت هذه الصفحة بالذكاء الاصطناعي وقد لا تكون دقيقة تماماً. وجدت خطأً؟ راسلنا وسنُصلحه.', ok:'حسناً', report:'أبلغ عن خطأ'}
+};
+const trShown = {};
+function pickLang(lang){ setLang(lang); if(lang==='es'||lang==='ar') showTranslationNotice(lang); }
+function showTranslationNotice(lang){
+  const n = TR_NOTICE[lang]; if(!n || trShown[lang]) return;
+  trShown[lang] = true;
+  document.getElementById('trKick').textContent = n.kick;
+  document.getElementById('trMsg').textContent = n.msg;
+  document.getElementById('trOk').textContent = n.ok;
+  document.getElementById('trReport').textContent = n.report;
+  const m = document.getElementById('trModal');
+  m.setAttribute('dir', lang==='ar' ? 'rtl' : 'ltr');
+  m.hidden = false;
+}
+function closeTrModal(){ document.getElementById('trModal').hidden = true; }
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('[data-i18n]').forEach(el=>{EN[el.getAttribute('data-i18n')]=el.innerHTML;});
+  setLang(localStorage.getItem('plc_lang')||'en');
+});
+</script>
+  <!-- Internal analytics (privacy-first, no cookies). Activate: claim the free GoatCounter code "prolawncare" at goatcounter.com — then this counts automatically. -->
+  <script data-goatcounter="https://prolawncare.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

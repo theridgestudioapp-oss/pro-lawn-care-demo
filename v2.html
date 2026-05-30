@@ -31,7 +31,8 @@
   .topbar .phone{justify-self:start;font-weight:700;color:var(--green);font-size:15px;letter-spacing:.02em}
   .topbar .name{justify-self:center;display:flex;align-items:center;gap:10px;font-family:'Zilla Slab';font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:17px}
   .langs{justify-self:end;display:flex;gap:4px}
-  .lang-btn{font-family:'Inter';font-weight:700;font-size:12px;letter-spacing:.06em;color:var(--mute);background:transparent;border:1px solid var(--rule);padding:5px 9px;cursor:pointer;border-radius:3px;transition:all .15s ease-out}
+  .lang-btn{font-family:'Inter';font-weight:700;font-size:12px;letter-spacing:.04em;color:var(--mute);background:transparent;border:1px solid var(--rule);padding:5px 8px;min-width:32px;text-align:center;cursor:pointer;border-radius:3px;transition:all .15s ease-out}
+  .lang-btn[lang="ar"]{font-size:14px;letter-spacing:0;line-height:1}
   .lang-btn.on,.lang-btn:hover{color:#000;background:var(--green);border-color:var(--green)}
 
   /* hero */
@@ -166,9 +167,9 @@
     <a class="phone nowrap" href="tel:6155002187">(615)&nbsp;500-2187</a>
     <div class="name"><svg class="mark" width="22" height="22"><use href="#diamond"/></svg><span class="full">Pro Lawn Care</span></div>
     <div class="langs">
-      <button class="lang-btn on" data-lang="en" onclick="pickLang('en')">English</button>
-      <button class="lang-btn" data-lang="es" onclick="pickLang('es')">Español</button>
-      <button class="lang-btn" data-lang="ar" onclick="pickLang('ar')" lang="ar">العربية</button>
+      <button class="lang-btn on" data-lang="en" onclick="pickLang('en')">EN</button>
+      <button class="lang-btn" data-lang="es" onclick="pickLang('es')">ES</button>
+      <button class="lang-btn" data-lang="ar" onclick="pickLang('ar')" lang="ar">عر</button>
     </div>
   </div>
 
@@ -345,5 +346,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   setLang(localStorage.getItem('plc_lang')||'en');
 });
 </script>
+  <!-- Internal analytics (privacy-first, no cookies). Activate: claim the free GoatCounter code "prolawncare" at goatcounter.com — then this counts automatically. -->
+  <script data-goatcounter="https://prolawncare.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
