@@ -111,6 +111,12 @@
   .tc ul{list-style:none;display:flex;flex-direction:column;gap:6px}
   .tc li{font-size:12.5px;color:var(--ink-2);display:flex;gap:8px;align-items:flex-start;line-height:1.38}
   .tc li .ck{color:var(--green);font-weight:700;flex-shrink:0}
+  /* discounts-applied banner */
+  .applied{margin-top:12px;background:#FBF6F2;border:1px solid var(--line);border-left:3px solid var(--green);border-radius:0 11px 11px 0;padding:12px 15px}
+  .applied .ah{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--green)}
+  .applied .ar{display:flex;gap:20px;flex-wrap:wrap;margin-top:7px}
+  .applied .ar span{font-size:13.5px;color:var(--ink-2)}
+  .applied .ar b{color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
   /* expandable full breakdown */
   .more{margin-top:14px;border:1px solid var(--line);border-radius:13px;background:var(--paper);overflow:hidden}
   .more>summary{list-style:none;cursor:pointer;padding:14px 16px;font-size:13px;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
@@ -150,6 +156,10 @@
       <!-- THREE-TIER LADDER -->
       <div class="sec">
         <div class="eyebrow">Pick your starting point<span class="s">Start where your business is — climb when you're ready</span></div>
+        <div class="applied">
+          <div class="ah">Already taken off every price below</div>
+          <div class="ar"><span>Military appreciation <b>−$250</b></span><span>Friends &amp; Family <b>−$250</b></span></div>
+        </div>
         <div class="tierv">
 
           <div class="tc">
@@ -171,7 +181,7 @@
             <div class="tag">Most popular</div>
             <div class="hd">
               <div class="nm">Cornerstone</div>
-              <div class="pz"><s>$2,000</s><span class="big">$1,499</span><span class="one">one-time</span></div>
+              <div class="pz"><s>$1,999</s><span class="big">$1,499</span><span class="one">one-time</span></div>
             </div>
             <div class="who">The site a working business runs on — found on Google, bringing in jobs.</div>
             <div class="plus">Everything in Presence, plus:</div>
@@ -187,7 +197,7 @@
           <div class="tc">
             <div class="hd">
               <div class="nm">Operations</div>
-              <div class="pz"><s>$3,000</s><span class="big">$2,499</span><span class="one">one-time</span></div>
+              <div class="pz"><s>$2,999</s><span class="big">$2,499</span><span class="one">one-time</span></div>
             </div>
             <div class="who">Run the whole business from one place — for when you're ready to grow.</div>
             <div class="plus">Everything in Cornerstone, plus:</div>
@@ -199,7 +209,7 @@
           </div>
 
         </div>
-        <div class="extra" style="margin-top:12px">Crossed-out is our standard rate. Your price has a flat <b>$500 veteran + friends &amp; family appreciation</b> already taken off — and you own everything, forever.</div>
+        <div class="extra" style="margin-top:12px">Crossed-out is our standard rate — the appreciation above is already taken off. One-time prices; you own everything, forever.</div>
       </div>
 
       <div class="reassure">
