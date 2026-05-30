@@ -95,6 +95,22 @@
   .tier li{font-size:12.5px;color:var(--ink-2);display:flex;gap:8px;align-items:flex-start;line-height:1.38}
   .tier li .ck{color:var(--green);font-weight:700;flex-shrink:0}
   @media (max-width:520px){.tiers{grid-template-columns:1fr}}
+  /* three-tier ladder (stacked) */
+  .tierv{display:flex;flex-direction:column;gap:11px;margin-top:12px}
+  .tc{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:15px 16px;position:relative}
+  .tc.best{border:1.6px solid var(--ink)}
+  .tc .tag{position:absolute;top:-9px;left:16px;background:var(--clay);color:#fff;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:20px}
+  .tc .hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .tc .nm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:18px;letter-spacing:-.01em}
+  .tc .pz{text-align:right;white-space:nowrap;flex-shrink:0}
+  .tc .pz s{color:var(--strike);font-weight:500;font-size:13px;margin-right:5px}
+  .tc .pz .big{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:23px}
+  .tc .pz .one{display:block;font-size:10px;color:var(--mute);letter-spacing:.04em;margin-top:1px}
+  .tc .who{font-size:12.5px;color:var(--ink-2);margin:6px 0 10px;line-height:1.42}
+  .tc .plus{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--clay);margin-bottom:6px}
+  .tc ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+  .tc li{font-size:12.5px;color:var(--ink-2);display:flex;gap:8px;align-items:flex-start;line-height:1.38}
+  .tc li .ck{color:var(--green);font-weight:700;flex-shrink:0}
   /* expandable full breakdown */
   .more{margin-top:14px;border:1px solid var(--line);border-radius:13px;background:var(--paper);overflow:hidden}
   .more>summary{list-style:none;cursor:pointer;padding:14px 16px;font-size:13px;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
@@ -131,73 +147,58 @@
     </header>
 
     <div class="pad">
-      <!-- TWO-TIER CHOOSER -->
+      <!-- THREE-TIER LADDER -->
       <div class="sec">
-        <div class="eyebrow">Two ways to start<span class="s">Pick what fits where your business is today</span></div>
-        <div class="tiers">
-          <div class="tier">
-            <div class="tk">Presence</div>
-            <div class="amt">$995<span class="one"> · one-time</span></div>
-            <div class="who">A sharp, professional site that makes a small crew look like the real deal.</div>
+        <div class="eyebrow">Pick your starting point<span class="s">Start where your business is — climb when you're ready</span></div>
+        <div class="tierv">
+
+          <div class="tc">
+            <div class="hd">
+              <div class="nm">Presence</div>
+              <div class="pz"><s>$1,495</s><span class="big">$995</span><span class="one">one-time</span></div>
+            </div>
+            <div class="who">Get seen. A sharp one-page site that makes a small crew look established.</div>
             <ul>
               <li><span class="ck">✓</span>Your work, your story, your number — one clean page</li>
               <li><span class="ck">✓</span>Up to 4 photos, plus your QR code</li>
-              <li><span class="ck">✓</span>Tap-to-call, looks sharp on every phone</li>
+              <li><span class="ck">✓</span>Tap-to-call, sharp on every phone</li>
               <li><span class="ck">✓</span>You own it outright — domain &amp; logins in your name</li>
-              <li><span class="ck">✓</span>We set it up; need a change? You text us.</li>
             </ul>
           </div>
-          <div class="tier best">
-            <div class="tag">Most complete</div>
-            <div class="tk">Full Build</div>
-            <div class="amt">$1,500<span class="one"> · one-time</span></div>
-            <div class="who">Everything in Presence — plus what gets you found and lets it run itself.</div>
+
+          <div class="tc best">
+            <div class="tag">Most popular</div>
+            <div class="hd">
+              <div class="nm">Cornerstone</div>
+              <div class="pz"><s>$2,000</s><span class="big">$1,499</span><span class="one">one-time</span></div>
+            </div>
+            <div class="who">The site a working business runs on — found on Google, bringing in jobs.</div>
             <div class="plus">Everything in Presence, plus:</div>
             <ul>
               <li><span class="ck">✓</span>Show up when locals search Google, with your real reviews</li>
               <li><span class="ck">✓</span>Customers request a quote straight to your phone</li>
               <li><span class="ck">✓</span>Change photos, prices &amp; hours yourself, anytime</li>
               <li><span class="ck">✓</span>Privacy &amp; terms handled; site locked &amp; spam-protected</li>
-              <li><span class="ck">✓</span>See how many people find you each month</li>
             </ul>
           </div>
-        </div>
-        <div class="extra" style="margin-top:11px">Both are yours to keep forever. Veteran + friends &amp; family appreciation is already in these prices.</div>
-      </div>
 
-      <!-- FULL BREAKDOWN (expandable — for the detail-minded) -->
-      <details class="more">
-        <summary>See exactly what's inside the Full Build<span class="chev">▾</span></summary>
-        <div class="inner">
-          <table class="tbl">
-            <thead><tr><th>Item</th><th>What it does</th><th class="r">Value</th></tr></thead>
-            <tbody>
-              <tr class="grp"><td colspan="3">The site</td></tr>
-              <tr><td class="it">Landing page</td><td class="ds">One page, your own sections, 4 photo slots to show your work — one fits your QR code if you have one<span style="color:var(--clay)">*</span></td><td class="pr">$900</td></tr>
-              <tr><td class="it">Consultation &amp; discovery</td><td class="ds">We map your business and exactly what the site needs</td><td class="pr"><s>$250</s><span class="wv">Waived</span></td></tr>
-              <tr><td class="it">Your own secure login</td><td class="ds">Your private, protected way into the site</td><td class="pr">$400</td></tr>
-              <tr><td class="it">Edit-it-yourself setup</td><td class="ds">Change photos, prices &amp; hours right from your phone</td><td class="pr">$500</td></tr>
-              <tr class="sub"><td colspan="2">The site, on its own</td><td class="pr">$2,050</td></tr>
-              <tr class="grp"><td colspan="3">What gets you found &amp; runs itself</td></tr>
-              <tr><td class="it">Get-a-quote button</td><td class="ds">A customer taps, fills in the job, it lands on your phone</td><td class="pr">$250</td></tr>
-              <tr><td class="it">Visitor stats</td><td class="ds">See how many people find your site and what they look at</td><td class="pr">$150</td></tr>
-              <tr><td class="it">Get found on Google</td><td class="ds">Your Google listing, local search, and your real reviews on the site</td><td class="pr">$600</td></tr>
-              <tr><td class="it">Legal pages</td><td class="ds">Privacy &amp; Terms, done right</td><td class="pr">$400</td></tr>
-              <tr><td class="it">Site security</td><td class="ds">Secure connection + spam &amp; bot protection</td><td class="pr">$200</td></tr>
-              <tr class="sub"><td colspan="2">The get-found layer</td><td class="pr">$1,600</td></tr>
-            </tbody>
-          </table>
-          <div class="extra" style="text-align:left;margin-top:9px;color:var(--mute)"><span style="color:var(--clay)">*</span> No QR code yet? We can make one — small add-on, not in this price.</div>
-
-          <!-- 3 TOTALS SIDE BY SIDE -->
-          <div class="totals">
-            <div class="cell"><div class="cl">Full price</div><div class="cv">$3,650</div></div>
-            <div class="cell"><div class="cl">Discount</div><div class="cv neg">−$2,150</div></div>
-            <div class="cell pay"><div class="cl">You pay</div><div class="cv">$1,500</div></div>
+          <div class="tc">
+            <div class="hd">
+              <div class="nm">Operations</div>
+              <div class="pz"><s>$3,000</s><span class="big">$2,499</span><span class="one">one-time</span></div>
+            </div>
+            <div class="who">Run the whole business from one place — for when you're ready to grow.</div>
+            <div class="plus">Everything in Cornerstone, plus:</div>
+            <ul>
+              <li><span class="ck">✓</span>Keep your customers &amp; job history in one place</li>
+              <li><span class="ck">✓</span>Take booking &amp; job requests online</li>
+              <li><span class="ck">✓</span>Your own back-office to run and track it all</li>
+            </ul>
           </div>
-          <div class="qform-note">One-time · veteran + friends &amp; family appreciation included · you own everything</div>
+
         </div>
-      </details>
+        <div class="extra" style="margin-top:12px">Crossed-out is our standard rate. Your price has a flat <b>$500 veteran + friends &amp; family appreciation</b> already taken off — and you own everything, forever.</div>
+      </div>
 
       <div class="reassure">
         <div><span class="ic">✓</span><span><b>You own everything.</b> Domain &amp; logins in your name — every key is yours. If I vanished tomorrow, your site is still 100% yours.</span></div>
