@@ -52,9 +52,11 @@
   .lines{padding:22px 28px}
   .tbl{width:100%;border-collapse:collapse;font-size:14px}
   .tbl thead th{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);text-align:left;padding:10px 0;border-bottom:1px solid var(--line)}
-  .tbl thead th.r{text-align:right}
+  .tbl thead th.r{text-align:right;padding-left:32px}
   .tbl td{padding:14px 0;border-bottom:1px solid #ECEAE2;vertical-align:top}
-  .tbl td.r{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+  .tbl td.r{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap;padding-left:32px}
+  .tbl th:nth-child(2),.tbl td:nth-child(2){min-width:84px}
+  .tbl th:nth-child(3),.tbl td:nth-child(3){min-width:108px}
   .tbl td .it{font-weight:600}
   .tbl td .ds{color:var(--mute);font-size:12.5px;margin-top:3px}
   .tbl td .wv{color:var(--good);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;display:block}
