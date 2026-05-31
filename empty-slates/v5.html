@@ -4,178 +4,251 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex" />
-<title>Empty Slates — V5 Manifesto</title>
+<title>Empty Slates — V5 Aura</title>
 <!--
-  V5 — "Manifesto." Brutalist editorial zine. Bone-white paper + jet black + a single
-  hazard color (sulphur yellow). Huge numbered statements, asymmetric grid, mono rules
-  everywhere. Pentagram × Praha × punk-zine confidence. The opposite of soft.
+  V5 — "Aura." Liquid chrome + plasma bloom + iridescent hazes.
+  Y2K-cyber-mystic vibes (think Apple Vision Pro × Vercel × MUNA × dreamcore).
+  Heavy bloom, soft refraction, dimensional type. Main-character energy.
+  Honors prefers-reduced-motion.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
-  :root{--ink:#0B0B0B;--paper:#F4F1E8;--paper-dk:#E9E4D2;--hazard:#F2D034;--rule:#0B0B0B;--mute:#5C5A52}
-  html,body{background:var(--paper);color:var(--ink);font-family:'Inter Tight',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.45;overflow-x:hidden}
-  .mono{font-family:'JetBrains Mono',monospace;letter-spacing:.04em}
-  h1,h2,h3{font-family:'Inter Tight',sans-serif;letter-spacing:-.045em;line-height:.92;font-weight:900}
+  :root{
+    --void:#06060B;
+    --void-2:#0A0A12;
+    --bone:#F5F2EC;
+    --mute:rgba(245,242,236,.62);
+    --line:rgba(245,242,236,.08);
+    --plasma-a:#FF6BD3;
+    --plasma-b:#7A5BFF;
+    --plasma-c:#28E0FF;
+    --plasma-d:#A8FFC4;
+  }
+  html,body{background:var(--void);color:var(--bone);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+  h1,h2,h3{font-weight:700;letter-spacing:-.04em;line-height:1.0}
+  .mono{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase}
+  .ser{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.02em}
 
-  .grain{position:fixed;inset:0;pointer-events:none;opacity:.5;z-index:1;mix-blend-mode:multiply;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");background-size:200px 200px}
+  /* ── PLASMA BACKDROP — bloomed, drifting ── */
+  .plasma{position:absolute;inset:-30%;z-index:0;filter:blur(80px) saturate(1.5);pointer-events:none;
+    background:
+      radial-gradient(ellipse 38% 32% at 25% 32%, var(--plasma-a), transparent 60%),
+      radial-gradient(ellipse 42% 36% at 76% 40%, var(--plasma-b), transparent 65%),
+      radial-gradient(ellipse 36% 30% at 50% 78%, var(--plasma-c), transparent 60%),
+      radial-gradient(ellipse 28% 24% at 84% 80%, var(--plasma-d), transparent 60%);
+    animation:plasmaDrift 26s ease-in-out infinite alternate;mix-blend-mode:screen;opacity:.55}
+  @keyframes plasmaDrift{
+    0%{transform:translate(0,0) rotate(0deg) scale(1)}
+    50%{transform:translate(4%,-2%) rotate(8deg) scale(1.1)}
+    100%{transform:translate(-3%,3%) rotate(-7deg) scale(.95)}
+  }
+  .scanline{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.4;mix-blend-mode:overlay;
+    background-image:repeating-linear-gradient(0deg, rgba(245,242,236,.05) 0px, rgba(245,242,236,.05) 1px, transparent 1px, transparent 3px)}
+  .grain{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.5;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");background-size:200px 200px}
 
-  /* TOP BAR */
-  .topbar{position:relative;z-index:10;border-bottom:2px solid var(--ink);padding:12px 28px;display:flex;justify-content:space-between;align-items:center;background:var(--paper)}
-  .topbar .left{display:flex;gap:18px;align-items:baseline}
-  .topbar .mark{font-weight:900;letter-spacing:-.03em;font-size:17px}
-  .topbar .ver{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--mute);letter-spacing:.14em;text-transform:uppercase}
-  .topbar .right{display:flex;gap:18px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);letter-spacing:.06em;text-transform:uppercase}
-  .topbar .right a{color:inherit;text-decoration:none}
-  .topbar .right a:hover{background:var(--hazard);padding:0 4px}
-  .topbar .right .pri{background:var(--ink);color:var(--paper);padding:7px 14px;border-radius:0;font-weight:700}
-  .topbar .right .pri:hover{background:var(--hazard);color:var(--ink)}
+  /* ── NAV ── */
+  .navwrap{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:30}
+  .nav{padding:8px 10px 8px 22px;display:flex;gap:18px;align-items:center;border-radius:999px;
+    background:rgba(10,10,18,.5);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border:1px solid rgba(245,242,236,.14)}
+  .nav .mark{font-weight:700;font-size:14px;letter-spacing:-.01em;color:var(--bone)}
+  .nav a{color:var(--mute);text-decoration:none;font-size:13.5px;font-weight:500;padding:0 6px;transition:.15s}
+  .nav a:hover{color:var(--bone)}
+  .nav .pri{background:var(--bone);color:var(--void);padding:8px 16px;border-radius:999px;font-weight:600;font-size:13px;transition:.18s}
+  .nav .pri:hover{background:#fff;box-shadow:0 0 30px rgba(245,242,236,.4)}
 
-  /* TICKER UNDER TOP */
-  .ticker{position:relative;z-index:5;background:var(--ink);color:var(--paper);overflow:hidden;border-bottom:2px solid var(--ink)}
-  .ticker .track{display:inline-flex;gap:36px;padding:9px 0;white-space:nowrap;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;animation:slide 40s linear infinite}
-  .ticker .track b{color:var(--hazard);font-weight:700}
-  @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  /* ── HERO ── */
+  .hero-section{position:relative;background:var(--void);overflow:hidden;min-height:100vh}
+  .hero-section::after{content:'';position:absolute;left:0;right:0;bottom:0;height:240px;z-index:4;pointer-events:none;background:linear-gradient(to bottom,transparent,var(--void) 90%)}
 
-  /* HERO — asymmetric magazine grid */
-  .hero{position:relative;z-index:5;padding:24px 28px 80px;border-bottom:2px solid var(--ink)}
-  .hero-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:36px;align-items:end;min-height:80vh}
-  @media(max-width:880px){.hero-grid{grid-template-columns:1fr;gap:30px}}
-  .heroL .stamp{display:inline-block;background:var(--hazard);color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:5px 10px}
-  .heroL h1{margin-top:22px;font-size:clamp(64px,12vw,180px);font-weight:900;letter-spacing:-.055em;line-height:.86}
-  .heroL h1 em{font-style:normal;background:var(--ink);color:var(--hazard);padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
-  .heroL h1 .strike{text-decoration:line-through;text-decoration-thickness:8px;color:var(--mute);text-decoration-color:var(--ink)}
-  .heroL .blink{display:inline-block;width:.55em;height:.86em;background:var(--ink);vertical-align:-.12em;margin-left:.04em;animation:blink 1.1s steps(2,start) infinite}
-  @keyframes blink{50%{opacity:0}}
-  .heroR{border-left:2px solid var(--ink);padding-left:28px;display:flex;flex-direction:column;gap:24px;min-height:340px;justify-content:end}
-  .heroR .lab{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
-  .heroR p{font-size:18px;line-height:1.4;color:var(--ink);font-weight:500}
-  .heroR .marks{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--mute);display:flex;flex-direction:column;gap:6px}
-  .heroR .marks b{color:var(--ink);font-weight:700}
-  .heroR .btn{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:14px 26px;background:var(--ink);color:var(--paper);font-weight:700;font-size:14px;text-decoration:none;border:none;cursor:pointer;letter-spacing:.01em}
-  .heroR .btn:hover{background:var(--hazard);color:var(--ink)}
+  .hero{position:relative;z-index:5;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 28px 100px;text-align:center}
+  .hero .pill{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:999px;
+    background:rgba(10,10,18,.55);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border:1px solid rgba(245,242,236,.14);
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+  .hero .pill::before{content:'';width:7px;height:7px;border-radius:50%;background:#FF6BD3;box-shadow:0 0 12px rgba(255,107,211,.8);animation:pillpulse 2.4s ease-in-out infinite}
+  @keyframes pillpulse{50%{transform:scale(1.4);opacity:.6}}
 
-  /* SECTION KICK */
-  .seckick{position:relative;z-index:5;background:var(--ink);color:var(--paper);padding:18px 28px;display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;border-bottom:2px solid var(--ink)}
-  .seckick b{color:var(--hazard);font-weight:700}
+  /* CHROME HEADLINE — iridescent shifting */
+  .hero h1{margin-top:28px;font-size:clamp(56px,11vw,156px);font-weight:800;line-height:.92;letter-spacing:-.05em}
+  .hero h1 .chrome{
+    background:linear-gradient(120deg,#F5F2EC 0%,#FF6BD3 18%,#7A5BFF 38%,#28E0FF 58%,#A8FFC4 78%,#F5F2EC 100%);
+    background-size:300% 300%;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 80px rgba(122,91,255,.4);
+    animation:chromeShift 9s ease-in-out infinite;
+    filter:drop-shadow(0 0 30px rgba(255,107,211,.18));
+  }
+  @keyframes chromeShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  .hero h1 .glow-word{position:relative;display:inline-block}
+  .hero h1 .glow-word::before{content:'';position:absolute;inset:-30% -10%;z-index:-1;
+    background:radial-gradient(ellipse at center,rgba(255,107,211,.32),transparent 60%);filter:blur(40px)}
 
-  /* VALUE — three massive numbered statements */
-  .val{position:relative;z-index:5;padding:0 28px;border-bottom:2px solid var(--ink)}
-  .val-inner{max-width:1280px;margin:0 auto}
-  .vrow{display:grid;grid-template-columns:160px 1fr 140px;gap:36px;align-items:start;padding:80px 0;border-bottom:1px solid var(--ink)}
-  .vrow:last-child{border-bottom:none}
-  @media(max-width:880px){.vrow{grid-template-columns:1fr;gap:18px;padding:50px 0}}
-  .vrow .num{font-size:clamp(96px,11vw,160px);font-weight:900;letter-spacing:-.06em;line-height:.84;color:var(--ink)}
-  .vrow .body h3{font-size:clamp(36px,5vw,60px);font-weight:900;letter-spacing:-.045em;line-height:.92}
-  .vrow .body p{margin-top:18px;font-size:17px;color:var(--mute);max-width:540px;line-height:1.5}
-  .vrow .meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mute);letter-spacing:.16em;text-transform:uppercase;text-align:right}
-  @media(max-width:880px){.vrow .meta{text-align:left}}
-  .vrow.h .num{background:var(--hazard);padding:8px 14px;display:inline-block}
+  .hero .lede{margin:34px auto 0;font-size:clamp(17px,1.8vw,21px);color:var(--mute);max-width:540px;line-height:1.45}
+  .hero .lede em{font-family:'Instrument Serif',serif;font-style:italic;color:var(--bone);font-weight:400}
 
-  /* PACKAGES — chunky tiles, hazard on best */
-  .pkgs{position:relative;z-index:5;background:var(--ink);color:var(--paper);padding:90px 28px;border-bottom:2px solid var(--ink)}
-  .pkgs-inner{max-width:1280px;margin:0 auto}
-  .pkgs h2{font-size:clamp(48px,7vw,110px);font-weight:900;letter-spacing:-.05em;max-width:900px;line-height:.92}
-  .pkgs h2 em{font-style:normal;background:var(--hazard);color:var(--ink);padding:0 .08em}
-  .pgrid{margin-top:60px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--paper);border-left:2px solid var(--paper)}
-  @media(max-width:880px){.pgrid{grid-template-columns:1fr}}
-  .pkg{padding:34px;border-right:2px solid var(--paper);border-bottom:2px solid var(--paper);display:flex;flex-direction:column;position:relative;min-height:280px}
-  .pkg.best{background:var(--hazard);color:var(--ink)}
-  .pkg .ix{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--paper);text-transform:uppercase;opacity:.55}
-  .pkg.best .ix{color:var(--ink);opacity:.6}
-  .pkg h3{margin-top:14px;font-size:36px;font-weight:900;letter-spacing:-.04em}
-  .pkg p{margin-top:14px;font-size:14.5px;line-height:1.55;color:rgba(244,241,232,.65);flex:1}
-  .pkg.best p{color:var(--ink)}
-  .pkg .tag{position:absolute;top:18px;right:18px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:var(--ink);color:var(--hazard);padding:5px 9px}
-  .pkgs .btn{margin-top:36px;display:inline-flex;align-items:center;gap:8px;padding:14px 26px;background:var(--hazard);color:var(--ink);font-weight:700;font-size:14px;text-decoration:none;border:none;cursor:pointer;letter-spacing:.01em}
-  .pkgs .btn:hover{background:var(--paper);color:var(--ink)}
+  .cta{margin-top:42px;display:inline-flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;cursor:pointer;transition:.2s;border:none;font-family:inherit;position:relative}
+  .btn-pri{background:var(--bone);color:var(--void);box-shadow:0 0 0 rgba(255,107,211,0)}
+  .btn-pri:hover{background:#fff;box-shadow:0 0 40px rgba(255,107,211,.4),0 0 60px rgba(122,91,255,.25);transform:translateY(-1px)}
+  .btn-glass{background:rgba(10,10,18,.5);color:var(--bone);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(245,242,236,.18)}
+  .btn-glass:hover{background:rgba(10,10,18,.7);border-color:rgba(245,242,236,.32)}
 
-  /* CLOSE */
-  .close{position:relative;z-index:5;padding:120px 28px;border-bottom:2px solid var(--ink)}
-  .close-inner{max-width:1280px;margin:0 auto;text-align:left}
-  .close h2{font-size:clamp(80px,15vw,240px);font-weight:900;letter-spacing:-.06em;line-height:.86}
-  .close h2 em{font-style:normal;background:var(--hazard);padding:0 .12em}
-  .close p{margin-top:28px;font-size:18px;color:var(--mute);max-width:540px}
-  .close .btn{margin-top:36px;display:inline-flex;align-items:center;gap:8px;padding:16px 30px;background:var(--ink);color:var(--paper);font-weight:700;font-size:15px;text-decoration:none}
-  .close .btn:hover{background:var(--hazard);color:var(--ink)}
+  /* lens flare dots */
+  .flare{position:absolute;border-radius:50%;pointer-events:none;filter:blur(2px)}
+  .flare.f1{width:8px;height:8px;background:#28E0FF;box-shadow:0 0 30px #28E0FF;top:32%;left:18%;animation:flarePulse 4s ease-in-out infinite}
+  .flare.f2{width:6px;height:6px;background:#FF6BD3;box-shadow:0 0 24px #FF6BD3;top:62%;right:22%;animation:flarePulse 5s ease-in-out infinite -1.5s}
+  .flare.f3{width:5px;height:5px;background:#A8FFC4;box-shadow:0 0 22px #A8FFC4;top:24%;right:30%;animation:flarePulse 6s ease-in-out infinite -3s}
+  @keyframes flarePulse{50%{opacity:.3;transform:scale(.6)}}
 
-  footer{position:relative;z-index:5;padding:18px 28px;display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mute);letter-spacing:.14em;text-transform:uppercase;flex-wrap:wrap;gap:14px;background:var(--paper-dk)}
+  /* ── PAGE BREAK RAIL ── */
+  .rail{position:relative;background:var(--void-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 28px;display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,242,236,.5);z-index:6}
+  .rail b{color:var(--bone);font-weight:600}
+  .rail .seg{display:flex;align-items:center;gap:10px}
+  .rail .seg::before{content:'';width:6px;height:6px;border-radius:50%;background:#FF6BD3;box-shadow:0 0 12px rgba(255,107,211,.9);animation:railPulse 2.2s ease-in-out infinite}
+  @keyframes railPulse{50%{opacity:.4;transform:scale(.6)}}
+
+  /* ── VALUE — solid void band ── */
+  .val{position:relative;background:var(--void);padding:130px 28px;border-bottom:1px solid var(--line);overflow:hidden}
+  .val::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.5;filter:blur(100px);
+    background:radial-gradient(ellipse 60% 40% at 50% 100%,rgba(122,91,255,.3),transparent 70%);
+    mix-blend-mode:screen}
+  .val-inner{position:relative;z-index:2;max-width:1120px;margin:0 auto}
+  .val .lab{text-align:center;margin-bottom:64px}
+  .val .lab h2{font-size:clamp(34px,5vw,58px);font-weight:700;letter-spacing:-.04em;max-width:620px;margin:14px auto 0;line-height:1.04}
+  .vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:840px){.vgrid{grid-template-columns:1fr}}
+  .vcell{padding:32px;border-radius:22px;background:rgba(245,242,236,.03);border:1px solid rgba(245,242,236,.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:relative;overflow:hidden}
+  .vcell::before{content:'';position:absolute;inset:0;padding:1px;border-radius:inherit;background:linear-gradient(135deg,rgba(255,107,211,.3),transparent 40%,rgba(40,224,255,.2));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;opacity:.6}
+  .vcell .ix{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;color:rgba(245,242,236,.4);text-transform:uppercase}
+  .vcell h3{margin-top:14px;font-size:24px;font-weight:700}
+  .vcell p{margin-top:10px;font-size:14.5px;color:var(--mute);line-height:1.55}
+
+  /* ── PACKAGES — plasma returns ── */
+  .pkgs{position:relative;background:var(--void);padding:130px 28px;text-align:center;overflow:hidden}
+  .pkgs::before,.pkgs::after{content:'';position:absolute;left:0;right:0;height:160px;z-index:3;pointer-events:none}
+  .pkgs::before{top:0;background:linear-gradient(to bottom,var(--void),transparent)}
+  .pkgs::after{bottom:0;background:linear-gradient(to top,var(--void-2),transparent)}
+  .pkgs-plasma{position:absolute;inset:0;z-index:0;overflow:hidden}
+  .pkgs-plasma::before{content:'';position:absolute;inset:-25%;filter:blur(100px) saturate(1.4);mix-blend-mode:screen;opacity:.55;animation:plasmaDrift 30s ease-in-out infinite alternate;
+    background:
+      radial-gradient(ellipse 40% 30% at 30% 40%,#7A5BFF,transparent 60%),
+      radial-gradient(ellipse 32% 28% at 72% 56%,#FF6BD3,transparent 60%),
+      radial-gradient(ellipse 36% 30% at 50% 88%,#28E0FF,transparent 60%);
+  }
+  .pkgs-inner{position:relative;z-index:5;max-width:1120px;margin:0 auto}
+  .pkgs h2{font-size:clamp(36px,5.4vw,68px);font-weight:700;letter-spacing:-.04em;max-width:760px;margin:0 auto;line-height:1.04}
+  .pkgs h2 .chrome{background:linear-gradient(120deg,#FF6BD3,#7A5BFF,#28E0FF);background-size:200% 200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:chromeShift 9s ease-in-out infinite}
+  .pgrid{margin-top:64px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:left}
+  @media(max-width:840px){.pgrid{grid-template-columns:1fr}}
+  .pkg{padding:32px;border-radius:22px;display:flex;flex-direction:column;position:relative;
+    background:rgba(245,242,236,.04);border:1px solid rgba(245,242,236,.10);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+  .pkg.best{background:var(--bone);color:var(--void);border:1px solid var(--bone);box-shadow:0 0 60px rgba(255,107,211,.25),0 0 100px rgba(122,91,255,.18)}
+  .pkg .ix{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;color:rgba(245,242,236,.4);text-transform:uppercase}
+  .pkg.best .ix{color:rgba(6,6,11,.45)}
+  .pkg h3{margin-top:10px;font-size:24px;font-weight:700}
+  .pkg p{margin-top:14px;font-size:14.5px;color:var(--mute);line-height:1.55;flex:1}
+  .pkg.best p{color:rgba(6,6,11,.6)}
+  .pkg .tag{position:absolute;top:22px;right:22px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(6,6,11,.45);text-transform:uppercase}
+  .pkgs .btn{margin-top:52px}
+
+  /* ── CLOSE — void band ── */
+  .close{position:relative;background:var(--void-2);padding:160px 28px;text-align:center;overflow:hidden}
+  .close::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.6;filter:blur(90px);
+    background:radial-gradient(ellipse 50% 40% at 50% 50%,rgba(255,107,211,.32),transparent 65%);mix-blend-mode:screen}
+  .close-inner{position:relative;z-index:5}
+  .close h2{font-size:clamp(48px,8vw,120px);font-weight:800;letter-spacing:-.05em;line-height:.94}
+  .close h2 .chrome{background:linear-gradient(120deg,#F5F2EC,#FF6BD3,#7A5BFF,#28E0FF,#F5F2EC);background-size:300% 300%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:chromeShift 9s ease-in-out infinite}
+  .close p{margin:24px auto 0;color:var(--mute);max-width:480px;font-size:17px}
+  .close .btn{margin-top:38px}
+
+  /* ── FOOTER ── */
+  footer{padding:26px 28px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mute);flex-wrap:wrap;gap:14px;letter-spacing:.04em;background:var(--void)}
   footer .lks{display:flex;gap:22px}
   footer a{color:var(--mute);text-decoration:none}
-  footer a:hover{color:var(--ink);background:var(--hazard);padding:0 4px}
+  footer a:hover{color:var(--bone)}
 
-  @media(prefers-reduced-motion:reduce){.ticker .track,.heroL .blink{animation:none!important}}
+  @media(prefers-reduced-motion:reduce){.plasma,.pkgs-plasma::before,.hero h1 .chrome,.pkgs h2 .chrome,.close h2 .chrome,.hero .pill::before,.flare,.rail .seg::before{animation:none!important}}
 </style>
 </head>
 <body>
-  <div class="grain" aria-hidden="true"></div>
-
-  <header class="topbar">
-    <div class="left"><span class="mark">Empty Slates</span><span class="ver">Vol. 01 / 2026</span></div>
-    <div class="right"><a href="#work">Work</a><a href="#">About</a><a href="#" class="pri">Get started</a></div>
-  </header>
-
-  <div class="ticker" aria-hidden="true">
-    <div class="track">
-      <span>Empty Slates ·</span><span>Built by hand ·</span><span><b>Owned by you</b> ·</span><span>2026 ·</span><span>Operational software ·</span><span>Nashville ·</span><span>Empty Slates ·</span><span>Built by hand ·</span><span><b>Owned by you</b> ·</span><span>2026 ·</span><span>Operational software ·</span><span>Nashville ·</span>
-      <span>Empty Slates ·</span><span>Built by hand ·</span><span><b>Owned by you</b> ·</span><span>2026 ·</span><span>Operational software ·</span><span>Nashville ·</span><span>Empty Slates ·</span><span>Built by hand ·</span><span><b>Owned by you</b> ·</span><span>2026 ·</span><span>Operational software ·</span><span>Nashville ·</span>
-    </div>
+  <!-- floating glass nav -->
+  <div class="navwrap">
+    <nav class="nav">
+      <span class="mark">Empty Slates</span>
+      <a href="#work">Work</a>
+      <a class="pri" href="#">Get started</a>
+    </nav>
   </div>
 
-  <section class="hero">
-    <div class="hero-grid">
-      <div class="heroL">
-        <span class="stamp">No. 01 · The Manifesto</span>
-        <h1>Look the part.<br>Get the <em>work.</em><span class="blink"></span></h1>
-      </div>
-      <div class="heroR">
-        <div class="lab">Sub-head / 001</div>
-        <p>Your website and your back-office, in one piece. Built by hand. Delivered to last. Yours, completely.</p>
-        <div class="marks">
-          <span><b>Format /</b> Operational software</span>
-          <span><b>Issue /</b> 2026.05</span>
-          <span><b>Studio /</b> Nashville, TN</span>
-        </div>
-        <a class="btn" href="#">Get started ↗</a>
+  <!-- HERO — plasma + chrome -->
+  <section class="hero-section">
+    <div class="plasma" aria-hidden="true"></div>
+    <div class="scanline" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <span class="flare f1" aria-hidden="true"></span>
+    <span class="flare f2" aria-hidden="true"></span>
+    <span class="flare f3" aria-hidden="true"></span>
+
+    <div class="hero">
+      <div style="display:inline-flex;justify-content:center"><span class="pill">Live · Operational software 2026</span></div>
+      <h1>Show up<br><span class="glow-word"><span class="chrome">untouchable.</span></span></h1>
+      <p>The website and the back-office your business runs on — built by hand, <em>radiating</em> the moment you launch.</p>
+      <div class="cta">
+        <a class="btn btn-pri" href="#">Get started →</a>
+        <a class="btn btn-glass" href="#work">See the work</a>
       </div>
     </div>
   </section>
 
-  <div class="seckick"><span>// What you get</span><b>003 statements</b></div>
+  <!-- PAGE BREAK -->
+  <div class="rail"><span class="seg">SECTION 01 · WHAT YOU GET</span><span>EMPTY SLATES · <b>2026</b></span></div>
 
+  <!-- VALUE -->
   <section class="val" id="work">
     <div class="val-inner">
-      <div class="vrow"><div class="num">01</div><div class="body"><h3>Get found.</h3><p>Show up on Google when your local customers search. Real reviews, your profile, set up.</p></div><div class="meta">found / google</div></div>
-      <div class="vrow h"><div class="num">02</div><div class="body"><h3>Get booked.</h3><p>Customers tap a button and the job lands in your inbox. No back-and-forth, no missed calls.</p></div><div class="meta">booked / phone</div></div>
-      <div class="vrow"><div class="num">03</div><div class="body"><h3>Look the part.</h3><p>A site that says you've been doing this long enough to trust before anyone reads a word.</p></div><div class="meta">trust / instant</div></div>
-    </div>
-  </section>
-
-  <section class="pkgs">
-    <div class="pkgs-inner">
-      <h2>Start where you are.<br>Grow <em>when you're ready.</em></h2>
-      <div class="pgrid">
-        <div class="pkg"><span class="ix">Tier 01</span><h3>Basic</h3><p>A clean, professional presence — your work, your story, your number.</p></div>
-        <div class="pkg best"><span class="tag">Best value</span><span class="ix">Tier 02</span><h3>Operations</h3><p>Found on Google, taking requests, and easy to update yourself.</p></div>
-        <div class="pkg"><span class="ix">Tier 03</span><h3>Enterprise</h3><p>Run the whole business from one place when you're ready to grow.</p></div>
+      <div class="lab"><span class="mono" style="color:var(--mute)">// what you get</span><h2>Three things every service business needs.</h2></div>
+      <div class="vgrid">
+        <div class="vcell"><span class="ix">i. Get found</span><h3>Show up on Google</h3><p>Local search, your real reviews, your profile — wired in.</p></div>
+        <div class="vcell"><span class="ix">ii. Get booked</span><h3>Requests to your phone</h3><p>A tap-to-quote button on every page lands jobs in your inbox.</p></div>
+        <div class="vcell"><span class="ix">iii. Look the part</span><h3>Established, instant</h3><p>A site that signals you've been doing this long enough to trust.</p></div>
       </div>
-      <a class="btn" href="#">See your price ↗</a>
     </div>
   </section>
 
+  <!-- PAGE BREAK -->
+  <div class="rail"><span class="seg">SECTION 02 · PACKAGES</span><span>STUDIO · <b>NASHVILLE</b></span></div>
+
+  <!-- PACKAGES — plasma returns -->
+  <section class="pkgs">
+    <div class="pkgs-plasma" aria-hidden="true"></div>
+    <div class="pkgs-inner">
+      <h2>Start where you are.<br><span class="chrome">Grow when you're ready.</span></h2>
+      <div class="pgrid">
+        <div class="pkg"><span class="ix">i. Tier 01</span><h3>Basic</h3><p>A clean, professional presence — your work, your story, your number.</p></div>
+        <div class="pkg best"><span class="tag">Best value</span><span class="ix">ii. Tier 02</span><h3>Operations</h3><p>Found on Google, taking requests, and easy to update yourself.</p></div>
+        <div class="pkg"><span class="ix">iii. Tier 03</span><h3>Enterprise</h3><p>Run the whole business from one place when you're ready to grow.</p></div>
+      </div>
+      <a class="btn btn-pri" href="#">See your price →</a>
+    </div>
+  </section>
+
+  <!-- PAGE BREAK -->
+  <div class="rail"><span class="seg">SECTION 03 · BEGIN</span><span>RELEASE · <b>2026.05</b></span></div>
+
+  <!-- CLOSE -->
   <section class="close">
     <div class="close-inner">
-      <h2>Let's build<br><em>yours.</em></h2>
+      <h2>Let's build<br><span class="chrome">yours.</span></h2>
       <p>One conversation, and we'll show you exactly what yours could look like.</p>
-      <a class="btn" href="#">Get started ↗</a>
+      <a class="btn btn-pri" href="#">Get started →</a>
     </div>
   </section>
 
   <footer>
-    <span>Empty Slates · © 2026 · Nashville</span>
+    <span>Empty Slates · © 2026</span>
     <div class="lks"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Sign in</a></div>
   </footer>
 </body>
