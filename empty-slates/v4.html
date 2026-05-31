@@ -32,11 +32,14 @@
   .rail .seg::before{content:'';width:6px;height:6px;border-radius:50%;background:#6CE0C4;box-shadow:0 0 0 4px rgba(108,224,196,.18);animation:railPulse 2.2s ease-in-out infinite}
   @keyframes railPulse{50%{box-shadow:0 0 0 9px rgba(108,224,196,0)}}
 
-  /* ── CHARCOAL-SAGE BANDS ── */
-  .topbar{background:var(--charcoal-sage);color:var(--sage-bone);padding:14px 28px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2C3A2D;position:relative;z-index:30}
-  .topbar .mark{font-size:15px;font-weight:700;letter-spacing:-.02em;color:var(--sage-bone)}
-  .topbar a{color:var(--sage-warm);text-decoration:none;font-size:13.5px;font-weight:500;transition:.15s}
-  .topbar a:hover{color:var(--sage-bone)}
+  /* ── NATIVE: floating glass nav pill ── */
+  .navwrap{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:30}
+  .nav{padding:8px 10px 8px 22px;display:flex;gap:18px;align-items:center;border-radius:999px}
+  .nav .mark{font-weight:700;font-size:14px;letter-spacing:-.01em;color:var(--bone)}
+  .nav a{color:var(--mute);text-decoration:none;font-size:13.5px;font-weight:500;padding:0 6px}
+  .nav a:hover{color:var(--bone)}
+  .nav .pri{background:var(--bone);color:var(--ink);padding:8px 16px;border-radius:999px;font-weight:600;font-size:13px}
+  .nav .pri:hover{background:#fff}
 
   /* ── AURORA HERO ── */
   .hero-section{position:relative;background:var(--ink);overflow:hidden}
@@ -142,22 +145,24 @@
   .close p{margin:24px auto 0;color:var(--mute);max-width:500px;font-size:17px}
   .close .btn{margin-top:36px}
 
-  /* ── CHARCOAL-SAGE FOOTER ── */
-  .footbar{background:var(--charcoal-sage);color:var(--sage-warm);padding:24px 28px;border-top:1px solid #2C3A2D;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em}
-  .footbar .mark{font-weight:700;font-size:13px;letter-spacing:-.01em;color:var(--sage-bone);font-family:'Inter',sans-serif}
-  .footbar .lks{display:flex;gap:22px}
-  .footbar a{color:var(--sage-warm);text-decoration:none}
-  .footbar a:hover{color:var(--sage-bone)}
+  /* ── NATIVE: mono footer ── */
+  footer{padding:26px 28px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mute);flex-wrap:wrap;gap:14px;letter-spacing:.04em;background:var(--band-mid)}
+  footer .lks{display:flex;gap:22px}
+  footer a{color:var(--mute);text-decoration:none}
+  footer a:hover{color:var(--bone)}
 
   @media(prefers-reduced-motion:reduce){.aurora::before,.aurora::after,.pkgs-aurora::before,.hero h1 .grad,.hero .pill::before,.rail .seg::before,.float{animation:none!important}}
 </style>
 </head>
 <body>
-  <!-- TOP CHARCOAL-SAGE BAND -->
-  <header class="topbar">
-    <span class="mark">Empty Slates</span>
-    <a href="#">Sign in</a>
-  </header>
+  <!-- NATIVE: floating glass nav pill -->
+  <div class="navwrap">
+    <nav class="nav glass">
+      <span class="mark">Empty Slates</span>
+      <a href="#work">Work</a>
+      <a class="pri" href="#">Get started</a>
+    </nav>
+  </div>
 
   <!-- ─── HERO (full aurora) ─── -->
   <section class="hero-section">
@@ -222,9 +227,9 @@
     <a class="btn btn-pri" href="#">Get started →</a>
   </section>
 
-  <!-- BOTTOM CHARCOAL-SAGE BAND -->
-  <footer class="footbar">
-    <span class="mark">Empty Slates</span>
+  <!-- NATIVE: mono footer -->
+  <footer>
+    <span>Empty Slates · © 2026</span>
     <div class="lks"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Sign in</a></div>
   </footer>
 </body>
