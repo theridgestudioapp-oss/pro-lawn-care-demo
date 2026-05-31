@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>MT Slate — Build Agreement &amp; Invoice</title>
+<!--
+  Universal MT Slate build-agreement / invoice doc.
+  - Formal invoice layout (left: bill-to + line items; right: totals)
+  - Tap-to-sign signature pad (mouse + touch); paper trail metadata
+  - Designed to be reusable across clients via ?client=, ?invoice=, ?total=, ?items=
+  - No mention of method ever. No "free." Holds the standards (Best value / waived / etc.)
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0C10; --ink-2:#3B404A; --mute:#7B8090; --line:#E1E0DA; --paper:#FBFAF6;
+    --bg:#F1EFE8; --accent:#0B0C10; --good:#3B7A4B; --strike:#A8A597;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;padding:24px 16px 60px}
+  .mono{font-family:'JetBrains Mono',monospace;letter-spacing:.02em}
+  .ser{font-family:'Fraunces',Georgia,serif;letter-spacing:-.015em}
+
+  .sheet{max-width:780px;margin:0 auto;background:var(--paper);border:1px solid var(--line);border-radius:6px;box-shadow:0 32px 60px -36px rgba(11,12,16,.28);overflow:hidden;
+    background-image:radial-gradient(rgba(0,0,0,.012) 1px,transparent 1px);background-size:4px 4px}
+
+  /* TOP STRIP */
+  .strip{padding:18px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;background:#fff}
+  .strip .brand{display:flex;align-items:center;gap:10px}
+  .strip .brand .mk{width:26px;height:26px;border-radius:5px;background:var(--ink);color:#FBFAF6;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:14px}
+  .strip .brand .nm{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
+  .strip .meta{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--mute);text-align:right;line-height:1.5}
+  .strip .meta b{color:var(--ink);font-weight:600}
+
+  /* HEADER */
+  .hdr{padding:30px 28px 26px;border-bottom:1px solid var(--line)}
+  .hdr .kick{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
+  .hdr h1{font-family:'Fraunces',serif;font-weight:600;font-size:32px;margin-top:8px;line-height:1.08}
+  .hdr h1 span{display:block;font-size:14px;font-weight:500;color:var(--mute);font-family:'Inter',sans-serif;letter-spacing:0;margin-top:6px}
+
+  /* BILL ROWS */
+  .billbar{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:22px 28px;border-bottom:1px solid var(--line);background:#FAF8F1}
+  .billbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mute);letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px}
+  .billbar .val{font-size:14.5px;line-height:1.5}
+  .billbar .val b{display:block;font-weight:700;color:var(--ink);font-size:15px}
+
+  /* INVOICE LINES */
+  .lines{padding:22px 28px}
+  .tbl{width:100%;border-collapse:collapse;font-size:14px}
+  .tbl thead th{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);text-align:left;padding:10px 0;border-bottom:1px solid var(--line)}
+  .tbl thead th.r{text-align:right}
+  .tbl td{padding:14px 0;border-bottom:1px solid #ECEAE2;vertical-align:top}
+  .tbl td.r{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+  .tbl td .it{font-weight:600}
+  .tbl td .ds{color:var(--mute);font-size:12.5px;margin-top:3px}
+  .tbl td .wv{color:var(--good);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;display:block}
+  .tbl td s{color:var(--strike);font-weight:500;font-size:12px;display:block;line-height:1}
+
+  /* TOTALS */
+  .totals{padding:6px 28px 24px;display:flex;justify-content:flex-end}
+  .tots{width:300px;max-width:100%}
+  .tr{display:flex;justify-content:space-between;font-size:13.5px;padding:6px 0;color:var(--ink-2)}
+  .tr.neg{color:var(--good);font-weight:600}
+  .tr.tot{margin-top:6px;padding-top:12px;border-top:2px solid var(--ink);font-family:'Fraunces',serif;font-weight:700}
+  .tr.tot .l{font-size:14px} .tr.tot .v{font-size:22px;font-variant-numeric:tabular-nums}
+  .totals-note{font-size:11.5px;color:var(--mute);margin-top:8px;text-align:right}
+
+  /* TERMS */
+  .terms{margin:0 28px;padding:20px 22px;background:#FAF8F1;border:1px solid var(--line);border-radius:8px}
+  .terms .kick{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-bottom:10px}
+  .terms ol{font-size:13px;color:var(--ink-2);padding-left:18px;line-height:1.6}
+  .terms ol li{margin:4px 0}
+  .terms ol li b{color:var(--ink)}
+
+  /* SIGNATURE */
+  .sigwrap{padding:24px 28px}
+  .sigwrap .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:620px){.sigwrap .row{grid-template-columns:1fr}}
+  .sigbox{position:relative;background:#fff;border:1px solid var(--line);border-radius:8px;padding:14px;display:flex;flex-direction:column}
+  .sigbox .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-bottom:8px}
+  .pad{position:relative;width:100%;aspect-ratio:3/1;background:#fff;border:1px dashed #BFBDB1;border-radius:6px;overflow:hidden;cursor:crosshair;touch-action:none}
+  .pad canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .padline{position:absolute;left:8%;right:8%;bottom:24%;height:1px;background:#D5D2C5;pointer-events:none}
+  .padhint{position:absolute;left:14px;bottom:6px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--mute);letter-spacing:.04em;pointer-events:none;opacity:.9}
+  .pad.has .padhint,.pad.has .padline{display:none}
+  .sigbox .tag{margin-top:10px;font-size:11.5px;color:var(--mute);display:flex;justify-content:space-between;align-items:center}
+  .sigbox .tag b{color:var(--ink)}
+  .sigbox .clear{font-size:11px;background:none;border:none;color:var(--mute);cursor:pointer;text-decoration:underline}
+  .sigbox .clear:hover{color:var(--ink)}
+  .sigbox .printed{margin-top:10px;background:#FAF8F1;border:1px solid var(--line);border-radius:6px;padding:9px 11px;font-size:14px}
+  .sigbox input.field{width:100%;border:1px solid var(--line);border-radius:6px;padding:10px;font-size:14px;font-family:inherit;background:#fff}
+
+  /* CTA */
+  .cta{padding:8px 28px 28px}
+  .go{display:block;width:100%;background:var(--ink);color:#FBFAF6;font-family:'Fraunces',serif;font-weight:600;font-size:17px;border:none;border-radius:10px;padding:16px;cursor:pointer;transition:.15s}
+  .go:hover{background:#000} .go:disabled{background:#B2B3B8;cursor:not-allowed}
+  .ctaft{margin-top:10px;font-size:11.5px;color:var(--mute);text-align:center}
+
+  /* DONE */
+  .done{padding:36px 28px;text-align:center;background:#FAF8F1;border-top:1px solid var(--line)}
+  .done h2{font-family:'Fraunces',serif;font-weight:600;font-size:22px;color:var(--good)}
+  .done p{font-size:13.5px;color:var(--ink-2);margin-top:8px}
+  .done .id{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mute);letter-spacing:.06em}
+
+  /* footer */
+  .ft{padding:20px 28px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--mute);background:#fff}
+
+  .hide{display:none}
+</style>
+</head>
+<body>
+  <div class="sheet" id="sheet">
+    <!-- TOP STRIP -->
+    <div class="strip">
+      <div class="brand"><div class="mk">S</div><div class="nm">MT Slate</div></div>
+      <div class="meta">
+        DOC <b id="docNum">—</b><br>
+        ISSUED <b id="docDate">—</b>
+      </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="hdr">
+      <div class="kick">Build Agreement &amp; Invoice</div>
+      <h1 id="docTitle">Pro Lawn Care<span>One-time build agreement</span></h1>
+    </div>
+
+    <!-- BILL TO / FROM -->
+    <div class="billbar">
+      <div>
+        <div class="lbl">Billed to</div>
+        <div class="val"><b id="bClient">Blas · Pro Lawn Care</b>Nashville, TN</div>
+      </div>
+      <div>
+        <div class="lbl">From</div>
+        <div class="val"><b>MT Slate</b>hello@mtslate.com<br>Nashville, TN</div>
+      </div>
+    </div>
+
+    <!-- LINE ITEMS -->
+    <div class="lines">
+      <table class="tbl">
+        <thead>
+          <tr><th>Item</th><th class="r">Standard</th><th class="r">Amount</th></tr>
+        </thead>
+        <tbody id="items">
+          <tr>
+            <td><div class="it">Operations Package</div><div class="ds">Landing page, get-found on Google, quote-request to phone, edit-yourself, legal &amp; security; we interview you and write your story.</div></td>
+            <td class="r"><s>$1,999</s></td>
+            <td class="r">$1,499</td>
+          </tr>
+          <tr>
+            <td><div class="it">Consultation &amp; discovery</div><div class="ds">Initial scope conversation and business map.</div></td>
+            <td class="r"><s>$250</s></td>
+            <td class="r" style="color:var(--good)">Waived</td>
+          </tr>
+          <tr>
+            <td><div class="it">Domain setup</div><div class="ds">Transfer of an existing domain. (Purchase of a domain itself is separate, in client's name.)</div></td>
+            <td class="r"><s>$100</s></td>
+            <td class="r" style="color:var(--good)">Included</td>
+          </tr>
+          <tr>
+            <td><div class="it">QR code</div><div class="ds">Designed and placed for cards/truck.</div></td>
+            <td class="r"><s>$50</s></td>
+            <td class="r" style="color:var(--good)">Included</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TOTALS -->
+    <div class="totals">
+      <div class="tots">
+        <div class="tr"><span class="l">Subtotal</span><span class="v" id="sub">$1,499</span></div>
+        <div class="tr neg"><span class="l">Military appreciation <em style="opacity:.7;font-style:normal">(applied)</em></span><span class="v">−$250</span></div>
+        <div class="tr neg"><span class="l">Friends &amp; Family <em style="opacity:.7;font-style:normal">(applied)</em></span><span class="v">−$250</span></div>
+        <div class="tr tot"><span class="l">Total due</span><span class="v" id="tot">$1,499</span></div>
+        <div class="totals-note">One-time. Excludes recurring platform costs (hosting, domain renewal), reviewed at setup.</div>
+      </div>
+    </div>
+
+    <!-- TERMS -->
+    <div class="terms">
+      <div class="kick">Terms</div>
+      <ol>
+        <li><b>Scope.</b> One built landing site per this agreement, as described above. Additional design variations are billed separately.</li>
+        <li><b>Ownership.</b> Client owns the domain, logins, content, and the deliverable outright. Accounts are created in the client's name.</li>
+        <li><b>Timeline.</b> Production starts on signature; first preview shared within 7 business days.</li>
+        <li><b>Recurring costs.</b> Platform costs (hosting, domain renewal, optional alerts) are paid by the client to the platforms in the client's name.</li>
+        <li><b>Changes after delivery.</b> Anytime: text or call us in English or Español.</li>
+      </ol>
+    </div>
+
+    <!-- SIGNATURE -->
+    <div class="sigwrap">
+      <div class="row">
+        <div class="sigbox">
+          <div class="lbl">Client signature</div>
+          <div class="pad" id="pad">
+            <div class="padline"></div>
+            <div class="padhint">Tap and sign here</div>
+            <canvas id="canvas"></canvas>
+          </div>
+          <div class="tag"><span>Printed name &amp; date below</span><button class="clear" type="button" onclick="clearSig()">clear</button></div>
+          <input class="field" id="cname" placeholder="Printed name (e.g. Blas Hernandez)">
+          <div class="printed" id="cmeta">Date: <b id="cdate">—</b></div>
+        </div>
+        <div class="sigbox">
+          <div class="lbl">MT Slate signature</div>
+          <div class="pad" id="pad2">
+            <div class="padline"></div>
+            <div class="padhint">Countersigned at delivery</div>
+            <canvas id="canvas2"></canvas>
+          </div>
+          <div class="tag"><span>Countersigned by</span><span><b>Daniel Picazzo</b></span></div>
+          <div class="printed">Date: <b>Auto-stamped at delivery</b></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <button class="go" id="acceptBtn" onclick="accept()" disabled>Accept &amp; pay $1,499 →</button>
+      <div class="ctaft">By tapping above you agree to the terms above. A copy will be saved with your printed name, signature, and a verification timestamp.</div>
+    </div>
+
+    <!-- DONE -->
+    <div class="done hide" id="done">
+      <h2 id="doneH">Signed.</h2>
+      <p id="doneP">Thanks — your copy is saved. We'll text you next steps within 24 hours.</p>
+      <div class="id">RECORD <b id="recId">—</b></div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="ft">
+      <span>MT Slate · Build Agreement</span>
+      <span id="ipline">verified locally</span>
+    </div>
+  </div>
+
+<script>
+  function pad2(n){ return n<10?'0'+n:n; }
+  function fmtDate(d){ return pad2(d.getMonth()+1)+'/'+pad2(d.getDate())+'/'+d.getFullYear(); }
+  function genId(prefix){
+    var s=''; var alphabet='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    for(var i=0;i<6;i++) s+=alphabet.charAt(Math.floor(Math.random()*alphabet.length));
+    return (prefix||'MT')+'-'+s;
+  }
+  var now=new Date();
+  document.getElementById('docNum').textContent = genId('MT');
+  document.getElementById('docDate').textContent = fmtDate(now);
+
+  // Allow ?client= and ?total= overrides for universal reuse
+  var q=new URLSearchParams(location.search);
+  if(q.get('client')){ document.getElementById('bClient').firstChild.nodeValue=q.get('client'); }
+  if(q.get('title')){ var h=document.getElementById('docTitle'); h.firstChild.nodeValue=q.get('title'); }
+  if(q.get('total')){ var n=Number(q.get('total')); if(!isNaN(n)){ var f='$'+n.toLocaleString(); document.getElementById('tot').textContent=f; document.getElementById('sub').textContent=f; document.getElementById('acceptBtn').textContent='Accept & pay '+f+' →'; } }
+
+  // ── Signature pad (mouse + touch) ────────────────────────────────────
+  var canvas=document.getElementById('canvas'); var ctx=canvas.getContext('2d'); var drawing=false; var hasSig=false;
+  function sizeCanvas(){ var r=canvas.getBoundingClientRect(); var dpr=window.devicePixelRatio||1;
+    canvas.width=r.width*dpr; canvas.height=r.height*dpr; ctx.scale(dpr,dpr); ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=2.2; ctx.strokeStyle='#0B0C10'; }
+  sizeCanvas();
+  function point(e){ var r=canvas.getBoundingClientRect(); var t=(e.touches&&e.touches[0])||e; return {x:t.clientX-r.left, y:t.clientY-r.top}; }
+  function start(e){ e.preventDefault(); drawing=true; var p=point(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); }
+  function move(e){ if(!drawing) return; e.preventDefault(); var p=point(e); ctx.lineTo(p.x,p.y); ctx.stroke(); if(!hasSig){ hasSig=true; document.getElementById('pad').classList.add('has'); document.getElementById('cdate').textContent=fmtDate(new Date()); updateAccept(); } }
+  function end(e){ drawing=false; }
+  ['mousedown','touchstart'].forEach(function(ev){ canvas.addEventListener(ev,start,{passive:false}); });
+  ['mousemove','touchmove'].forEach(function(ev){ canvas.addEventListener(ev,move,{passive:false}); });
+  ['mouseup','mouseleave','touchend','touchcancel'].forEach(function(ev){ canvas.addEventListener(ev,end); });
+  function clearSig(){ var dpr=window.devicePixelRatio||1; ctx.clearRect(0,0,canvas.width,canvas.height); hasSig=false; document.getElementById('pad').classList.remove('has'); document.getElementById('cdate').textContent='—'; updateAccept(); }
+  window.clearSig=clearSig;
+  window.addEventListener('resize',function(){ /* keep current sig; just refresh transform */ var img=canvas.toDataURL(); sizeCanvas(); var i=new Image(); i.onload=function(){ ctx.drawImage(i,0,0,canvas.getBoundingClientRect().width,canvas.getBoundingClientRect().height); }; i.src=img; });
+
+  // ── Accept gate ──────────────────────────────────────────────────────
+  document.getElementById('cname').addEventListener('input',updateAccept);
+  function updateAccept(){
+    var ok = hasSig && document.getElementById('cname').value.trim().length>1;
+    document.getElementById('acceptBtn').disabled=!ok;
+  }
+  function accept(){
+    if(document.getElementById('acceptBtn').disabled) return;
+    var recId=genId('REC');
+    document.getElementById('recId').textContent=recId;
+    // Capture (stub — same pattern as the quote)
+    try{
+      var blob={
+        type:'signed_agreement', doc:document.getElementById('docNum').textContent,
+        client:document.getElementById('bClient').firstChild.nodeValue.trim(),
+        printedName:document.getElementById('cname').value.trim(),
+        sig:canvas.toDataURL(), total:document.getElementById('tot').textContent,
+        ts:Date.now(), recId:recId
+      };
+      var k='mtslate_signed'; var a=JSON.parse(localStorage.getItem(k)||'[]'); a.push(blob); localStorage.setItem(k,JSON.stringify(a));
+    }catch(e){}
+    // Lock the sheet visually
+    document.querySelectorAll('.pad').forEach(function(p){ p.style.pointerEvents='none'; p.style.opacity='.65'; });
+    document.getElementById('cname').setAttribute('disabled','disabled');
+    document.getElementById('done').classList.remove('hide');
+    document.getElementById('acceptBtn').textContent='Accepted ✓';
+    document.getElementById('acceptBtn').disabled=true;
+    document.getElementById('acceptBtn').scrollIntoView({behavior:'smooth',block:'center'});
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Empty Slates — V4 Atelier · Wired</title>
+<!--
+  V4 — Atelier × tech. Warm white + sage, but with a wireframe perspective grid
+  drifting behind the serif headline, plus a slow-pulsing constellation of nodes.
+  Boutique-but-engineered. Honors prefers-reduced-motion.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--bg:#F4F2EC;--ink:#1A1B1A;--mute:#6F6E69;--line:#DDD9CF;--sage:#5C7257;--sage-soft:#A3BE9C;--rule:#2A2B29}
+  html,body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+  .ser{font-family:'Instrument Serif',Georgia,serif;letter-spacing:-.02em;line-height:1.02}
+  .mono{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
+
+  /* NAV */
+  .nav{padding:22px 36px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:20}
+  .nav .mark{font-family:'Instrument Serif',serif;font-size:24px;font-weight:400}
+  .nav .mark span{color:var(--sage);font-style:italic}
+  .nav .links{display:flex;gap:30px;align-items:center;font-size:14px}
+  .nav a{color:var(--ink);text-decoration:none} .nav a:hover{color:var(--sage)}
+  .nav .pri{padding:9px 18px;border:1px solid var(--rule);border-radius:99px;font-weight:500;transition:.18s}
+  .nav .pri:hover{background:var(--rule);color:var(--bg)}
+
+  /* HERO */
+  .hero{position:relative;padding:30px 36px 130px;text-align:center;overflow:hidden;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+
+  /* tech background: drifting wire grid + node constellation */
+  .wirewrap{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+  .wires{position:absolute;inset:-10%;
+    background-image:linear-gradient(rgba(92,114,87,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(92,114,87,.18) 1px,transparent 1px);
+    background-size:56px 56px;transform:perspective(600px) rotateX(58deg) translateY(8%);transform-origin:50% 100%;
+    -webkit-mask-image:linear-gradient(to top,#000 5%,transparent 78%);mask-image:linear-gradient(to top,#000 5%,transparent 78%);animation:drift 22s linear infinite}
+  @keyframes drift{from{background-position:0 0}to{background-position:0 56px}}
+  .stars svg{position:absolute;inset:0;width:100%;height:100%}
+  .stars .ln{stroke:rgba(92,114,87,.45);stroke-width:1.2;fill:none;stroke-dasharray:300;stroke-dashoffset:300;animation:draw 7s cubic-bezier(.32,.72,0,1) infinite}
+  .stars .ln.d2{animation-delay:.6s}.stars .ln.d3{animation-delay:1.2s}.stars .ln.d4{animation-delay:1.8s}.stars .ln.d5{animation-delay:2.4s}
+  @keyframes draw{0%,8%{stroke-dashoffset:300}48%,82%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:300}}
+  .stars .nd{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--bg);border:1.5px solid var(--sage);box-shadow:0 0 0 4px rgba(92,114,87,.16);animation:pulse 3s ease-in-out infinite}
+  @keyframes pulse{50%{box-shadow:0 0 0 9px rgba(92,114,87,0)}}
+
+  /* the orb behind the type */
+  .orb{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:720px;height:720px;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle,rgba(163,190,156,.25),rgba(92,114,87,.06) 40%,transparent 68%);filter:blur(28px);animation:breathe 10s ease-in-out infinite}
+  @keyframes breathe{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.9}50%{transform:translate(-50%,-50%) scale(1.08);opacity:1}}
+
+  .grain{position:absolute;inset:0;pointer-events:none;opacity:.4;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");background-size:180px 180px}
+
+  .hero-inner{position:relative;z-index:5;max-width:980px;margin:0 auto;padding:0 16px}
+  .eyebrow{font-size:13px;color:var(--mute);letter-spacing:.04em;display:inline-flex;align-items:center;gap:10px}
+  .eyebrow::before,.eyebrow::after{content:"";display:inline-block;width:24px;height:1px;background:var(--mute)}
+  .hero h1{margin-top:24px;font-size:clamp(56px,9vw,128px);font-weight:400;color:var(--ink)}
+  .hero h1 em{color:var(--sage)}
+  .hero .lede{margin-top:32px;font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(20px,2vw,26px);color:var(--mute);max-width:560px;margin-inline:auto;line-height:1.4}
+  .btns{margin-top:42px;display:inline-flex;gap:18px;align-items:center}
+  .btn{display:inline-flex;align-items:center;padding:14px 28px;border-radius:99px;font-size:14px;font-weight:500;text-decoration:none;cursor:pointer;transition:.18s;border:none;font-family:inherit}
+  .btn-pri{background:var(--ink);color:var(--bg)} .btn-pri:hover{background:#000}
+  .btn-ghost{background:transparent;color:var(--ink)} .btn-ghost:hover{color:var(--sage)}
+  .ticker{margin-top:38px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--mute);letter-spacing:.06em}
+  .ticker b{color:var(--ink);font-weight:600}
+
+  /* STRIP */
+  .strip{padding:36px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center;background:rgba(255,255,255,.3)}
+  .strip span{font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;color:var(--ink);display:block}
+  .strip small{margin-top:8px;display:block;font-size:12.5px;color:var(--mute);letter-spacing:.04em}
+
+  /* VALUE */
+  .val{padding:130px 36px}
+  .val-inner{max-width:1080px;margin:0 auto}
+  .val .head{text-align:center;margin-bottom:80px}
+  .val .head .num{font-family:'Instrument Serif',serif;font-style:italic;font-size:40px;color:var(--sage)}
+  .val .head h2{margin-top:10px;font-family:'Instrument Serif',serif;font-size:clamp(38px,5vw,60px);font-weight:400;max-width:680px;margin-inline:auto;line-height:1.05}
+  .vrows{display:grid;grid-template-columns:repeat(3,1fr);gap:50px}
+  @media(max-width:840px){.vrows{grid-template-columns:1fr;gap:60px}}
+  .vcell .ix{font-family:'Instrument Serif',serif;font-style:italic;color:var(--sage);font-size:22px}
+  .vcell h3{margin-top:14px;font-family:'Instrument Serif',serif;font-size:28px;font-weight:400}
+  .vcell p{margin-top:14px;color:var(--mute);font-size:15px}
+  .vcell .rule{margin-top:24px;height:1px;width:36px;background:var(--rule)}
+
+  /* PACKAGES */
+  .pkgs{padding:130px 36px;background:var(--ink);color:var(--bg);position:relative;overflow:hidden}
+  .pkgs::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(244,242,236,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(244,242,236,.04) 1px,transparent 1px);background-size:56px 56px}
+  .pkgs-inner{max-width:1080px;margin:0 auto;text-align:center;position:relative}
+  .pkgs h2{font-family:'Instrument Serif',serif;font-size:clamp(40px,5.6vw,68px);font-weight:400;max-width:760px;margin:0 auto;line-height:1.05}
+  .pkgs h2 em{color:var(--sage-soft)}
+  .pkgs-grid{margin-top:72px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;text-align:left}
+  @media(max-width:840px){.pkgs-grid{grid-template-columns:1fr}}
+  .pcell{padding:34px;border-radius:14px;border:1px solid rgba(244,242,236,.1);background:rgba(244,242,236,.025);display:flex;flex-direction:column;position:relative;backdrop-filter:blur(4px)}
+  .pcell.best{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+  .pcell .pix{font-family:'Instrument Serif',serif;font-style:italic;font-size:18px;color:var(--sage-soft)}
+  .pcell.best .pix{color:var(--sage)}
+  .pcell h3{margin-top:8px;font-family:'Instrument Serif',serif;font-size:32px;font-weight:400}
+  .pcell p{margin-top:16px;color:rgba(244,242,236,.6);font-size:14.5px;line-height:1.6;flex:1}
+  .pcell.best p{color:var(--mute)}
+  .pcell .tag{position:absolute;top:-10px;right:24px;background:var(--bg);color:var(--ink);font-family:'Instrument Serif',serif;font-style:italic;font-size:13px;padding:3px 14px;border-radius:99px}
+  .pkgs .btn{margin-top:50px;background:var(--bg);color:var(--ink)} .pkgs .btn:hover{background:#fff}
+
+  /* CLOSE */
+  .close{padding:160px 36px;text-align:center}
+  .close h2{font-family:'Instrument Serif',serif;font-size:clamp(56px,9vw,120px);font-weight:400}
+  .close h2 em{color:var(--sage)}
+  .close p{margin-top:24px;color:var(--mute);max-width:480px;margin-inline:auto;font-size:17px}
+  .close .btn{margin-top:36px}
+
+  footer{padding:36px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:12.5px;color:var(--mute);flex-wrap:wrap;gap:18px}
+  footer a{color:var(--mute);text-decoration:none;margin-right:24px}
+  footer a:hover{color:var(--ink)}
+
+  @media(prefers-reduced-motion:reduce){.wires,.orb,.stars .ln,.stars .nd{animation:none!important}}
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <span class="mark">Empty <span>Slates</span></span>
+    <div class="links"><a href="#work">Work</a><a href="#">About</a><a class="pri" href="#">Sign in</a></div>
+  </nav>
+
+  <section class="hero">
+    <div class="wirewrap" aria-hidden="true">
+      <div class="wires"></div>
+      <div class="stars">
+        <svg viewBox="0 0 1200 700" preserveAspectRatio="none">
+          <path class="ln" d="M180 130 L420 220" />
+          <path class="ln d2" d="M420 220 L800 110" />
+          <path class="ln d3" d="M420 220 L600 380" />
+          <path class="ln d4" d="M600 380 L980 300" />
+          <path class="ln d5" d="M180 130 L600 380" />
+        </svg>
+        <span class="nd" style="left:15%;top:18%"></span>
+        <span class="nd" style="left:34%;top:32%;animation-delay:.6s"></span>
+        <span class="nd" style="left:67%;top:16%;animation-delay:1.2s"></span>
+        <span class="nd" style="left:50%;top:54%;animation-delay:1.8s"></span>
+        <span class="nd" style="left:82%;top:43%;animation-delay:2.4s"></span>
+      </div>
+    </div>
+    <div class="orb" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <span class="eyebrow">Operational software · 2026</span>
+      <h1 class="ser">A site you'll <em>actually</em> use.</h1>
+      <div class="lede">Your website and the back-office it runs on — engineered by hand, delivered to last.</div>
+      <div class="btns">
+        <a class="btn btn-pri" href="#">Begin</a>
+        <a class="btn btn-ghost" href="#work">See the work →</a>
+      </div>
+      <div class="ticker">SYSTEM <b>online</b> · STUDIO <b>Nashville</b> · WAITLIST <b>open</b></div>
+    </div>
+  </section>
+
+  <div class="strip"><span class="ser">"It feels like it was made for me."</span><small>— how the work should read on first open</small></div>
+
+  <section class="val" id="work">
+    <div class="val-inner">
+      <div class="head">
+        <span class="num ser">i — iii</span>
+        <h2 class="ser">The three things every<br>service business needs.</h2>
+      </div>
+      <div class="vrows">
+        <div class="vcell"><span class="ix ser">i.</span><h3 class="ser">Get found</h3><p>Show up when local customers search for what you do.</p><div class="rule"></div></div>
+        <div class="vcell"><span class="ix ser">ii.</span><h3 class="ser">Get booked</h3><p>People reach you and request work right from their phone.</p><div class="rule"></div></div>
+        <div class="vcell"><span class="ix ser">iii.</span><h3 class="ser">Look the part</h3><p>A site that makes you look as established as you already are.</p><div class="rule"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pkgs">
+    <div class="pkgs-inner">
+      <h2 class="ser">Start where you are.<br><em>Grow when you're ready.</em></h2>
+      <div class="pkgs-grid">
+        <div class="pcell"><span class="pix">i.</span><h3 class="ser">Basic</h3><p>A clean, professional presence — your work, your story, your number.</p></div>
+        <div class="pcell best"><span class="tag">Best value</span><span class="pix">ii.</span><h3 class="ser">Operations</h3><p>Found on Google, taking requests, and easy to update yourself.</p></div>
+        <div class="pcell"><span class="pix">iii.</span><h3 class="ser">Enterprise</h3><p>Run the whole business from one place when you're ready to grow.</p></div>
+      </div>
+      <a class="btn btn-pri" href="#">See your price</a>
+    </div>
+  </section>
+
+  <section class="close">
+    <h2 class="ser">Let's build <em>yours.</em></h2>
+    <p>One conversation, and we'll show you exactly what yours could look like.</p>
+    <a class="btn btn-pri" href="#">Begin</a>
+  </section>
+
+  <footer>
+    <span class="ser" style="font-size:18px;color:var(--ink)">Empty Slates</span>
+    <div><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Sign in</a></div>
+  </footer>
+</body>
+</html>
