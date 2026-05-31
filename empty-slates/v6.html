@@ -109,9 +109,23 @@
   footer a:hover{color:var(--ink)}
 
   @media(prefers-reduced-motion:reduce){.ticktrack,.orb,.gridfloor{animation:none!important}}
+
+  /* ── CHARCOAL-SAGE BANDS (match the real landing) ── */
+  .csbar{background:#1F2B20;color:#E4E8DE;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:30;border-bottom:1px solid #2C3A2D}
+  .csbar.bottom{border-bottom:none;border-top:1px solid #2C3A2D;flex-wrap:wrap;gap:14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#A8B5A4;letter-spacing:.04em}
+  .csbar .csmark{font-family:'Inter',sans-serif;font-weight:700;font-size:15px;letter-spacing:-.02em;color:#E4E8DE}
+  .csbar a{color:#A8B5A4;text-decoration:none;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;transition:.15s}
+  .csbar a:hover{color:#E4E8DE}
+  .csbar .lks{display:flex;gap:22px}
 </style>
 </head>
 <body>
+  <!-- TOP CHARCOAL-SAGE BAND -->
+  <header class="csbar">
+    <span class="csmark">Empty Slates</span>
+    <a href="#">Sign in</a>
+  </header>
+
   <nav class="nav">
     <span class="mark">Empty <span>Slates</span></span>
     <div class="links"><a href="#work">Work</a><a href="#">About</a><a class="pri" href="#">Sign in</a></div>
@@ -191,5 +205,11 @@
     <span class="ser" style="font-size:18px;color:var(--ink)">Empty Slates</span>
     <div><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Sign in</a></div>
   </footer>
+
+  <!-- BOTTOM CHARCOAL-SAGE BAND -->
+  <div class="csbar bottom">
+    <span class="csmark">Empty Slates</span>
+    <div class="lks"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Sign in</a></div>
+  </div>
 </body>
 </html>
