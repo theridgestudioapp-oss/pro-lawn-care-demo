@@ -140,7 +140,8 @@
   .notice{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(26,23,18,.5);z-index:70;padding:22px}
   .notice.show{display:flex}
   .notice .nc{background:var(--paper);border-radius:16px;padding:24px;max-width:360px}
-  .notice .nc h4{font-family:'Fraunces',serif;font-size:18px} .notice .nc p{font-size:13.5px;color:var(--ink-2);margin-top:8px} .notice .nc button{margin-top:16px;width:100%;background:var(--clay);color:#fff;border:none;border-radius:10px;padding:12px;font-family:'Fraunces',serif;font-weight:600;font-size:15px;cursor:pointer}
+  .notice .nc h4{font-family:'Fraunces',serif;font-size:18px} .notice .nc p{font-size:13.5px;color:var(--ink-2);margin-top:8px} .notice .nc button{margin-top:14px;width:100%;background:var(--clay);color:#fff;border:none;border-radius:10px;padding:12px;font-family:'Fraunces',serif;font-weight:600;font-size:15px;cursor:pointer}
+  .notice .nc .treport{display:block;margin-top:14px;color:var(--clay);font-weight:600;font-size:13.5px;text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
 <body>
@@ -285,7 +286,7 @@
   <button class="fab" onclick="requestCall()" title="Request a call"><span class="lbl" data-i18n="reqCallShort">Request a call</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></button>
   <div class="popmsg" id="popmsg" onclick="this.classList.remove('show')"><div class="card2"><div class="big2" data-i18n="gotit">Got it.</div><p data-i18n="reach24">We'll reach out within 24 hours.</p></div></div>
 
-  <div class="notice" id="notice"><div class="nc"><h4 data-i18n="trH">Heads up</h4><p data-i18n="trP">This page was translated automatically — it may not be perfect. The English version is the original. We'll talk with you in your language.</p><button data-i18n="trBtn" onclick="$('notice').classList.remove('show')">Got it</button></div></div>
+  <div class="notice" id="notice"><div class="nc"><h4 data-i18n="trH">A quick note</h4><p data-i18n="trP">If we got something wrong in your language, please tell us and we'll fix it.</p><a class="treport" id="trReport" target="_blank" rel="noopener" data-i18n="trReport">Let us know →</a><button data-i18n="trBtn" onclick="$('notice').classList.remove('show')">Got it</button></div></div>
 
   <div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
     <div class="sheet"><button class="x" onclick="closeModal()">×</button><div class="mk" id="mKick"></div><h3 id="mTitle"></h3><div class="mbody" id="mBody"></div><a class="demo hide" id="mDemo" target="_blank" rel="noopener">See it live →</a></div>
@@ -300,7 +301,7 @@
      qDomain:"Do you already own a domain?",qQR:"Do you already have a QR code?",yesHave:"Yes, I have one",no:"No",back:"← Back",next:"Next →",seetotal:"See my total →",yourBuild:"Your build",totalHint:"Total is one-time — not including monthly platform costs (hosting, domain), which we go over at setup.",buildit:"Let's build it →",
      youPicked:"Here's what you picked:",phName:"Your name",phContact:"Best phone or email",sendit:"Send it →",backLink:"← back",viewagain:"view it again",
      talkH:"Want a call? We've got you.",talkP:"Leave your number and we'll reach out within 24 hours — in your language.",phNum:"Best number",consent:"Yes, you have my permission to reach out about this.",reqCall:"Request a call →",reqCallShort:"Request a call",gotit:"Got it.",reach24:"We'll reach out within 24 hours.",
-     trH:"Heads up",trP:"This page was translated automatically — it may not be perfect. The English version is the original. We'll talk with you in your language.",trBtn:"Got it",
+     trH:"A quick note",trP:"If we got something wrong in your language, please tell us and we'll fix it.",trBtn:"Got it",trReport:"Let us know →",
      d_workhorse:"Rugged and work-truck tough. Big type, high contrast.",d_original:"Your colors — black and lawn green. Bold and confident.",d_classic:"Clean and bright. Crisp white space, easy to read.",
      w_basic:"A sharp one-page site that makes a small crew look established.",w_operations:"Found on Google, bringing in jobs — and you run your own page.",w_enterprise:"Run the whole business from one place, for when you're ready to grow.",
      thanks:function(n){return "Thanks "+n+" — I'll text you the short list of what I need and we'll get started. Talk soon.";},done:"Got it — we'll reach out within 24 hours, in your language. Talk soon."},
@@ -310,7 +311,7 @@
      qDomain:"¿Ya tienes un dominio?",qQR:"¿Ya tienes un código QR?",yesHave:"Sí, tengo uno",no:"No",back:"← Atrás",next:"Siguiente →",seetotal:"Ver mi total →",yourBuild:"Tu proyecto",totalHint:"El total es de pago único — no incluye los costos mensuales de las plataformas (hosting, dominio), que vemos al configurarlo.",buildit:"Construyámoslo →",
      youPicked:"Esto es lo que elegiste:",phName:"Tu nombre",phContact:"Mejor teléfono o correo",sendit:"Enviar →",backLink:"← atrás",viewagain:"verlo de nuevo",
      talkH:"¿Quieres una llamada? Aquí estamos.",talkP:"Deja tu número y te contactamos dentro de 24 horas — en tu idioma.",phNum:"Mejor número",consent:"Sí, tienes mi permiso para contactarme sobre esto.",reqCall:"Pedir una llamada →",reqCallShort:"Pedir una llamada",gotit:"¡Listo!",reach24:"Te contactaremos dentro de 24 horas.",
-     trH:"Aviso",trP:"Esta página se tradujo automáticamente — puede no ser perfecta. La versión en inglés es la original. Hablaremos contigo en tu idioma.",trBtn:"Entendido",
+     trH:"Una nota",trP:"Si tradujimos algo mal, por favor dínoslo y lo arreglamos.",trBtn:"Entendido",trReport:"Avísanos →",
      d_workhorse:"Resistente, estilo camión de trabajo. Letras grandes, mucho contraste.",d_original:"Tus colores — negro y verde césped. Audaz y seguro.",d_classic:"Limpio y claro. Espacio en blanco nítido, fácil de leer.",
      w_basic:"Un sitio de una página que hace que un equipo pequeño se vea establecido.",w_operations:"Encontrado en Google, trayendo trabajos — y tú manejas tu propia página.",w_enterprise:"Maneja todo el negocio desde un solo lugar, para cuando estés listo para crecer.",
      thanks:function(n){return "Gracias "+n+" — te enviaré la lista corta de lo que necesito y empezamos. Hablamos pronto.";},done:"Listo — te contactaremos dentro de 24 horas, en tu idioma. Hablamos pronto."},
@@ -320,7 +321,7 @@
      qDomain:"هل تملك نطاقاً بالفعل؟",qQR:"هل لديك رمز QR بالفعل؟",yesHave:"نعم، لدي واحد",no:"لا",back:"← رجوع",next:"التالي →",seetotal:"شاهد إجماليي →",yourBuild:"مشروعك",totalHint:"الإجمالي دفعة واحدة — لا يشمل التكاليف الشهرية للمنصات (الاستضافة، النطاق)، نراجعها عند الإعداد.",buildit:"لنبنِه →",
      youPicked:"هذا ما اخترته:",phName:"اسمك",phContact:"أفضل هاتف أو بريد",sendit:"إرسال →",backLink:"← رجوع",viewagain:"شاهده مجدداً",
      talkH:"تريد مكالمة؟ نحن هنا.",talkP:"اترك رقمك وسنتواصل خلال 24 ساعة — بلغتك.",phNum:"أفضل رقم",consent:"نعم، لديك إذني للتواصل معي بشأن هذا.",reqCall:"اطلب مكالمة →",reqCallShort:"اطلب مكالمة",gotit:"تم.",reach24:"سنتواصل خلال 24 ساعة.",
-     trH:"تنبيه",trP:"تُرجمت هذه الصفحة تلقائياً — قد لا تكون مثالية. النسخة الإنجليزية هي الأصل. سنتحدث معك بلغتك.",trBtn:"حسناً",
+     trH:"ملاحظة",trP:"إذا أخطأنا في الترجمة، من فضلك أخبرنا وسنصلحه.",trBtn:"حسناً",trReport:"أخبرنا →",
      d_workhorse:"قوي وصلب كشاحنة عمل. خط كبير وتباين عالٍ.",d_original:"ألوانك — أسود وأخضر عشبي. جريء وواثق.",d_classic:"نظيف ومشرق. مساحة بيضاء أنيقة، سهل القراءة.",
      w_basic:"موقع من صفحة واحدة يجعل الطاقم الصغير يبدو راسخاً.",w_operations:"يظهر على Google ويجلب الأعمال — وتدير صفحتك بنفسك.",w_enterprise:"أدر العمل كله من مكان واحد، عندما تكون مستعداً للنمو.",
      thanks:function(n){return "شكراً "+n+" — سأرسل لك قائمة قصيرة بما أحتاجه ونبدأ. نتحدث قريباً.";},done:"تم — سنتواصل خلال 24 ساعة، بلغتك. نتحدث قريباً."}
@@ -459,6 +460,8 @@
     sendToOwnerDash({type:'call_request',source:'schedule',phone:$('aph').value,design:S.design,tier:S.tier});
     $('talkBlock').innerHTML='<div class="box ok"><div class="bh ok">'+tt('gotit')+'</div><p>'+tt('done')+'</p></div>'; }
 
+  var TRANSLATE_URL="https://theridgestudioapp-oss.github.io/pro-lawn-care-demo/translate.html"; // universal MT Slate page (move to mtslate.com/translate when live)
+  $('trReport').href=TRANSLATE_URL+'?site=Pro%20Lawn%20Care&from='+encodeURIComponent(location.href);
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'){closeModal();$('popmsg').classList.remove('show');$('notice').classList.remove('show');} });
   setSiteLang('en');
 </script>

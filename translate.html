@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>MT Slate — Translation Help</title>
+<!--
+  UNIVERSAL translation-report page for every site MT Slate builds. Client sites link their translation note here
+  (pass ?site=Business+Name&from=<url> to prefill). No mention of AI / automatic translation anywhere.
+  Capture -> sendToOwnerDash() stub (real send needs backend). Distinct "slate" identity (cool), not the warm client palette.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#ECEEF1; --paper:#FBFCFD; --ink:#1C222B; --ink-2:#46505E; --mute:#7A8593; --line:#D7DCE2; --slate:#3C4B5E; --accent:#2E7D6B; --accent-d:#246253; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  [dir="rtl"]{direction:rtl}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh}
+  .wrap{max-width:480px;margin:0 auto;padding:0 22px 60px}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:27px;line-height:1.12;letter-spacing:-.01em}
+
+  .langbar{display:flex;justify-content:flex-end;gap:6px;padding:12px 0 0}
+  .langbar button{border:1px solid var(--line);background:var(--paper);color:var(--ink-2);font-family:inherit;font-size:12px;font-weight:600;padding:5px 11px;border-radius:20px;cursor:pointer}
+  .langbar button.on{background:var(--slate);color:#fff;border-color:var(--slate)}
+
+  .brand{display:flex;align-items:center;gap:9px;margin-top:14px}
+  .brand .mk{width:26px;height:26px;border-radius:6px;background:var(--slate);display:flex;align-items:center;justify-content:center}
+  .brand .mk span{color:#fff;font-family:'Fraunces',serif;font-weight:700;font-size:15px}
+  .brand .nm{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--slate)}
+
+  .head{margin-top:26px} .head h1{color:var(--ink)} .head p{font-size:14.5px;color:var(--ink-2);margin-top:11px}
+  .rule{height:2px;width:42px;background:var(--accent);border-radius:2px;margin-top:18px}
+
+  form{margin-top:22px}
+  label{display:block;font-size:12px;font-weight:600;color:var(--ink-2);margin:16px 0 6px}
+  .field,textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:11px 12px;font-size:15px;font-family:inherit;background:var(--paper);color:var(--ink)}
+  textarea{min-height:96px;resize:vertical}
+  .field:focus,textarea:focus{outline:none;border-color:var(--accent)}
+  .opt{color:var(--mute);font-weight:500}
+  .send{display:block;width:100%;background:var(--accent);color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:16px;border:none;border-radius:11px;padding:14px;margin-top:22px;cursor:pointer;transition:background .15s ease}
+  .send:hover{background:var(--accent-d)}
+  .done{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:20px;margin-top:22px}
+  [dir="rtl"] .done{border-left:1px solid var(--line);border-right:3px solid var(--accent);border-radius:12px 0 0 12px}
+  .done h2{font-family:'Fraunces',serif;font-weight:600;font-size:19px;color:var(--accent-d)} .done p{font-size:14px;color:var(--ink-2);margin-top:7px}
+  footer{margin-top:34px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);text-align:center}
+  .hide{display:none}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="langbar">
+      <button data-l="en" class="on" onclick="setLang('en')">EN</button>
+      <button data-l="es" onclick="setLang('es')">ES</button>
+      <button data-l="ar" onclick="setLang('ar')">عربي</button>
+    </div>
+
+    <div class="brand"><div class="mk"><span>S</span></div><div class="nm">MT&nbsp;Slate</div></div>
+
+    <div class="head">
+      <h1 data-i18n="h1">Did we get a translation wrong?</h1>
+      <p data-i18n="lede">These sites can be read in your language. If something doesn't read right, tell us — we'll fix it fast.</p>
+      <div class="rule"></div>
+    </div>
+
+    <form id="form" onsubmit="submitForm(event)">
+      <label data-i18n="lSite">Which business's site?</label>
+      <input class="field" id="site" data-ph="phSite" placeholder="e.g. Pro Lawn Care">
+      <label data-i18n="lPage">Which page? <span class="opt" data-i18n="optional">(optional)</span></label>
+      <input class="field" id="page" data-ph="phPage" placeholder="paste the link">
+      <label data-i18n="lWhat">What reads wrong, and what should it say?</label>
+      <textarea id="what" data-ph="phWhat" placeholder="Tell us in your own words"></textarea>
+      <label data-i18n="lContact">Your contact <span class="opt" data-i18n="optional">(optional)</span></label>
+      <input class="field" id="contact" data-ph="phContact" placeholder="phone or email">
+      <button type="submit" class="send" data-i18n="send">Send it →</button>
+    </form>
+
+    <div id="thanks" class="hide"><div class="done"><h2 data-i18n="tY">Thank you.</h2><p data-i18n="tP">We've got it and we'll fix it. If you left your contact, we'll follow up.</p></div></div>
+
+    <footer>Powered by MT&nbsp;Slate</footer>
+  </div>
+
+<script>
+  var L={
+   en:{h1:"Did we get a translation wrong?",lede:"These sites can be read in your language. If something doesn't read right, tell us — we'll fix it fast.",lSite:"Which business's site?",lPage:"Which page?",lWhat:"What reads wrong, and what should it say?",lContact:"Your contact",optional:"(optional)",send:"Send it →",phSite:"e.g. Pro Lawn Care",phPage:"paste the link",phWhat:"Tell us in your own words",phContact:"phone or email",tY:"Thank you.",tP:"We've got it and we'll fix it. If you left your contact, we'll follow up."},
+   es:{h1:"¿Tradujimos algo mal?",lede:"Estos sitios se pueden leer en tu idioma. Si algo no se lee bien, dínoslo — lo arreglamos rápido.",lSite:"¿El sitio de cuál negocio?",lPage:"¿Cuál página?",lWhat:"¿Qué se lee mal y qué debería decir?",lContact:"Tu contacto",optional:"(opcional)",send:"Enviar →",phSite:"ej. Pro Lawn Care",phPage:"pega el enlace",phWhat:"Dinos en tus propias palabras",phContact:"teléfono o correo",tY:"Gracias.",tP:"Lo recibimos y lo arreglamos. Si dejaste tu contacto, te avisamos."},
+   ar:{h1:"هل أخطأنا في الترجمة؟",lede:"يمكن قراءة هذه المواقع بلغتك. إذا كان هناك شيء غير صحيح، أخبرنا — نصلحه بسرعة.",lSite:"موقع أي نشاط تجاري؟",lPage:"أي صفحة؟",lWhat:"ما الذي يُقرأ بشكل خاطئ، وما الذي يجب أن يقوله؟",lContact:"معلومات التواصل",optional:"(اختياري)",send:"إرسال →",phSite:"مثال: Pro Lawn Care",phPage:"الصق الرابط",phWhat:"أخبرنا بكلماتك",phContact:"هاتف أو بريد",tY:"شكراً لك.",tP:"وصلنا طلبك وسنصلحه. إذا تركت معلومات تواصلك، سنرد عليك."}
+  };
+  var lang='en', $=function(id){return document.getElementById(id);};
+  function sendToOwnerDash(p){ try{ p.ts=Date.now();p.lang=lang; var k='mtslate_translate_reports'; var a=JSON.parse(localStorage.getItem(k)||'[]'); a.push(p); localStorage.setItem(k,JSON.stringify(a)); }catch(e){} }
+  function setLang(l){ lang=l; var d=L[l];
+    document.querySelectorAll('.langbar button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-l')===l);});
+    document.documentElement.setAttribute('lang',l); document.documentElement.setAttribute('dir',l==='ar'?'rtl':'ltr');
+    document.querySelectorAll('[data-i18n]').forEach(function(el){ if(d[el.getAttribute('data-i18n')]!==undefined)el.textContent=d[el.getAttribute('data-i18n')]; });
+    document.querySelectorAll('[data-ph]').forEach(function(el){ if(d[el.getAttribute('data-ph')]!==undefined)el.placeholder=d[el.getAttribute('data-ph')]; });
+  }
+  function submitForm(e){ e.preventDefault();
+    sendToOwnerDash({type:'translation_report',site:$('site').value,page:$('page').value,what:$('what').value,contact:$('contact').value});
+    $('form').classList.add('hide'); $('thanks').classList.remove('hide'); window.scrollTo({top:0,behavior:'smooth'}); }
+  // prefill from ?site= & ?from=
+  (function(){ var q=new URLSearchParams(location.search); if(q.get('site'))$('site').value=q.get('site'); if(q.get('from'))$('page').value=q.get('from'); })();
+  setLang('en');
+</script>
+</body>
+</html>
