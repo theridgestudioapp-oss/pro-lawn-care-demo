@@ -203,16 +203,16 @@
       </div>
       <div class="grid" id="pkgs">
         <div class="card pkg" data-tier="basic" onclick="pickTier(this)">
+          <div class="tag" data-i18n="popular">Best value</div>
           <div class="tick">✓</div>
-          <div class="head"><div class="nm">Basic</div><div class="pz"><s>$1,495</s><span class="big">$995</span><span class="one" data-i18n="onetime">one-time</span></div></div>
+          <div class="head"><div class="nm">Basic</div><div class="pz"><s>$1,499</s><span class="big">$999</span><span class="one" data-i18n="onetime">one-time</span></div></div>
           <div class="who" data-w="basic"></div>
           <ul id="ul-basic"></ul>
           <button class="vm" data-i18n="included" onclick="event.stopPropagation();openPkg('basic')">What's included →</button>
         </div>
         <div class="card pkg" data-tier="operations" onclick="pickTier(this)">
-          <div class="tag" data-i18n="popular">Best value</div>
           <div class="tick">✓</div>
-          <div class="head"><div class="nm">Operations</div><div class="pz"><s>$1,999</s><span class="big">$1,499</span><span class="one" data-i18n="onetime">one-time</span></div></div>
+          <div class="head"><div class="nm">Business Growth</div><div class="pz"><s>$1,999</s><span class="big">$1,499</span><span class="one" data-i18n="onetime">one-time</span></div></div>
           <div class="who" data-w="operations"></div>
           <div class="plus" data-i18n="plusBasic">Everything in Basic, plus:</div>
           <ul id="ul-operations"></ul>
@@ -220,9 +220,9 @@
         </div>
         <div class="card pkg" data-tier="enterprise" onclick="pickTier(this)">
           <div class="tick">✓</div>
-          <div class="head"><div class="nm">Enterprise</div><div class="pz"><s>$2,999</s><span class="big">$2,499</span><span class="one" data-i18n="onetime">one-time</span></div></div>
+          <div class="head"><div class="nm">Business Operations</div><div class="pz"><s>$2,499</s><span class="big">$1,999</span><span class="one" data-i18n="onetime">one-time</span></div></div>
           <div class="who" data-w="enterprise"></div>
-          <div class="plus" data-i18n="plusOps">Everything in Operations, plus:</div>
+          <div class="plus" data-i18n="plusOps">Everything in Business Growth, plus:</div>
           <ul id="ul-enterprise"></ul>
           <button class="vm" data-i18n="included" onclick="event.stopPropagation();openPkg('enterprise')">What's included →</button>
         </div>
@@ -328,9 +328,9 @@
   };
   // tier bullets per lang
   var BULLETS={
-   en:{basic:["Your work, your bio, your number — one clean page","You send your bio; we lay it out sharp","Up to 4 photos, plus your QR code","Domain & logins in your name"],
-       operations:["Run your own page — change photos, prices & hours yourself, from your phone","We interview you and write your story, in your voice","Found on Google, with your real reviews","Customers request a quote straight to your phone"],
-       enterprise:["Keep customers & job history in one place","Take booking & job requests online","Your own back-office to run and track it all","If you ever move on, we hand you all your data — clean, no lock-in"]},
+   en:{basic:["Your work, your bio, your number — one clean page","You send your bio in your own words; we lay it out sharp","Up to 4 photos, plus your QR code (we make one if you need)","Domain transfer &amp; logins in your name — yours to keep"],
+       operations:["<b>We write your story for you</b> — a quick guided interview, then we put it in your voice","Found on Google with your real reviews showing on your site","Customers tap a button and the quote request lands on your phone","FAQ, blog, lead tracking — built to actually bring jobs in"],
+       enterprise:["Customers + job history in one place — a real back-office","Take booking, scheduling, and payment requests online","Employee accounts and dashboards for when you bring on help","If you ever move on, we hand you all your data — clean, no lock-in"]},
    es:{basic:["Tu trabajo, tu biografía, tu número — una página limpia","Envías tu biografía; la presentamos con estilo","Hasta 4 fotos, más tu código QR","Dominio e ingresos a tu nombre"],
        operations:["Maneja tu propia página — cambia fotos, precios y horarios tú mismo, desde tu teléfono","Te entrevistamos y escribimos tu historia, en tu voz","Encontrado en Google, con tus reseñas reales","Los clientes piden cotización directo a tu teléfono"],
        enterprise:["Guarda clientes e historial de trabajos en un solo lugar","Recibe reservas y solicitudes en línea","Tu propia oficina interna para manejar y dar seguimiento","Si algún día te vas, te entregamos todos tus datos — limpios, sin ataduras"]},
@@ -350,16 +350,16 @@
    es:{workhorse:"Construido con titulares grandes y directos y fotos a todo ancho de tus trabajos reales. Fondo oscuro para que el verde resalte, y un botón de llamada que te sigue por la página.",original:"Lleva tu negro y verde por toda la página para que se vea como una sola marca consistente. Con fotos al frente y servicios en bloques claros. Parece una empresa con tiempo en la zona.",classic:"El más ligero de los tres — mucho espacio, paleta suave, tipografía calmada. Nada que aleje a un cliente cauteloso o mayor. La opción segura y nítida."},
    ar:{workhorse:"مبني حول عناوين كبيرة ومباشرة وصور بعرض كامل لأعمالك الحقيقية. خلفية داكنة ليبرز الأخضر، وزر اتصال يتبعك في الصفحة.",original:"يحمل اللونين الأسود والأخضر عبر الصفحة كلها ليبدو كعلامة واحدة متناسقة. الصور في المقدمة والخدمات في كتل واضحة. يبدو كشركة راسخة في المنطقة.",classic:"الأخف بين الثلاثة — مساحة واسعة وألوان ناعمة وخط هادئ. لا شيء ينفّر العميل الحذر أو الأكبر سناً. الخيار الآمن والأنيق."}
   };
-  var PKG_TITLE={basic:"Basic — $995",operations:"Operations — $1,499",enterprise:"Enterprise — $2,499"};
+  var PKG_TITLE={basic:"Basic — $999",operations:"Business Growth — $1,499",enterprise:"Business Operations — $1,999"};
   var PKG_B={
    en:{basic:"A one-page site that makes a small crew look established. You send your bio in your own words and we lay it out sharp.",operations:"Everything in Basic, and now it gets found and runs itself — and we write your story for you.",enterprise:"Everything in Operations, plus the back-office for when you're ready to grow."},
    es:{basic:"Un sitio de una página que hace que un equipo pequeño se vea establecido. Tú envías tu biografía y nosotros la presentamos con estilo.",operations:"Todo lo de Basic, y ahora aparece en búsquedas y se maneja solo — y escribimos tu historia por ti.",enterprise:"Todo lo de Operations, más la oficina interna para cuando estés listo para crecer."},
    ar:{basic:"موقع من صفحة واحدة يجعل الطاقم الصغير يبدو راسخاً. ترسل نبذتك بكلماتك وننسّقها باحتراف.",operations:"كل ما في Basic، والآن يظهر في البحث ويعمل ذاتياً — ونكتب قصتك لك.",enterprise:"كل ما في Operations، بالإضافة إلى المكتب الخلفي عندما تكون مستعداً للنمو."}
   };
   var PKG_PTS={
-   en:{basic:["One clean page: your work, bio & number","You write your bio; we make it look professional","Up to 4 photos + your QR code","Tap-to-call, sharp on every phone","Domain & logins in your name"],
-       operations:["<b>You run your own page.</b> Log in from your phone and change photos, prices, hours and text yourself, anytime.","We interview you & write your story, in your voice","Found on Google, with your real reviews","Customers request a quote straight to your phone","Privacy & terms handled; site locked & spam-protected","We set up your domain & make your QR code — that's the setup work. (Buying the domain is separate, in your name.)"],
-       enterprise:["Keep customers & job history in one place","Take booking & job requests online","Your own back-office to run and track it all","If you ever switch companies, we port your data out clean — it's yours"]},
+   en:{basic:["A clean Home / About / Services / Contact site","Photo gallery, contact form, Google map","Your QR code &amp; domain setup &mdash; <b>both included</b>","Secure owner login &mdash; edit your own photos, text, hours, phone","15-minute walkthrough &amp; printed Operator's Manual","You write your bio in your own words; we lay it out sharp","Basic analytics so you can see who's finding you","Up to 2 revision rounds before launch"],
+       operations:["<b>Everything in Basic, plus:</b>","<b>We write your story for you.</b> Quick guided interview, then we put it in your voice","Found on Google &mdash; Business Profile setup, local search, real reviews on your site","Customers tap a button and the quote request lands on your phone","FAQ, blog, lead capture &amp; lead tracking","30-minute training session","Privacy &amp; terms handled; site locked &amp; spam-protected","1 extra revision round"],
+       enterprise:["<b>Everything in Business Growth, plus:</b>","Customer portal &amp; CRM &mdash; keep customers and job history in one place","Online booking, scheduling, payments &amp; invoicing","Employee accounts, permissions, dashboard","60-minute training &amp; workflow planning session","Homepage copy assistance","Data portability &mdash; if you ever switch, we hand you everything clean, no lock-in"]},
    es:{basic:["Una página limpia: tu trabajo, biografía y número","Tú escribes tu biografía; la hacemos ver profesional","Hasta 4 fotos + tu código QR","Llamada con un toque, nítido en todo teléfono","Dominio e ingresos a tu nombre"],
        operations:["<b>Manejas tu propia página.</b> Entra desde tu teléfono y cambia fotos, precios, horarios y texto tú mismo, cuando quieras.","Te entrevistamos y escribimos tu historia, en tu voz","Encontrado en Google, con tus reseñas reales","Los clientes piden cotización directo a tu teléfono","Privacidad y términos resueltos; sitio seguro y protegido contra spam","Configuramos tu dominio y creamos tu código QR — ese es el trabajo de montaje. (Comprar el dominio es aparte, a tu nombre.)"],
        enterprise:["Guarda clientes e historial en un solo lugar","Recibe reservas y solicitudes en línea","Tu propia oficina interna para manejar todo","Si cambias de empresa, exportamos tus datos limpios — son tuyos"]},
@@ -367,8 +367,8 @@
        operations:["<b>تدير صفحتك بنفسك.</b> ادخل من هاتفك وغيّر الصور والأسعار والساعات والنص بنفسك في أي وقت.","نقابلك ونكتب قصتك بأسلوبك","تظهر على Google مع تقييماتك الحقيقية","يطلب العملاء عرض سعر مباشرة إلى هاتفك","الخصوصية والشروط مُعالجة؛ الموقع آمن ومحمي","نُعدّ نطاقك وننشئ رمز QR — هذا عمل الإعداد. (شراء النطاق منفصل وباسمك.)"],
        enterprise:["احفظ العملاء وسجل الأعمال في مكان واحد","استقبل الحجوزات والطلبات عبر الإنترنت","مكتبك الخلفي لإدارة كل شيء","إن غيّرت الشركة، نصدّر بياناتك نظيفة — إنها لك"]}
   };
-  var TIER_PRICE={basic:995,operations:1499,enterprise:2499};
-  var TIER_NAME={basic:"Basic",operations:"Operations",enterprise:"Enterprise"};
+  var TIER_PRICE={basic:999,operations:1499,enterprise:1999};
+  var TIER_NAME={basic:"Basic",operations:"Business Growth",enterprise:"Business Operations"};
   var DOMAIN_ADDON=100, QR_ADDON=50, STEP_IDX={look:0,package:1,details:2,total:3};
   var S={design:null,tier:null,hasDomain:null,hasQR:null}, lang='en', curModal=null, noticed=false;
   var $=function(id){return document.getElementById(id);};
@@ -398,9 +398,9 @@
   function setDomain(v,btn){ S.hasDomain=v; tog(btn); afterDetail(); }
   function setQR(v,btn){ S.hasQR=v; tog(btn); afterDetail(); }
   function tog(btn){ var s=btn.parentNode.children; for(var i=0;i<s.length;i++)s[i].classList.remove('on'); btn.classList.add('on'); }
-  function included(t){ return t==='operations'||t==='enterprise'; }
+  function included(t){ return !!t; } /* canon: domain setup + QR are now included in EVERY tier (operating-standards §10.5) */
   function fmt(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,','); }
-  function calcTotal(){ var t=TIER_PRICE[S.tier]||0; if(S.tier==='basic'){ if(S.hasDomain===false)t+=DOMAIN_ADDON; if(S.hasQR===false)t+=QR_ADDON; } return t; }
+  function calcTotal(){ return TIER_PRICE[S.tier]||0; }
 
   function afterDetail(){ var d=L[lang];
     var di=$('domainImpact');
