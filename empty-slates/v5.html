@@ -27,6 +27,9 @@
     --ember-pale:#E7A65A;
     --steel:#B8C2CC;
     --steel-d:#404A56;
+    --teal:#2C7A7B;
+    --teal-deep:#1B4A4C;
+    --cream:#F0EADA;
   }
   html,body{background:var(--void);color:var(--bone);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
   h1,h2,h3{font-weight:700;letter-spacing:-.045em;line-height:.96}
@@ -127,8 +130,28 @@
   .btn-glass{background:rgba(11,10,12,.5);color:var(--bone);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(240,234,218,.18)}
   .btn-glass:hover{background:rgba(11,10,12,.72);border-color:rgba(240,234,218,.3)}
 
+  /* ── QUOTE BAND — bone-cream mid-page POP ── */
+  .quote-band{position:relative;background:var(--cream);color:var(--void);padding:130px 28px;text-align:center;overflow:hidden;border-top:1px solid rgba(0,0,0,.06);border-bottom:1px solid rgba(0,0,0,.06)}
+  .quote-band::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.45;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");background-size:200px 200px}
+  /* warm ember bloom edges — frames the bone band against the void above/below */
+  .quote-band::after{content:'';position:absolute;left:0;right:0;top:0;bottom:0;pointer-events:none;
+    background:
+      radial-gradient(ellipse 50% 30% at 50% 0%,rgba(201,118,42,.10),transparent 70%),
+      radial-gradient(ellipse 50% 30% at 50% 100%,rgba(201,118,42,.10),transparent 70%)}
+  .quote-band-inner{position:relative;z-index:2;max-width:920px;margin:0 auto}
+  .quote-band .kicker{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ember);font-weight:600}
+  .quote-band .kicker::before,.quote-band .kicker::after{content:'';width:24px;height:1px;background:var(--ember)}
+  .quote-band h2{margin-top:26px;font-size:clamp(40px,6vw,82px);font-weight:700;letter-spacing:-.04em;line-height:1.0;color:var(--void)}
+  .quote-band h2 em{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;color:var(--ember);letter-spacing:-.015em}
+  .quote-band .attrib{margin-top:34px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(5,5,7,.5)}
+  .quote-band .attrib b{color:var(--void);font-weight:600}
+
   /* ── RAIL ── */
   .rail{position:relative;background:var(--void-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 28px;display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,234,218,.5);z-index:6}
+  .rail.bright{background:var(--cream);color:rgba(5,5,7,.55);border-top:1px solid rgba(0,0,0,.08);border-bottom:1px solid rgba(0,0,0,.08)}
+  .rail.bright b{color:var(--void)}
+  .rail.bright .seg::before{background:var(--ember);box-shadow:0 0 12px rgba(201,118,42,.9)}
   .rail b{color:var(--bone);font-weight:600}
   .rail .seg{display:flex;align-items:center;gap:10px}
   .rail .seg::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--ember);box-shadow:0 0 12px rgba(201,118,42,.9);animation:railPulse 2.4s ease-in-out infinite}
@@ -154,9 +177,15 @@
   .pkgs::before,.pkgs::after{content:'';position:absolute;left:0;right:0;height:160px;z-index:3;pointer-events:none}
   .pkgs::before{top:0;background:linear-gradient(to bottom,var(--void),transparent)}
   .pkgs::after{bottom:0;background:linear-gradient(to top,var(--void-2),transparent)}
-  .pkgs-light{position:absolute;inset:0;z-index:0;overflow:hidden;mix-blend-mode:screen;opacity:.7}
+  .pkgs-light{position:absolute;inset:0;z-index:0;overflow:hidden;mix-blend-mode:screen;opacity:.8}
   .pkgs-light::before{content:'';position:absolute;width:160%;height:50%;left:-30%;top:20%;transform:rotate(-22deg);filter:blur(40px);
-    background:linear-gradient(90deg,transparent 30%,rgba(231,166,90,.18) 50%,transparent 70%);animation:beamSlide 30s ease-in-out infinite alternate}
+    background:linear-gradient(90deg,transparent 30%,rgba(44,122,123,.32) 50%,transparent 70%);animation:beamSlide 30s ease-in-out infinite alternate}
+  /* deep teal undertone bloom — complement of ember, cool break */
+  .pkgs::before,.pkgs::after{}
+  .pkgs-bloom{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.55;mix-blend-mode:screen;filter:blur(100px);
+    background:
+      radial-gradient(ellipse 50% 35% at 26% 35%,rgba(44,122,123,.42),transparent 65%),
+      radial-gradient(ellipse 45% 30% at 74% 65%,rgba(27,74,76,.5),transparent 65%);}
   .pkgs-inner{position:relative;z-index:5;max-width:1120px;margin:0 auto}
   .pkgs h2{font-size:clamp(36px,5.4vw,68px);font-weight:700;letter-spacing:-.04em;max-width:760px;margin:0 auto;line-height:1.04;color:var(--bone)}
   .pkgs h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--ember-pale)}
@@ -236,9 +265,23 @@
     </div>
   </section>
 
-  <div class="rail"><span class="seg">SECTION 02 · PACKAGES</span><span>STUDIO · <b>NASHVILLE</b></span></div>
+  <!-- BRIGHT RAIL — bone hand-off into the quote band -->
+  <div class="rail bright"><span class="seg">INTERMISSION</span><span>VOL. 01 · <b>2026</b></span></div>
+
+  <!-- MID-PAGE POP: bone-cream pull-quote band -->
+  <section class="quote-band">
+    <div class="quote-band-inner">
+      <span class="kicker">The point</span>
+      <h2>Built once.<br><em>Run for years.</em></h2>
+      <div class="attrib">Empty Slates · <b>Studio, Nashville</b></div>
+    </div>
+  </section>
+
+  <!-- BRIGHT RAIL — bone hand-off out -->
+  <div class="rail bright"><span class="seg">SECTION 02 · PACKAGES</span><span>STUDIO · <b>NASHVILLE</b></span></div>
 
   <section class="pkgs">
+    <div class="pkgs-bloom" aria-hidden="true"></div>
     <div class="pkgs-light" aria-hidden="true"></div>
     <div class="pkgs-inner">
       <h2>Start where you are.<br><em>Grow when you're ready.</em></h2>
