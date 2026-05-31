@@ -33,6 +33,7 @@
   .mast{padding:40px 22px 24px}
   .mast .kick{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--clay)}
   .mast .kick .dot{color:var(--strike);margin:0 7px}
+  .mast .subkick{font-size:12px;color:var(--mute);margin-top:6px;letter-spacing:.02em}
   .mast h1{font-size:33px;margin:14px 0 0;color:var(--ink)}
   .mast .lede{font-size:15px;color:var(--ink-2);margin-top:12px}
   .mast .rule{height:2px;background:var(--clay);width:46px;margin-top:20px;border-radius:2px}
@@ -147,7 +148,8 @@
   <div class="wrap">
 
     <div class="mast">
-      <div class="kick">Proposal <span class="dot">·</span> Prepared for Blas <span class="dot">·</span> Pro Lawn Care</div>
+      <div class="kick">Pro Lawn Care</div>
+      <div class="subkick">Proposal prepared for Blas</div>
       <h1>Look like the most<br>established crew in town.</h1>
       <div class="lede">Pick a look, pick a package — you own what we build.</div>
       <div class="rule"></div>
@@ -211,10 +213,10 @@
             <div class="who">Found on Google, bringing in jobs — and we write your story for you.</div>
             <div class="plus">Everything in Presence, plus:</div>
             <ul>
+              <li><span class="ck">✓</span>Run your own page — change photos, prices &amp; hours yourself, from your phone</li>
               <li><span class="ck">✓</span>We interview you and write your story, in your voice</li>
               <li><span class="ck">✓</span>Found on Google, with your real reviews</li>
               <li><span class="ck">✓</span>Customers request a quote straight to your phone</li>
-              <li><span class="ck">✓</span>Edit photos, prices &amp; hours yourself, anytime</li>
             </ul>
             <button class="vm" onclick="event.stopPropagation();openPkg('cornerstone')">What's included →</button>
           </div>
@@ -228,6 +230,7 @@
               <li><span class="ck">✓</span>Keep customers &amp; job history in one place</li>
               <li><span class="ck">✓</span>Take booking &amp; job requests online</li>
               <li><span class="ck">✓</span>Your own back-office to run and track it all</li>
+              <li><span class="ck">✓</span>If you ever move on, we hand you all your data — clean, no lock-in</li>
             </ul>
             <button class="vm" onclick="event.stopPropagation();openPkg('operations')">What's included →</button>
           </div>
@@ -294,11 +297,11 @@
       </div>
 
       <div class="lights">
-        <div class="h">Recurring costs — in your name, not mine</div>
+        <div class="h">Ongoing costs — paid to the platforms, in your name</div>
         <div class="li">Hosting — keeps your site online &amp; backed up (monthly)</div>
         <div class="li">Domain renewal — keeps your web address yours (yearly)</div>
         <div class="li">Text or email alerts — only if you choose to add them</div>
-        <div class="note">These are paid to the platforms, on your own accounts — never to me. It's the only ongoing part, and I walk you through the exact numbers with you when we set it up, before anything goes live. No surprise billing.</div>
+        <div class="note">These go to the platforms, on your own accounts — they're yours to hold, and the only ongoing part. I walk you through the exact numbers with you when we set it up, before anything goes live. No surprise billing.</div>
       </div>
 
       <footer>Pro Lawn Care · Powered by MT&nbsp;Slate</footer>
@@ -338,9 +341,9 @@
     presence:{t:"Presence — $995",b:"A one-page site that makes a small crew look established. You send us your bio in your own words and we lay it out sharp.",
       pts:["One clean page: your work, bio &amp; number","You write your bio; we make it look professional","Up to 4 photos + your QR code","Tap-to-call, sharp on every phone","Domain &amp; logins in your name"]},
     cornerstone:{t:"Cornerstone — $1,499",b:"Everything in Presence, and now it gets found and runs itself — and we write your story for you.",
-      pts:["We interview you &amp; write your story, in your voice","Found on Google, with your real reviews","Customers request a quote to your phone","Edit photos, prices &amp; hours yourself","Privacy &amp; terms handled; site locked &amp; spam-protected","Domain setup &amp; QR code included"]},
+      pts:["<b>You run your own page.</b> Log in from your phone and change your photos, prices, hours and text yourself, anytime — no calling us for small edits, no waiting.","We interview you &amp; write your story for you, in your voice","Found on Google, with your real reviews showing on the site","Customers request a quote straight to your phone","Privacy &amp; terms handled; site locked &amp; spam-protected","We set up your domain &amp; make your QR code for you — that's the setup work. (Buying the domain itself is separate, in your name, and stays yours.)"]},
     operations:{t:"Operations — $2,499",b:"Everything in Cornerstone, plus the back-office for when you're ready to grow.",
-      pts:["Keep customers &amp; job history in one place","Take booking &amp; job requests online","Your own back-office to run and track it all"]}
+      pts:["Keep customers &amp; job history in one place","Take booking &amp; job requests online","Your own back-office to run and track it all","If you ever switch companies, we port your data out clean — it's yours, no being held hostage"]}
   };
   var TIER_PRICE={presence:995,cornerstone:1499,operations:2499};
   var TIER_NAME={presence:"Presence",cornerstone:"Cornerstone",operations:"Operations"};
@@ -373,7 +376,7 @@
     if(S.hasDomain===null) di.innerHTML='';
     else if(S.hasDomain===true) di.innerHTML='<span class="free">We move it over — free.</span>';
     else if(S.tier&&included(S.tier)) di.innerHTML='<span class="free">Included in your package.</span>';
-    else di.innerHTML='<span class="add">+$'+DOMAIN_ADDON+'</span> to help find &amp; set one up.';
+    else di.innerHTML='<span class="add">+$'+DOMAIN_ADDON+'</span> to help find &amp; set one up <span style="color:var(--mute)">(buying the domain is separate, in your name)</span>.';
 
     var qi=$('qrImpact');
     if(S.hasQR===null) qi.innerHTML='';
