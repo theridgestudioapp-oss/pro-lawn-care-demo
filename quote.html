@@ -6,39 +6,37 @@
 <meta name="robots" content="noindex" />
 <title>Pro Lawn Care — Your Proposal</title>
 <!--
-  Step-by-step wizard (one section per screen, Next/Back). No black panels anywhere.
-  Flow: Intro -> 1 Look -> 2 Package -> 3 Two questions -> 4 Your total -> done.
-  Tiers: Basic $995 / Operations $1,499 / Enterprise $2,499 (standard 1,495/1,999/2,999 less -250 military -250 F&F, shown applied).
-  Add-ons (Basic only; included Operations+): domain setup $100, QR $50. Buying the domain itself is separate/client's.
-  Capture (pick, domain/QR, language, call requests) -> sendToOwnerDash() stub (real send needs backend).
+  Step wizard. UNIVERSAL RULE: language toggle (EN · ES · عربي) pinned at the very top, like the demos, with AI-translation notice. Whole page translates via data-i18n + L dictionary.
+  Call request = clear one-tap button (no language gating; language comes from the top toggle).
+  Tiers: Basic $995 / Operations $1,499 / Enterprise $2,499 (standard 1,495/1,999/2,999 less -250 military -250 F&F shown applied). Add-ons Basic only: domain $100, QR $50.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#1A1712; --ink-2:#4A433A; --mute:#857C6E; --line:#E3DCCE;
-    --cream:#F3EEE3; --paper:#FBF8F1; --clay:#B4502E; --clay-d:#8E3C20; --green:#3B7A4B; --strike:#B3A892;
-  }
+  :root{ --ink:#1A1712; --ink-2:#4A433A; --mute:#857C6E; --line:#E3DCCE; --cream:#F3EEE3; --paper:#FBF8F1; --clay:#B4502E; --clay-d:#8E3C20; --green:#3B7A4B; --strike:#B3A892; }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--cream);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;
-    background-image:radial-gradient(rgba(60,40,20,.022) 1px,transparent 1px);background-size:3px 3px;min-height:100vh}
+  body{background:var(--cream);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:radial-gradient(rgba(60,40,20,.022) 1px,transparent 1px);background-size:3px 3px;min-height:100vh}
+  [dir="rtl"] body,[dir="rtl"]{direction:rtl}
   .wrap{max-width:560px;margin:0 auto;padding:0 22px 60px}
   h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:600;letter-spacing:-.015em;line-height:1.08}
 
-  /* progress dots */
-  .dots{display:flex;gap:7px;justify-content:center;padding:26px 0 6px}
+  /* TOP LANGUAGE BAR */
+  .langbar{display:flex;justify-content:flex-end;gap:6px;padding:12px 0 0}
+  .langbar button{border:1px solid var(--line);background:var(--paper);color:var(--ink-2);font-family:inherit;font-size:12px;font-weight:600;padding:5px 11px;border-radius:20px;cursor:pointer;transition:.15s ease}
+  .langbar button:hover{border-color:#C9BCA6}
+  .langbar button.on{background:var(--ink);color:#F3EEE3;border-color:var(--ink)}
+
+  .dots{display:flex;gap:7px;justify-content:center;padding:18px 0 6px}
   .dots i{width:7px;height:7px;border-radius:50%;background:var(--line);transition:.2s ease}
   .dots i.on{background:var(--clay);width:22px;border-radius:4px}
   .dots.hide{display:none}
 
-  /* screens */
   .screen{display:none}
   .screen.active{display:block;animation:fade .28s cubic-bezier(.16,.84,.44,1)}
   @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-  /* intro */
-  .mast{padding:30px 0 0}
+  .mast{padding:18px 0 0}
   .mast .kick{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--clay)}
   .mast h1{font-size:34px;margin:14px 0 0;color:var(--ink)}
   .mast .lede{font-size:15px;color:var(--ink-2);margin-top:13px}
@@ -50,6 +48,7 @@
   .shead .sub{font-size:13.5px;color:var(--mute);margin-top:6px}
 
   .applied{margin-top:14px;background:#EFF3EC;border:1px solid #D6E2CF;border-left:3px solid var(--green);border-radius:0 10px 10px 0;padding:11px 15px}
+  [dir="rtl"] .applied{border-left:1px solid #D6E2CF;border-right:3px solid var(--green);border-radius:10px 0 0 10px}
   .applied .ah{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
   .applied .ar{display:flex;gap:18px;flex-wrap:wrap;margin-top:6px}
   .applied .ar span{font-size:13px;color:var(--ink-2)} .applied .ar b{color:var(--ink);white-space:nowrap}
@@ -59,6 +58,7 @@
   .card:hover{border-color:#C9BCA6;transform:translateY(-1px)}
   .card.sel{border-color:var(--clay);background:#FCF6F1}
   .card .tick{position:absolute;top:13px;right:14px;width:21px;height:21px;border-radius:50%;border:1.5px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;transition:.18s ease}
+  [dir="rtl"] .card .tick{right:auto;left:14px}
   .card.sel .tick{background:var(--clay);border-color:var(--clay)}
 
   .opt .nm{font-family:'Fraunces',serif;font-weight:600;font-size:17px;padding-right:30px}
@@ -85,12 +85,10 @@
   .q .qt{font-size:14.5px;font-weight:600;color:var(--ink)}
   .q .toggle{display:flex;gap:8px;margin-top:12px}
   .q .toggle button{flex:1 1 0;min-width:0;border:1.5px solid var(--line);background:#fff;border-radius:9px;padding:11px;font-size:14px;font-weight:600;font-family:inherit;color:var(--ink-2);cursor:pointer;transition:.15s ease}
-  .q .toggle button:hover{border-color:#C9BCA6}
   .q .toggle button.on{background:var(--clay);color:#fff;border-color:var(--clay)}
   .q .impact{font-size:12.5px;margin-top:10px;color:var(--ink-2);min-height:18px}
   .q .impact .free{color:var(--green);font-weight:600} .q .impact .add{color:var(--clay);font-weight:600}
 
-  /* warm summary panel (no black) */
   .summary{margin-top:16px;background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--clay);border-radius:12px;padding:18px}
   .summary .sl{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--clay)}
   .summary .pk{font-family:'Fraunces',serif;font-size:16px;color:var(--ink);margin-top:5px;min-height:22px}
@@ -103,7 +101,6 @@
   .summary .grand .gv{font-family:'Fraunces',serif;font-weight:700;font-size:33px;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
   .summary .hint{font-size:12px;color:var(--mute);margin-top:9px}
 
-  /* nav */
   .nav{display:flex;gap:10px;margin-top:22px;align-items:center}
   .nav .back{background:none;border:none;color:var(--mute);font-size:14px;font-weight:600;cursor:pointer;padding:12px 6px;white-space:nowrap}
   .nav .next{flex:1;background:var(--clay);color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:16px;border:none;border-radius:11px;padding:14px;cursor:pointer;transition:background .15s ease}
@@ -112,20 +109,17 @@
   .start{display:block;width:100%;background:var(--clay);color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:17px;border:none;border-radius:12px;padding:15px;margin-top:24px;cursor:pointer}
   .start:hover{background:var(--clay-d)}
   .talk{display:block;width:100%;background:none;border:none;color:var(--mute);font-size:13px;text-decoration:underline;text-underline-offset:3px;margin-top:14px;cursor:pointer;text-align:center}
-
   .field{width:100%;border:1px solid var(--line);border-radius:9px;padding:12px;font-size:15px;font-family:inherit;margin-top:8px;background:#fff}
   .box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:14px}
   .box.ok{border-color:var(--green)} .box .bh{font-family:'Fraunces',serif;font-weight:600;font-size:16px;margin-bottom:6px} .box .bh.ok{color:var(--green)} .box p{font-size:13.5px;color:var(--ink-2);margin:0}
-  .langlbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-top:14px}
-  .pillrow{display:flex;gap:8px;margin-top:7px} .pill{flex:1 1 0;min-width:0;border:1px solid var(--line);border-radius:9px;padding:10px;font-size:14px;font-weight:600;background:#fff;cursor:pointer} .pill.on{background:var(--clay);color:#fff;border-color:var(--clay)}
   .hide{display:none}
 
-  /* modal */
   .modal{position:fixed;inset:0;background:rgba(26,23,18,.55);display:none;align-items:flex-end;justify-content:center;z-index:50}
   .modal.show{display:flex}
   .modal .sheet{background:var(--paper);width:100%;max-width:560px;border-radius:18px 18px 0 0;padding:22px 22px 26px;max-height:88vh;overflow:auto;animation:rise .26s cubic-bezier(.16,.84,.44,1)}
   @keyframes rise{from{transform:translateY(26px);opacity:.4}to{transform:translateY(0);opacity:1}}
   .modal .x{float:right;background:none;border:none;font-size:22px;color:var(--mute);cursor:pointer;line-height:1;margin:-4px -4px 0 0}
+  [dir="rtl"] .modal .x{float:left;margin:-4px 0 0 -4px}
   .modal .mk{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--clay)}
   .modal h3{font-size:22px;margin:8px 0 0}
   .modal .mbody{font-size:14px;color:var(--ink-2);margin-top:12px;line-height:1.6}
@@ -133,19 +127,31 @@
   .modal .demo{display:inline-block;margin-top:16px;background:var(--ink);color:#F3EEE3;font-family:'Fraunces',serif;font-weight:600;font-size:14px;text-decoration:none;padding:11px 18px;border-radius:10px}
   @media(min-width:600px){ .modal{align-items:center} .modal .sheet{border-radius:18px} }
 
-  /* floating call button */
   .fab{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:50%;background:var(--clay);color:#fff;border:none;cursor:pointer;box-shadow:0 6px 20px rgba(80,30,10,.30);display:flex;align-items:center;justify-content:center;z-index:40;transition:transform .18s ease,background .18s ease}
+  [dir="rtl"] .fab{right:auto;left:18px}
   .fab:hover{transform:scale(1.06);background:var(--clay-d)} .fab svg{width:23px;height:23px}
-  .fab .lbl{position:absolute;right:66px;background:var(--ink);color:#F3EEE3;font-size:12px;font-weight:600;white-space:nowrap;padding:7px 11px;border-radius:8px;opacity:0;transform:translateX(6px);pointer-events:none;transition:.18s ease}
-  .fab:hover .lbl{opacity:1;transform:translateX(0)}
+  .fab .lbl{position:absolute;right:66px;background:var(--ink);color:#F3EEE3;font-size:12px;font-weight:600;white-space:nowrap;padding:7px 11px;border-radius:8px;opacity:0;pointer-events:none;transition:.18s ease}
+  [dir="rtl"] .fab .lbl{right:auto;left:66px}
+  .fab:hover .lbl{opacity:1}
   .popmsg{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(26,23,18,.5);z-index:60}
   .popmsg.show{display:flex}
-  .popmsg .card2{background:var(--paper);border-radius:16px;padding:26px 24px;max-width:330px;text-align:center;animation:rise .26s cubic-bezier(.16,.84,.44,1)}
+  .popmsg .card2{background:var(--paper);border-radius:16px;padding:26px 24px;max-width:340px;text-align:center;animation:rise .26s cubic-bezier(.16,.84,.44,1)}
   .popmsg .card2 .big2{font-family:'Fraunces',serif;font-weight:600;font-size:21px;color:var(--green)} .popmsg .card2 p{font-size:14px;color:var(--ink-2);margin-top:8px}
+  .notice{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(26,23,18,.5);z-index:70;padding:22px}
+  .notice.show{display:flex}
+  .notice .nc{background:var(--paper);border-radius:16px;padding:24px;max-width:360px}
+  .notice .nc h4{font-family:'Fraunces',serif;font-size:18px} .notice .nc p{font-size:13.5px;color:var(--ink-2);margin-top:8px} .notice .nc button{margin-top:16px;width:100%;background:var(--clay);color:#fff;border:none;border-radius:10px;padding:12px;font-family:'Fraunces',serif;font-weight:600;font-size:15px;cursor:pointer}
 </style>
 </head>
 <body>
   <div class="wrap">
+
+    <!-- UNIVERSAL: language toggle at the top -->
+    <div class="langbar">
+      <button data-l="en" class="on" onclick="setSiteLang('en')">EN</button>
+      <button data-l="es" onclick="setSiteLang('es')">ES</button>
+      <button data-l="ar" onclick="setSiteLang('ar')">عربي</button>
+    </div>
 
     <div class="dots hide" id="dots"><i></i><i></i><i></i><i></i></div>
 
@@ -153,202 +159,237 @@
     <div class="screen active" id="s-intro">
       <div class="mast">
         <div class="kick">Pro Lawn Care</div>
-        <h1>Look like the most<br>established crew in town.</h1>
-        <div class="lede">A few quick picks and you'll have your price — your design, your package, yours to own.</div>
+        <h1 data-i18n="h1">Look like the most<br>established crew in town.</h1>
+        <div class="lede" data-i18n="lede">A few quick picks and you'll have your price — your design, your package, yours to own.</div>
         <div class="rule"></div>
-        <button class="start" onclick="go('look')">Start →</button>
-        <button class="talk" onclick="go('total');setTimeout(showTalk,260)">Prefer to talk first? Schedule a call</button>
+        <button class="start" data-i18n="start" onclick="go('look')">Start →</button>
+        <button class="talk" data-i18n="talkLink" onclick="go('total');setTimeout(showTalk,260)">Prefer to talk first? Request a call</button>
       </div>
     </div>
 
-    <!-- 1 — LOOK -->
+    <!-- 1 LOOK -->
     <div class="screen" id="s-look">
-      <div class="shead"><div class="sx">Step 1 of 4</div><h2>Pick your look</h2><div class="sub">Tap "See it live" to walk through each one.</div></div>
+      <div class="shead"><div class="sx" data-i18n="step1">Step 1 of 4</div><h2 data-i18n="lookT">Pick your look</h2><div class="sub" data-i18n="lookS">Tap "See it live" to walk through each one.</div></div>
       <div class="grid" id="designs">
         <div class="card opt" data-design="workhorse" onclick="pickDesign(this)">
           <div class="tick">✓</div>
           <div class="nm">The Workhorse<span class="swatch"><i style="background:#1c1c1c"></i><i style="background:#2f8f4e"></i><i style="background:#d8d2c4"></i></span></div>
-          <div class="ds">Rugged and work-truck tough. Big type, high contrast.</div>
-          <button class="more" onclick="event.stopPropagation();openDesign('workhorse')">See it live &amp; details →</button>
+          <div class="ds" data-dd="workhorse"></div>
+          <button class="more" data-i18n="seelive" onclick="event.stopPropagation();openDesign('workhorse')">See it live & details →</button>
         </div>
         <div class="card opt" data-design="original" onclick="pickDesign(this)">
           <div class="tick">✓</div>
           <div class="nm">The Original<span class="swatch"><i style="background:#0d0d0d"></i><i style="background:#3bbf5d"></i><i style="background:#f4f1ea"></i></span></div>
-          <div class="ds">Your colors — black and lawn green. Bold and confident.</div>
-          <button class="more" onclick="event.stopPropagation();openDesign('original')">See it live &amp; details →</button>
+          <div class="ds" data-dd="original"></div>
+          <button class="more" data-i18n="seelive" onclick="event.stopPropagation();openDesign('original')">See it live & details →</button>
         </div>
         <div class="card opt" data-design="classic" onclick="pickDesign(this)">
           <div class="tick">✓</div>
           <div class="nm">The Classic<span class="swatch"><i style="background:#27445a"></i><i style="background:#cbb994"></i><i style="background:#ffffff"></i></span></div>
-          <div class="ds">Clean and bright. Crisp white space, easy to read.</div>
-          <button class="more" onclick="event.stopPropagation();openDesign('classic')">See it live &amp; details →</button>
+          <div class="ds" data-dd="classic"></div>
+          <button class="more" data-i18n="seelive" onclick="event.stopPropagation();openDesign('classic')">See it live & details →</button>
         </div>
       </div>
-      <div class="nav"><button class="back" onclick="go('intro')">← Back</button><button class="next" id="nx-look" onclick="go('package')" disabled>Next →</button></div>
+      <div class="nav"><button class="back" data-i18n="back" onclick="go('intro')">← Back</button><button class="next" id="nx-look" data-i18n="next" onclick="go('package')" disabled>Next →</button></div>
     </div>
 
-    <!-- 2 — PACKAGE -->
+    <!-- 2 PACKAGE -->
     <div class="screen" id="s-package">
-      <div class="shead"><div class="sx">Step 2 of 4</div><h2>Pick your package</h2><div class="sub">Start where you are — each one builds on the last.</div></div>
+      <div class="shead"><div class="sx" data-i18n="step2">Step 2 of 4</div><h2 data-i18n="pkgT">Pick your package</h2><div class="sub" data-i18n="pkgS">Start where you are — each one builds on the last.</div></div>
       <div class="applied">
-        <div class="ah">Already taken off every price</div>
-        <div class="ar"><span>Military appreciation <b>−$250</b></span><span>Friends &amp; Family <b>−$250</b></span></div>
+        <div class="ah" data-i18n="applied">Already taken off every price</div>
+        <div class="ar"><span data-i18n="mil">Military appreciation</span> <b>−$250</b> &nbsp; <span data-i18n="ff">Friends & Family</span> <b>−$250</b></div>
       </div>
       <div class="grid" id="pkgs">
         <div class="card pkg" data-tier="basic" onclick="pickTier(this)">
           <div class="tick">✓</div>
-          <div class="head"><div class="nm">Basic</div><div class="pz"><s>$1,495</s><span class="big">$995</span><span class="one">one-time</span></div></div>
-          <div class="who">A sharp one-page site that makes a small crew look established.</div>
-          <ul>
-            <li><span class="ck">✓</span>Your work, your bio, your number — one clean page</li>
-            <li><span class="ck">✓</span>You send your bio; we lay it out sharp</li>
-            <li><span class="ck">✓</span>Up to 4 photos, plus your QR code</li>
-            <li><span class="ck">✓</span>Domain &amp; logins in your name</li>
-          </ul>
-          <button class="vm" onclick="event.stopPropagation();openPkg('basic')">What's included →</button>
+          <div class="head"><div class="nm">Basic</div><div class="pz"><s>$1,495</s><span class="big">$995</span><span class="one" data-i18n="onetime">one-time</span></div></div>
+          <div class="who" data-w="basic"></div>
+          <ul id="ul-basic"></ul>
+          <button class="vm" data-i18n="included" onclick="event.stopPropagation();openPkg('basic')">What's included →</button>
         </div>
         <div class="card pkg" data-tier="operations" onclick="pickTier(this)">
-          <div class="tag">Most popular</div>
+          <div class="tag" data-i18n="popular">Most popular</div>
           <div class="tick">✓</div>
-          <div class="head"><div class="nm">Operations</div><div class="pz"><s>$1,999</s><span class="big">$1,499</span><span class="one">one-time</span></div></div>
-          <div class="who">Found on Google, bringing in jobs — and you run your own page.</div>
-          <div class="plus">Everything in Basic, plus:</div>
-          <ul>
-            <li><span class="ck">✓</span>Run your own page — change photos, prices &amp; hours yourself, from your phone</li>
-            <li><span class="ck">✓</span>We interview you and write your story, in your voice</li>
-            <li><span class="ck">✓</span>Found on Google, with your real reviews</li>
-            <li><span class="ck">✓</span>Customers request a quote straight to your phone</li>
-          </ul>
-          <button class="vm" onclick="event.stopPropagation();openPkg('operations')">What's included →</button>
+          <div class="head"><div class="nm">Operations</div><div class="pz"><s>$1,999</s><span class="big">$1,499</span><span class="one" data-i18n="onetime">one-time</span></div></div>
+          <div class="who" data-w="operations"></div>
+          <div class="plus" data-i18n="plusBasic">Everything in Basic, plus:</div>
+          <ul id="ul-operations"></ul>
+          <button class="vm" data-i18n="included" onclick="event.stopPropagation();openPkg('operations')">What's included →</button>
         </div>
         <div class="card pkg" data-tier="enterprise" onclick="pickTier(this)">
           <div class="tick">✓</div>
-          <div class="head"><div class="nm">Enterprise</div><div class="pz"><s>$2,999</s><span class="big">$2,499</span><span class="one">one-time</span></div></div>
-          <div class="who">Run the whole business from one place, for when you're ready to grow.</div>
-          <div class="plus">Everything in Operations, plus:</div>
-          <ul>
-            <li><span class="ck">✓</span>Keep customers &amp; job history in one place</li>
-            <li><span class="ck">✓</span>Take booking &amp; job requests online</li>
-            <li><span class="ck">✓</span>Your own back-office to run and track it all</li>
-            <li><span class="ck">✓</span>If you ever move on, we hand you all your data — clean, no lock-in</li>
-          </ul>
-          <button class="vm" onclick="event.stopPropagation();openPkg('enterprise')">What's included →</button>
+          <div class="head"><div class="nm">Enterprise</div><div class="pz"><s>$2,999</s><span class="big">$2,499</span><span class="one" data-i18n="onetime">one-time</span></div></div>
+          <div class="who" data-w="enterprise"></div>
+          <div class="plus" data-i18n="plusOps">Everything in Operations, plus:</div>
+          <ul id="ul-enterprise"></ul>
+          <button class="vm" data-i18n="included" onclick="event.stopPropagation();openPkg('enterprise')">What's included →</button>
         </div>
       </div>
-      <div class="nav"><button class="back" onclick="go('look')">← Back</button><button class="next" id="nx-package" onclick="go('details')" disabled>Next →</button></div>
+      <div class="nav"><button class="back" data-i18n="back" onclick="go('look')">← Back</button><button class="next" id="nx-package" data-i18n="next" onclick="go('details')" disabled>Next →</button></div>
     </div>
 
-    <!-- 3 — TWO QUESTIONS -->
+    <!-- 3 QUESTIONS -->
     <div class="screen" id="s-details">
-      <div class="shead"><div class="sx">Step 3 of 4</div><h2>Two quick things</h2></div>
+      <div class="shead"><div class="sx" data-i18n="step3">Step 3 of 4</div><h2 data-i18n="qT">Two quick things</h2></div>
       <div class="q">
-        <div class="qt">Do you already own a domain?</div>
-        <div class="toggle"><button onclick="setDomain(true,this)">Yes, I have one</button><button onclick="setDomain(false,this)">No</button></div>
+        <div class="qt" data-i18n="qDomain">Do you already own a domain?</div>
+        <div class="toggle"><button data-i18n="yesHave" onclick="setDomain(true,this)">Yes, I have one</button><button data-i18n="no" onclick="setDomain(false,this)">No</button></div>
         <div class="impact" id="domainImpact"></div>
       </div>
       <div class="q">
-        <div class="qt">Do you already have a QR code?</div>
-        <div class="toggle"><button onclick="setQR(true,this)">Yes, I have one</button><button onclick="setQR(false,this)">No</button></div>
+        <div class="qt" data-i18n="qQR">Do you already have a QR code?</div>
+        <div class="toggle"><button data-i18n="yesHave" onclick="setQR(true,this)">Yes, I have one</button><button data-i18n="no" onclick="setQR(false,this)">No</button></div>
         <div class="impact" id="qrImpact"></div>
       </div>
-      <div class="nav"><button class="back" onclick="go('package')">← Back</button><button class="next" id="nx-details" onclick="go('total')" disabled>See my total →</button></div>
+      <div class="nav"><button class="back" data-i18n="back" onclick="go('package')">← Back</button><button class="next" id="nx-details" data-i18n="seetotal" onclick="go('total')" disabled>See my total →</button></div>
     </div>
 
-    <!-- 4 — TOTAL -->
+    <!-- 4 TOTAL -->
     <div class="screen" id="s-total">
-      <div class="shead"><div class="sx">Step 4 of 4</div><h2>Your total</h2></div>
+      <div class="shead"><div class="sx" data-i18n="step4">Step 4 of 4</div><h2 data-i18n="totalT">Your total</h2></div>
       <div class="summary">
-        <div class="sl">Your build</div>
+        <div class="sl" data-i18n="yourBuild">Your build</div>
         <div class="pk" id="pickLine"></div>
         <div id="totalRows"></div>
         <div class="rule"></div>
-        <div class="grand"><span class="gl">One-time</span><span class="gv" id="grand">$0</span></div>
-        <div class="hint">One-time — that's what you pay us. Ongoing platform costs are yours; I cover the exact numbers at setup.</div>
+        <div class="grand"><span class="gl" data-i18n="onetimeCap">One-time</span><span class="gv" id="grand">$0</span></div>
+        <div class="hint" data-i18n="totalHint">One-time — that's what you pay us. Ongoing platform costs are yours; I cover the exact numbers at setup.</div>
       </div>
 
       <div id="ctaBlock">
-        <div class="nav"><button class="back" onclick="go('details')">← Back</button><button class="next" onclick="lockIn()">Let's build it →</button></div>
-        <button class="talk" onclick="showTalk()">Prefer to talk first? Schedule a call</button>
+        <div class="nav"><button class="back" data-i18n="back" onclick="go('details')">← Back</button><button class="next" data-i18n="buildit" onclick="lockIn()">Let's build it →</button></div>
+        <button class="talk" data-i18n="talkLink2" onclick="showTalk()">Prefer to talk first? Request a call</button>
       </div>
 
       <div id="startBlock" class="hide">
-        <div class="box ok"><div class="bh ok">Here's what you picked:</div><p id="pickSummary"></p></div>
-        <input class="field" id="nm" placeholder="Your name">
-        <input class="field" id="ph" placeholder="Best phone or email">
-        <button class="start" onclick="submitStart()">Send it →</button>
-        <button class="talk" onclick="hideStart()">← back</button>
+        <div class="box ok"><div class="bh ok" data-i18n="youPicked">Here's what you picked:</div><p id="pickSummary"></p></div>
+        <input class="field" id="nm" data-ph="phName" placeholder="Your name">
+        <input class="field" id="ph" data-ph="phContact" placeholder="Best phone or email">
+        <button class="start" data-i18n="sendit" onclick="submitStart()">Send it →</button>
+        <button class="talk" data-i18n="backLink" onclick="hideStart()">← back</button>
       </div>
 
+      <!-- CALL REQUEST: clear, no language gating (language is the top toggle) -->
       <div id="talkBlock" class="hide">
-        <div class="langlbl">Language</div>
-        <div class="pillrow"><button class="pill" onclick="setLang('en')" id="le">English</button><button class="pill" onclick="setLang('es')" id="ls">Español</button></div>
-        <div class="box"><div class="bh">Happy to talk it through.</div><p>Schedule a call.</p></div>
-        <div id="askForm" class="hide">
-          <input class="field" id="aph" placeholder="Best number">
-          <label style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--ink-2);margin-top:10px;cursor:pointer"><input type="checkbox" id="ok" style="margin-top:2px"><span id="okl"></span></label>
-          <button class="start" onclick="submitAsk()" id="ag"></button>
-        </div>
-        <button class="talk" onclick="hideTalk()">← back</button>
+        <div class="box"><div class="bh" data-i18n="talkH">Want a call? We've got you.</div><p data-i18n="talkP">Leave your number and we'll reach out within 24 hours — in your language.</p></div>
+        <input class="field" id="aph" data-ph="phNum" placeholder="Best number">
+        <label style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--ink-2);margin-top:10px;cursor:pointer"><input type="checkbox" id="ok" style="margin-top:2px"><span data-i18n="consent" id="okl">Yes, you have my permission to reach out about this.</span></label>
+        <button class="start" data-i18n="reqCall" onclick="submitAsk()">Request a call →</button>
+        <button class="talk" data-i18n="backLink" onclick="hideTalk()">← back</button>
       </div>
     </div>
 
   </div>
 
-  <button class="fab" onclick="requestCall()" title="Request a call"><span class="lbl">Request a call</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></button>
-  <div class="popmsg" id="popmsg" onclick="this.classList.remove('show')"><div class="card2"><div class="big2">Got it.</div><p>We'll reach out within 24 hours.</p></div></div>
+  <button class="fab" onclick="requestCall()" title="Request a call"><span class="lbl" data-i18n="reqCallShort">Request a call</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></button>
+  <div class="popmsg" id="popmsg" onclick="this.classList.remove('show')"><div class="card2"><div class="big2" data-i18n="gotit">Got it.</div><p data-i18n="reach24">We'll reach out within 24 hours.</p></div></div>
+
+  <div class="notice" id="notice"><div class="nc"><h4 data-i18n="trH">Heads up</h4><p data-i18n="trP">This page was translated automatically — it may not be perfect. The English version is the original. We'll talk with you in your language.</p><button data-i18n="trBtn" onclick="$('notice').classList.remove('show')">Got it</button></div></div>
 
   <div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
-    <div class="sheet">
-      <button class="x" onclick="closeModal()">×</button>
-      <div class="mk" id="mKick"></div>
-      <h3 id="mTitle"></h3>
-      <div class="mbody" id="mBody"></div>
-      <a class="demo hide" id="mDemo" target="_blank" rel="noopener">See it live →</a>
-    </div>
+    <div class="sheet"><button class="x" onclick="closeModal()">×</button><div class="mk" id="mKick"></div><h3 id="mTitle"></h3><div class="mbody" id="mBody"></div><a class="demo hide" id="mDemo" target="_blank" rel="noopener">See it live →</a></div>
   </div>
 
 <script>
   var DEMO_BASE="https://theridgestudioapp-oss.github.io/pro-lawn-care-demo/";
-  var DESIGNS={
-    workhorse:{k:"Design 01",t:"The Workhorse",file:"v1.html",
-      b:"Built around big, blunt headlines and full-width photos of your actual jobs. Dark background so the green reads loud, and a call button that follows you down the page so the phone is always one tap away. Leads with a before/after strip.",
-      pts:["Dark background, green that pops","Call button follows as you scroll","Before / after photos lead the page","Built to read tough, not corporate"]},
-    original:{k:"Design 02",t:"The Original",file:"v2.html",
-      b:"Carries your black-and-green through the whole page — header, buttons, accents — so it reads like one consistent brand. Photo-forward, with services in clean blocks. Looks like a company that's been in town a while.",
-      pts:["Your brand colors top to bottom","Services in clean, scannable blocks","Photo-forward — your work sells it","Balanced, established feel"]},
-    classic:{k:"Design 03",t:"The Classic",file:"v3.html",
-      b:"The lightest of the three — lots of breathing room, soft palette, calm type. Nothing flashy, nothing that puts off a cautious or older customer. The safe-and-sharp pick that still looks current a few years out.",
-      pts:["Lightest, most open layout","Calm palette, wide appeal","Easiest to read for any age","Holds up as trends move"]}
+  var L={
+   en:{h1:"Look like the most<br>established crew in town.",lede:"A few quick picks and you'll have your price — your design, your package, yours to own.",start:"Start →",talkLink:"Prefer to talk first? Request a call",talkLink2:"Prefer to talk first? Request a call",
+     step1:"Step 1 of 4",step2:"Step 2 of 4",step3:"Step 3 of 4",step4:"Step 4 of 4",lookT:"Pick your look",lookS:'Tap "See it live" to walk through each one.',pkgT:"Pick your package",pkgS:"Start where you are — each one builds on the last.",qT:"Two quick things",totalT:"Your total",
+     seelive:"See it live & details →",included:"What's included →",applied:"Already taken off every price",mil:"Military appreciation",ff:"Friends & Family",onetime:"one-time",onetimeCap:"One-time",popular:"Most popular",plusBasic:"Everything in Basic, plus:",plusOps:"Everything in Operations, plus:",
+     qDomain:"Do you already own a domain?",qQR:"Do you already have a QR code?",yesHave:"Yes, I have one",no:"No",back:"← Back",next:"Next →",seetotal:"See my total →",yourBuild:"Your build",totalHint:"One-time — that's what you pay us. Ongoing platform costs are yours; I cover the exact numbers at setup.",buildit:"Let's build it →",
+     youPicked:"Here's what you picked:",phName:"Your name",phContact:"Best phone or email",sendit:"Send it →",backLink:"← back",
+     talkH:"Want a call? We've got you.",talkP:"Leave your number and we'll reach out within 24 hours — in your language.",phNum:"Best number",consent:"Yes, you have my permission to reach out about this.",reqCall:"Request a call →",reqCallShort:"Request a call",gotit:"Got it.",reach24:"We'll reach out within 24 hours.",
+     trH:"Heads up",trP:"This page was translated automatically — it may not be perfect. The English version is the original. We'll talk with you in your language.",trBtn:"Got it",
+     d_workhorse:"Rugged and work-truck tough. Big type, high contrast.",d_original:"Your colors — black and lawn green. Bold and confident.",d_classic:"Clean and bright. Crisp white space, easy to read.",
+     w_basic:"A sharp one-page site that makes a small crew look established.",w_operations:"Found on Google, bringing in jobs — and you run your own page.",w_enterprise:"Run the whole business from one place, for when you're ready to grow.",
+     thanks:function(n){return "Thanks "+n+" — I'll text you the short list of what I need and we'll get started. Talk soon.";},done:"Got it — we'll reach out within 24 hours, in your language. Talk soon."},
+   es:{h1:"Luce como el<br>equipo más establecido de la zona.",lede:"Unas cuantas selecciones y tendrás tu precio — tu diseño, tu paquete, tuyo para siempre.",start:"Empezar →",talkLink:"¿Prefieres hablar primero? Pide una llamada",talkLink2:"¿Prefieres hablar primero? Pide una llamada",
+     step1:"Paso 1 de 4",step2:"Paso 2 de 4",step3:"Paso 3 de 4",step4:"Paso 4 de 4",lookT:"Elige tu estilo",lookS:'Toca "Ver en vivo" para recorrer cada uno.',pkgT:"Elige tu paquete",pkgS:"Empieza donde estás — cada uno se basa en el anterior.",qT:"Dos cosas rápidas",totalT:"Tu total",
+     seelive:"Ver en vivo y detalles →",included:"Qué incluye →",applied:"Ya descontado de cada precio",mil:"Agradecimiento militar",ff:"Amigos y familia",onetime:"pago único",onetimeCap:"Pago único",popular:"Más popular",plusBasic:"Todo lo de Basic, más:",plusOps:"Todo lo de Operations, más:",
+     qDomain:"¿Ya tienes un dominio?",qQR:"¿Ya tienes un código QR?",yesHave:"Sí, tengo uno",no:"No",back:"← Atrás",next:"Siguiente →",seetotal:"Ver mi total →",yourBuild:"Tu proyecto",totalHint:"Pago único — eso es lo que nos pagas a nosotros. Los costos mensuales de las plataformas son tuyos; te explico los números exactos al configurarlo.",buildit:"Construyámoslo →",
+     youPicked:"Esto es lo que elegiste:",phName:"Tu nombre",phContact:"Mejor teléfono o correo",sendit:"Enviar →",backLink:"← atrás",
+     talkH:"¿Quieres una llamada? Aquí estamos.",talkP:"Deja tu número y te contactamos dentro de 24 horas — en tu idioma.",phNum:"Mejor número",consent:"Sí, tienes mi permiso para contactarme sobre esto.",reqCall:"Pedir una llamada →",reqCallShort:"Pedir una llamada",gotit:"¡Listo!",reach24:"Te contactaremos dentro de 24 horas.",
+     trH:"Aviso",trP:"Esta página se tradujo automáticamente — puede no ser perfecta. La versión en inglés es la original. Hablaremos contigo en tu idioma.",trBtn:"Entendido",
+     d_workhorse:"Resistente, estilo camión de trabajo. Letras grandes, mucho contraste.",d_original:"Tus colores — negro y verde césped. Audaz y seguro.",d_classic:"Limpio y claro. Espacio en blanco nítido, fácil de leer.",
+     w_basic:"Un sitio de una página que hace que un equipo pequeño se vea establecido.",w_operations:"Encontrado en Google, trayendo trabajos — y tú manejas tu propia página.",w_enterprise:"Maneja todo el negocio desde un solo lugar, para cuando estés listo para crecer.",
+     thanks:function(n){return "Gracias "+n+" — te enviaré la lista corta de lo que necesito y empezamos. Hablamos pronto.";},done:"Listo — te contactaremos dentro de 24 horas, en tu idioma. Hablamos pronto."},
+   ar:{h1:"اظهر كأكثر<br>طاقم راسخ في المدينة.",lede:"بضع اختيارات سريعة وستحصل على سعرك — تصميمك، باقتك، ملك لك.",start:"ابدأ →",talkLink:"تفضل التحدث أولاً؟ اطلب مكالمة",talkLink2:"تفضل التحدث أولاً؟ اطلب مكالمة",
+     step1:"الخطوة 1 من 4",step2:"الخطوة 2 من 4",step3:"الخطوة 3 من 4",step4:"الخطوة 4 من 4",lookT:"اختر مظهرك",lookS:'اضغط "شاهد مباشرة" لتصفح كل واحد.',pkgT:"اختر باقتك",pkgS:"ابدأ من حيث أنت — كل باقة تبني على السابقة.",qT:"أمران سريعان",totalT:"إجماليك",
+     seelive:"شاهد مباشرة والتفاصيل →",included:"ما المتضمن →",applied:"مخصوم من كل سعر",mil:"تقدير عسكري",ff:"الأصدقاء والعائلة",onetime:"دفعة واحدة",onetimeCap:"دفعة واحدة",popular:"الأكثر شيوعاً",plusBasic:"كل ما في Basic، بالإضافة إلى:",plusOps:"كل ما في Operations، بالإضافة إلى:",
+     qDomain:"هل تملك نطاقاً بالفعل؟",qQR:"هل لديك رمز QR بالفعل؟",yesHave:"نعم، لدي واحد",no:"لا",back:"← رجوع",next:"التالي →",seetotal:"شاهد إجماليي →",yourBuild:"مشروعك",totalHint:"دفعة واحدة — هذا ما تدفعه لنا. التكاليف الشهرية للمنصات هي عليك؛ أشرح لك الأرقام الدقيقة عند الإعداد.",buildit:"لنبنِه →",
+     youPicked:"هذا ما اخترته:",phName:"اسمك",phContact:"أفضل هاتف أو بريد",sendit:"إرسال →",backLink:"← رجوع",
+     talkH:"تريد مكالمة؟ نحن هنا.",talkP:"اترك رقمك وسنتواصل خلال 24 ساعة — بلغتك.",phNum:"أفضل رقم",consent:"نعم، لديك إذني للتواصل معي بشأن هذا.",reqCall:"اطلب مكالمة →",reqCallShort:"اطلب مكالمة",gotit:"تم.",reach24:"سنتواصل خلال 24 ساعة.",
+     trH:"تنبيه",trP:"تُرجمت هذه الصفحة تلقائياً — قد لا تكون مثالية. النسخة الإنجليزية هي الأصل. سنتحدث معك بلغتك.",trBtn:"حسناً",
+     d_workhorse:"قوي وصلب كشاحنة عمل. خط كبير وتباين عالٍ.",d_original:"ألوانك — أسود وأخضر عشبي. جريء وواثق.",d_classic:"نظيف ومشرق. مساحة بيضاء أنيقة، سهل القراءة.",
+     w_basic:"موقع من صفحة واحدة يجعل الطاقم الصغير يبدو راسخاً.",w_operations:"يظهر على Google ويجلب الأعمال — وتدير صفحتك بنفسك.",w_enterprise:"أدر العمل كله من مكان واحد، عندما تكون مستعداً للنمو.",
+     thanks:function(n){return "شكراً "+n+" — سأرسل لك قائمة قصيرة بما أحتاجه ونبدأ. نتحدث قريباً.";},done:"تم — سنتواصل خلال 24 ساعة، بلغتك. نتحدث قريباً."}
   };
-  var PKGS={
-    basic:{t:"Basic — $995",b:"A one-page site that makes a small crew look established. You send us your bio in your own words and we lay it out sharp.",
-      pts:["One clean page: your work, bio &amp; number","You write your bio; we make it look professional","Up to 4 photos + your QR code","Tap-to-call, sharp on every phone","Domain &amp; logins in your name"]},
-    operations:{t:"Operations — $1,499",b:"Everything in Basic, and now it gets found and runs itself — and we write your story for you.",
-      pts:["<b>You run your own page.</b> Log in from your phone and change your photos, prices, hours and text yourself, anytime — no calling us for small edits, no waiting.","We interview you &amp; write your story for you, in your voice","Found on Google, with your real reviews on the site","Customers request a quote straight to your phone","Privacy &amp; terms handled; site locked &amp; spam-protected","We set up your domain &amp; make your QR code for you — that's the setup work. (Buying the domain itself is separate, in your name, and stays yours.)"]},
-    enterprise:{t:"Enterprise — $2,499",b:"Everything in Operations, plus the back-office for when you're ready to grow.",
-      pts:["Keep customers &amp; job history in one place","Take booking &amp; job requests online","Your own back-office to run and track it all","If you ever switch companies, we port your data out clean — it's yours, no being held hostage"]}
+  // tier bullets per lang
+  var BULLETS={
+   en:{basic:["Your work, your bio, your number — one clean page","You send your bio; we lay it out sharp","Up to 4 photos, plus your QR code","Domain & logins in your name"],
+       operations:["Run your own page — change photos, prices & hours yourself, from your phone","We interview you and write your story, in your voice","Found on Google, with your real reviews","Customers request a quote straight to your phone"],
+       enterprise:["Keep customers & job history in one place","Take booking & job requests online","Your own back-office to run and track it all","If you ever move on, we hand you all your data — clean, no lock-in"]},
+   es:{basic:["Tu trabajo, tu biografía, tu número — una página limpia","Envías tu biografía; la presentamos con estilo","Hasta 4 fotos, más tu código QR","Dominio e ingresos a tu nombre"],
+       operations:["Maneja tu propia página — cambia fotos, precios y horarios tú mismo, desde tu teléfono","Te entrevistamos y escribimos tu historia, en tu voz","Encontrado en Google, con tus reseñas reales","Los clientes piden cotización directo a tu teléfono"],
+       enterprise:["Guarda clientes e historial de trabajos en un solo lugar","Recibe reservas y solicitudes en línea","Tu propia oficina interna para manejar y dar seguimiento","Si algún día te vas, te entregamos todos tus datos — limpios, sin ataduras"]},
+   ar:{basic:["عملك، نبذتك، رقمك — صفحة واحدة أنيقة","ترسل نبذتك؛ ننسّقها باحتراف","حتى 4 صور، بالإضافة إلى رمز QR","النطاق والدخول باسمك"],
+       operations:["أدر صفحتك بنفسك — غيّر الصور والأسعار والساعات بنفسك من هاتفك","نقابلك ونكتب قصتك بأسلوبك","تظهر على Google مع تقييماتك الحقيقية","يطلب العملاء عرض سعر مباشرة إلى هاتفك"],
+       enterprise:["احفظ العملاء وسجل الأعمال في مكان واحد","استقبل الحجوزات والطلبات عبر الإنترنت","مكتبك الخلفي الخاص لإدارة كل شيء ومتابعته","إن غادرت يوماً، نسلّمك كل بياناتك — نظيفة وبلا قيود"]}
+  };
+  var DESIGN_FILE={workhorse:"v1.html",original:"v2.html",classic:"v3.html"};
+  var DESIGN_NAME={workhorse:"The Workhorse",original:"The Original",classic:"The Classic"};
+  var DESIGN_PTS={
+   en:{workhorse:["Dark background, green that pops","Call button follows as you scroll","Before / after photos lead the page","Built to read tough, not corporate"],original:["Your brand colors top to bottom","Services in clean, scannable blocks","Photo-forward — your work sells it","Balanced, established feel"],classic:["Lightest, most open layout","Calm palette, wide appeal","Easiest to read for any age","Holds up as trends move"]},
+   es:{workhorse:["Fondo oscuro, verde que resalta","Botón de llamada que te sigue al bajar","Fotos de antes / después encabezan la página","Hecho para verse fuerte, no corporativo"],original:["Tus colores de marca de arriba a abajo","Servicios en bloques claros y fáciles de leer","Con fotos al frente — tu trabajo vende","Equilibrado, sensación establecida"],classic:["El diseño más ligero y abierto","Paleta calmada, amplio atractivo","El más fácil de leer para cualquier edad","Se mantiene vigente con el tiempo"]},
+   ar:{workhorse:["خلفية داكنة وأخضر بارز","زر اتصال يتبعك أثناء التمرير","صور قبل / بعد تتصدّر الصفحة","مصمم ليبدو قوياً لا رسمياً"],original:["ألوان علامتك من الأعلى للأسفل","الخدمات في كتل واضحة وسهلة","الصور في المقدمة — عملك هو البائع","متوازن وبإحساس راسخ"],classic:["أخف وأكثر التصاميم انفتاحاً","ألوان هادئة وجاذبية واسعة","الأسهل قراءةً لأي عمر","يبقى عصرياً مع الزمن"]}
+  };
+  var DESIGN_B={
+   en:{workhorse:"Built around big, blunt headlines and full-width photos of your actual jobs. Dark background so the green reads loud, and a call button that follows you down the page.",original:"Carries your black-and-green through the whole page so it reads like one consistent brand. Photo-forward, services in clean blocks. Looks like a company that's been in town a while.",classic:"The lightest of the three — lots of breathing room, soft palette, calm type. Nothing that puts off a cautious or older customer. The safe-and-sharp pick."},
+   es:{workhorse:"Construido con titulares grandes y directos y fotos a todo ancho de tus trabajos reales. Fondo oscuro para que el verde resalte, y un botón de llamada que te sigue por la página.",original:"Lleva tu negro y verde por toda la página para que se vea como una sola marca consistente. Con fotos al frente y servicios en bloques claros. Parece una empresa con tiempo en la zona.",classic:"El más ligero de los tres — mucho espacio, paleta suave, tipografía calmada. Nada que aleje a un cliente cauteloso o mayor. La opción segura y nítida."},
+   ar:{workhorse:"مبني حول عناوين كبيرة ومباشرة وصور بعرض كامل لأعمالك الحقيقية. خلفية داكنة ليبرز الأخضر، وزر اتصال يتبعك في الصفحة.",original:"يحمل اللونين الأسود والأخضر عبر الصفحة كلها ليبدو كعلامة واحدة متناسقة. الصور في المقدمة والخدمات في كتل واضحة. يبدو كشركة راسخة في المنطقة.",classic:"الأخف بين الثلاثة — مساحة واسعة وألوان ناعمة وخط هادئ. لا شيء ينفّر العميل الحذر أو الأكبر سناً. الخيار الآمن والأنيق."}
+  };
+  var PKG_TITLE={basic:"Basic — $995",operations:"Operations — $1,499",enterprise:"Enterprise — $2,499"};
+  var PKG_B={
+   en:{basic:"A one-page site that makes a small crew look established. You send your bio in your own words and we lay it out sharp.",operations:"Everything in Basic, and now it gets found and runs itself — and we write your story for you.",enterprise:"Everything in Operations, plus the back-office for when you're ready to grow."},
+   es:{basic:"Un sitio de una página que hace que un equipo pequeño se vea establecido. Tú envías tu biografía y nosotros la presentamos con estilo.",operations:"Todo lo de Basic, y ahora aparece en búsquedas y se maneja solo — y escribimos tu historia por ti.",enterprise:"Todo lo de Operations, más la oficina interna para cuando estés listo para crecer."},
+   ar:{basic:"موقع من صفحة واحدة يجعل الطاقم الصغير يبدو راسخاً. ترسل نبذتك بكلماتك وننسّقها باحتراف.",operations:"كل ما في Basic، والآن يظهر في البحث ويعمل ذاتياً — ونكتب قصتك لك.",enterprise:"كل ما في Operations، بالإضافة إلى المكتب الخلفي عندما تكون مستعداً للنمو."}
+  };
+  var PKG_PTS={
+   en:{basic:["One clean page: your work, bio & number","You write your bio; we make it look professional","Up to 4 photos + your QR code","Tap-to-call, sharp on every phone","Domain & logins in your name"],
+       operations:["<b>You run your own page.</b> Log in from your phone and change photos, prices, hours and text yourself, anytime.","We interview you & write your story, in your voice","Found on Google, with your real reviews","Customers request a quote straight to your phone","Privacy & terms handled; site locked & spam-protected","We set up your domain & make your QR code — that's the setup work. (Buying the domain is separate, in your name.)"],
+       enterprise:["Keep customers & job history in one place","Take booking & job requests online","Your own back-office to run and track it all","If you ever switch companies, we port your data out clean — it's yours"]},
+   es:{basic:["Una página limpia: tu trabajo, biografía y número","Tú escribes tu biografía; la hacemos ver profesional","Hasta 4 fotos + tu código QR","Llamada con un toque, nítido en todo teléfono","Dominio e ingresos a tu nombre"],
+       operations:["<b>Manejas tu propia página.</b> Entra desde tu teléfono y cambia fotos, precios, horarios y texto tú mismo, cuando quieras.","Te entrevistamos y escribimos tu historia, en tu voz","Encontrado en Google, con tus reseñas reales","Los clientes piden cotización directo a tu teléfono","Privacidad y términos resueltos; sitio seguro y protegido contra spam","Configuramos tu dominio y creamos tu código QR — ese es el trabajo de montaje. (Comprar el dominio es aparte, a tu nombre.)"],
+       enterprise:["Guarda clientes e historial en un solo lugar","Recibe reservas y solicitudes en línea","Tu propia oficina interna para manejar todo","Si cambias de empresa, exportamos tus datos limpios — son tuyos"]},
+   ar:{basic:["صفحة واحدة أنيقة: عملك ونبذتك ورقمك","تكتب نبذتك؛ نجعلها تبدو احترافية","حتى 4 صور + رمز QR","اتصال بضغطة، واضح على كل هاتف","النطاق والدخول باسمك"],
+       operations:["<b>تدير صفحتك بنفسك.</b> ادخل من هاتفك وغيّر الصور والأسعار والساعات والنص بنفسك في أي وقت.","نقابلك ونكتب قصتك بأسلوبك","تظهر على Google مع تقييماتك الحقيقية","يطلب العملاء عرض سعر مباشرة إلى هاتفك","الخصوصية والشروط مُعالجة؛ الموقع آمن ومحمي","نُعدّ نطاقك وننشئ رمز QR — هذا عمل الإعداد. (شراء النطاق منفصل وباسمك.)"],
+       enterprise:["احفظ العملاء وسجل الأعمال في مكان واحد","استقبل الحجوزات والطلبات عبر الإنترنت","مكتبك الخلفي لإدارة كل شيء","إن غيّرت الشركة، نصدّر بياناتك نظيفة — إنها لك"]}
   };
   var TIER_PRICE={basic:995,operations:1499,enterprise:2499};
   var TIER_NAME={basic:"Basic",operations:"Operations",enterprise:"Enterprise"};
-  var DESIGN_NAME={workhorse:"The Workhorse",original:"The Original",classic:"The Classic"};
-  var DOMAIN_ADDON=100, QR_ADDON=50;
-  var STEP_IDX={look:0,package:1,details:2,total:3};
-
-  var S={design:null,tier:null,hasDomain:null,hasQR:null};
-  var lang='en';
+  var DOMAIN_ADDON=100, QR_ADDON=50, STEP_IDX={look:0,package:1,details:2,total:3};
+  var S={design:null,tier:null,hasDomain:null,hasQR:null}, lang='en', curModal=null, noticed=false;
   var $=function(id){return document.getElementById(id);};
 
-  function sendToOwnerDash(p){ try{ p.ts=Date.now(); var k='mtslate_capture'; var a=JSON.parse(localStorage.getItem(k)||'[]'); a.push(p); localStorage.setItem(k,JSON.stringify(a)); }catch(e){} }
+  function sendToOwnerDash(p){ try{ p.ts=Date.now();p.lang=lang; var k='mtslate_capture'; var a=JSON.parse(localStorage.getItem(k)||'[]'); a.push(p); localStorage.setItem(k,JSON.stringify(a)); }catch(e){} }
 
-  function go(name){
-    var s=document.querySelectorAll('.screen'); for(var i=0;i<s.length;i++)s[i].classList.remove('active');
-    $('s-'+name).classList.add('active');
-    var d=$('dots');
-    if(name in STEP_IDX){ d.classList.remove('hide'); var dd=d.children; for(var j=0;j<dd.length;j++)dd[j].classList.toggle('on',j<=STEP_IDX[name]); }
-    else d.classList.add('hide');
-    window.scrollTo({top:0,behavior:'smooth'});
-    if(name==='total')render();
+  function setSiteLang(l){
+    lang=l; var d=L[l];
+    document.querySelectorAll('.langbar button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-l')===l);});
+    document.documentElement.setAttribute('lang',l); document.documentElement.setAttribute('dir', l==='ar'?'rtl':'ltr');
+    document.querySelectorAll('[data-i18n]').forEach(function(el){ var k=el.getAttribute('data-i18n'); if(d[k]!==undefined) el.innerHTML=d[k]; });
+    document.querySelectorAll('[data-ph]').forEach(function(el){ var k=el.getAttribute('data-ph'); if(d[k]!==undefined) el.placeholder=d[k]; });
+    document.querySelectorAll('[data-dd]').forEach(function(el){ el.textContent=d['d_'+el.getAttribute('data-dd')]; });
+    document.querySelectorAll('[data-w]').forEach(function(el){ el.textContent=d['w_'+el.getAttribute('data-w')]; });
+    ['basic','operations','enterprise'].forEach(function(t){ var ul=$('ul-'+t); ul.innerHTML=BULLETS[l][t].map(function(b){return '<li><span class="ck">✓</span>'+b+'</li>';}).join(''); });
+    render(); if(curModal) reopenModal();
+    if(l!=='en'&&!noticed){ noticed=true; $('notice').classList.add('show'); }
   }
+
+  function go(name){ var s=document.querySelectorAll('.screen'); for(var i=0;i<s.length;i++)s[i].classList.remove('active'); $('s-'+name).classList.add('active');
+    var dd=$('dots'); if(name in STEP_IDX){ dd.classList.remove('hide'); var c=dd.children; for(var j=0;j<c.length;j++)c[j].classList.toggle('on',j<=STEP_IDX[name]); } else dd.classList.add('hide');
+    window.scrollTo({top:0,behavior:'smooth'}); if(name==='total')render(); }
 
   function pickDesign(el){ S.design=el.getAttribute('data-design'); selOne('#designs .card',el); $('nx-look').disabled=!S.design; }
   function pickTier(el){ S.tier=el.getAttribute('data-tier'); selOne('#pkgs .card',el); $('nx-package').disabled=!S.tier; }
@@ -360,62 +401,66 @@
   function fmt(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,','); }
   function calcTotal(){ var t=TIER_PRICE[S.tier]||0; if(S.tier==='basic'){ if(S.hasDomain===false)t+=DOMAIN_ADDON; if(S.hasQR===false)t+=QR_ADDON; } return t; }
 
-  function afterDetail(){
+  function afterDetail(){ var d=L[lang];
     var di=$('domainImpact');
-    if(S.hasDomain===true) di.innerHTML='<span class="free">We move it over — free.</span>';
-    else if(S.hasDomain===false){ if(included(S.tier))di.innerHTML='<span class="free">Included in your package.</span>'; else di.innerHTML='<span class="add">+$'+DOMAIN_ADDON+'</span> to help find &amp; set one up <span style="color:var(--mute)">(buying the domain is separate, in your name)</span>.'; }
+    if(S.hasDomain===true) di.innerHTML='<span class="free">'+ (lang==='es'?'Lo trasladamos — gratis.':lang==='ar'?'ننقله لك — مجاناً.':'We move it over — free.') +'</span>';
+    else if(S.hasDomain===false){ di.innerHTML= included(S.tier)? '<span class="free">'+(lang==='es'?'Incluido en tu paquete.':lang==='ar'?'مشمول في باقتك.':'Included in your package.')+'</span>' : '<span class="add">+$'+DOMAIN_ADDON+'</span> '+(lang==='es'?'para ayudar a encontrarlo y configurarlo (comprar el dominio es aparte, a tu nombre).':lang==='ar'?'للمساعدة في إيجاده وإعداده (شراء النطاق منفصل وباسمك).':'to help find & set one up (buying the domain is separate, in your name).'); }
     var qi=$('qrImpact');
-    if(S.hasQR===true) qi.innerHTML='<span class="free">We place it for you — free.</span>';
-    else if(S.hasQR===false){ if(included(S.tier))qi.innerHTML='<span class="free">Included in your package.</span>'; else qi.innerHTML='<span class="add">+$'+QR_ADDON+'</span> to help set it up.'; }
-    $('nx-details').disabled = (S.hasDomain===null||S.hasQR===null);
+    if(S.hasQR===true) qi.innerHTML='<span class="free">'+(lang==='es'?'Lo colocamos por ti — gratis.':lang==='ar'?'نضعه لك — مجاناً.':'We place it for you — free.')+'</span>';
+    else if(S.hasQR===false){ qi.innerHTML= included(S.tier)? '<span class="free">'+(lang==='es'?'Incluido en tu paquete.':lang==='ar'?'مشمول في باقتك.':'Included in your package.')+'</span>' : '<span class="add">+$'+QR_ADDON+'</span> '+(lang==='es'?'para ayudar a configurarlo.':lang==='ar'?'للمساعدة في إعداده.':'to help set it up.'); }
+    $('nx-details').disabled=(S.hasDomain===null||S.hasQR===null);
   }
 
+  function tt(k){ return L[lang][k]; }
   function render(){
-    var pl=''; if(S.design&&S.tier)pl=DESIGN_NAME[S.design]+' · '+TIER_NAME[S.tier]; else if(S.tier)pl=TIER_NAME[S.tier];
-    $('pickLine').textContent=pl;
+    var pl=''; if(S.design&&S.tier)pl=DESIGN_NAME[S.design]+' · '+TIER_NAME[S.tier]; else if(S.tier)pl=TIER_NAME[S.tier]; $('pickLine').textContent=pl;
     var rows='', total=calcTotal();
-    if(!S.tier){ rows='<div class="row"><span>Pick a package</span><span class="v">—</span></div>'; }
+    var inc=(lang==='es'?'incluido':lang==='ar'?'مشمول':'included');
+    if(!S.tier){ rows='<div class="row"><span>'+(lang==='es'?'Elige un paquete':lang==='ar'?'اختر باقة':'Pick a package')+'</span><span class="v">—</span></div>'; }
     else {
-      rows='<div class="row"><span>'+TIER_NAME[S.tier]+' package</span><span class="v">$'+fmt(TIER_PRICE[S.tier])+'</span></div>';
-      if(S.hasDomain===false){ rows+= included(S.tier)?'<div class="row"><span>Domain setup</span><span class="v inc">included</span></div>':'<div class="row"><span>Domain setup help</span><span class="v">+$'+DOMAIN_ADDON+'</span></div>'; }
-      else if(S.hasDomain===true) rows+='<div class="row"><span>Domain — you have one</span><span class="v free">free transfer</span></div>';
-      if(S.hasQR===false){ rows+= included(S.tier)?'<div class="row"><span>QR code</span><span class="v inc">included</span></div>':'<div class="row"><span>QR code</span><span class="v">+$'+QR_ADDON+'</span></div>'; }
-      else if(S.hasQR===true) rows+='<div class="row"><span>QR code — you have one</span><span class="v free">placed free</span></div>';
+      rows='<div class="row"><span>'+TIER_NAME[S.tier]+'</span><span class="v">$'+fmt(TIER_PRICE[S.tier])+'</span></div>';
+      var dom=(lang==='es'?'Dominio':lang==='ar'?'النطاق':'Domain'), qr=(lang==='es'?'Código QR':lang==='ar'?'رمز QR':'QR code');
+      var ftr=(lang==='es'?'traslado gratis':lang==='ar'?'نقل مجاني':'free transfer'), plc=(lang==='es'?'colocado gratis':lang==='ar'?'وضع مجاني':'placed free');
+      if(S.hasDomain===false){ rows+= included(S.tier)?'<div class="row"><span>'+dom+'</span><span class="v inc">'+inc+'</span></div>':'<div class="row"><span>'+dom+'</span><span class="v">+$'+DOMAIN_ADDON+'</span></div>'; }
+      else if(S.hasDomain===true) rows+='<div class="row"><span>'+dom+'</span><span class="v free">'+ftr+'</span></div>';
+      if(S.hasQR===false){ rows+= included(S.tier)?'<div class="row"><span>'+qr+'</span><span class="v inc">'+inc+'</span></div>':'<div class="row"><span>'+qr+'</span><span class="v">+$'+QR_ADDON+'</span></div>'; }
+      else if(S.hasQR===true) rows+='<div class="row"><span>'+qr+'</span><span class="v free">'+plc+'</span></div>';
     }
     $('totalRows').innerHTML=rows; $('grand').textContent='$'+fmt(total);
   }
 
-  function openDesign(k){ var d=DESIGNS[k]; $('mKick').textContent=d.k; $('mTitle').textContent=d.t;
-    var h='<p>'+d.b+'</p><ul style="margin-top:12px">'; for(var i=0;i<d.pts.length;i++)h+='<li><span class="ck">✓</span>'+d.pts[i]+'</li>'; h+='</ul>';
-    $('mBody').innerHTML=h; var a=$('mDemo'); a.href=DEMO_BASE+d.file; a.classList.remove('hide'); a.textContent='See "'+d.t+'" live →'; $('modal').classList.add('show'); }
-  function openPkg(k){ var p=PKGS[k]; $('mKick').textContent='Package'; $('mTitle').textContent=p.t;
-    var h='<p>'+p.b+'</p><ul style="margin-top:12px">'; for(var i=0;i<p.pts.length;i++)h+='<li><span class="ck">✓</span>'+p.pts[i]+'</li>'; h+='</ul>';
-    $('mBody').innerHTML=h; $('mDemo').classList.add('hide'); $('modal').classList.add('show'); }
-  function closeModal(){ $('modal').classList.remove('show'); }
+  function openDesign(k){ curModal={type:'d',k:k}; reopenModal(); }
+  function openPkg(k){ curModal={type:'p',k:k}; reopenModal(); }
+  function reopenModal(){ if(!curModal)return; var k=curModal.k;
+    if(curModal.type==='d'){ $('mKick').textContent='Design'; $('mTitle').textContent=DESIGN_NAME[k];
+      var h='<p>'+DESIGN_B[lang][k]+'</p><ul style="margin-top:12px">'+DESIGN_PTS[lang][k].map(function(p){return '<li><span class="ck">✓</span>'+p+'</li>';}).join('')+'</ul>';
+      $('mBody').innerHTML=h; var a=$('mDemo'); a.href=DEMO_BASE+DESIGN_FILE[k]; a.classList.remove('hide'); a.textContent=tt('seelive').replace(' & details',''); }
+    else { $('mKick').textContent='Package'; $('mTitle').textContent=PKG_TITLE[k];
+      var h2='<p>'+PKG_B[lang][k]+'</p><ul style="margin-top:12px">'+PKG_PTS[lang][k].map(function(p){return '<li><span class="ck">✓</span>'+p+'</li>';}).join('')+'</ul>';
+      $('mBody').innerHTML=h2; $('mDemo').classList.add('hide'); }
+    $('modal').classList.add('show');
+  }
+  function closeModal(){ $('modal').classList.remove('show'); curModal=null; }
 
   function requestCall(){ sendToOwnerDash({type:'call_request',source:'fab',design:S.design,tier:S.tier}); var p=$('popmsg'); p.classList.add('show'); setTimeout(function(){p.classList.remove('show');},3500); }
-
   function showTalk(){ $('ctaBlock').classList.add('hide'); $('startBlock').classList.add('hide'); $('talkBlock').classList.remove('hide'); }
   function hideTalk(){ $('talkBlock').classList.add('hide'); $('ctaBlock').classList.remove('hide'); }
   function hideStart(){ $('startBlock').classList.add('hide'); $('ctaBlock').classList.remove('hide'); }
   function lockIn(){ if(!(S.design&&S.tier))return;
-    var L=[]; L.push('• Look: '+DESIGN_NAME[S.design]); L.push('• Package: '+TIER_NAME[S.tier]+' ($'+fmt(TIER_PRICE[S.tier])+')');
-    L.push('• Domain: '+(S.hasDomain===true?'has one (free transfer)':S.hasDomain===false?(included(S.tier)?'set up — included':'set up +$'+DOMAIN_ADDON):'TBD'));
-    L.push('• QR code: '+(S.hasQR===true?'has one (placed free)':S.hasQR===false?(included(S.tier)?'made — included':'made +$'+QR_ADDON):'TBD'));
-    L.push('• One-time total: $'+fmt(calcTotal()));
-    $('pickSummary').innerHTML=L.join('<br>'); $('ctaBlock').classList.add('hide'); $('talkBlock').classList.add('hide'); $('startBlock').classList.remove('hide'); }
-  function submitStart(){ if(!$('nm').value||!$('ph').value){alert('Add your name and contact.');return;}
+    var L2=[]; L2.push('• Look: '+DESIGN_NAME[S.design]); L2.push('• Package: '+TIER_NAME[S.tier]+' ($'+fmt(TIER_PRICE[S.tier])+')');
+    L2.push('• Domain: '+(S.hasDomain===true?'has one':S.hasDomain===false?(included(S.tier)?'included':'+$'+DOMAIN_ADDON):'TBD'));
+    L2.push('• QR: '+(S.hasQR===true?'has one':S.hasQR===false?(included(S.tier)?'included':'+$'+QR_ADDON):'TBD'));
+    L2.push('• Total: $'+fmt(calcTotal())); $('pickSummary').innerHTML=L2.join('<br>');
+    $('ctaBlock').classList.add('hide'); $('talkBlock').classList.add('hide'); $('startBlock').classList.remove('hide'); }
+  function submitStart(){ if(!$('nm').value||!$('ph').value){alert('—');return;}
     sendToOwnerDash({type:'proposal_pick',design:S.design,tier:S.tier,hasDomain:S.hasDomain,hasQR:S.hasQR,total:calcTotal(),name:$('nm').value,contact:$('ph').value});
-    $('startBlock').innerHTML='<div class="box ok"><div class="bh ok">You\'re in.</div><p>Thanks '+$('nm').value.split(' ')[0]+' — I\'ll text you the short list of what I need and we\'ll get '+DESIGN_NAME[S.design]+' built. Talk soon.</p></div>'; }
+    $('startBlock').innerHTML='<div class="box ok"><div class="bh ok">'+tt('gotit')+'</div><p>'+L[lang].thanks($('nm').value.split(' ')[0])+'</p></div>'; }
+  function submitAsk(){ if(!$('aph').value||!$('ok').checked){alert('—');return;}
+    sendToOwnerDash({type:'call_request',source:'schedule',phone:$('aph').value,design:S.design,tier:S.tier});
+    $('talkBlock').innerHTML='<div class="box ok"><div class="bh ok">'+tt('gotit')+'</div><p>'+tt('done')+'</p></div>'; }
 
-  var T={en:{ok:"Yes, you have my permission to reach out about this.",go:"Have someone reach out →",done:"Got it — we'll reach out shortly, English or Español. Talk soon."},
-         es:{ok:"Sí, tienes mi permiso para contactarme sobre esto.",go:"Que me contacten →",done:"Listo — te contactaremos pronto, en español. Hablamos."}};
-  function setLang(l){ lang=l; $('le').classList.toggle('on',l==='en'); $('ls').classList.toggle('on',l==='es'); $('okl').textContent=T[l].ok; $('ag').textContent=T[l].go; $('askForm').classList.remove('hide'); }
-  function submitAsk(){ if(!$('aph').value||!$('ok').checked){alert(lang==='es'?'Agrega tu número y permiso.':'Add your number and permission.');return;}
-    sendToOwnerDash({type:'call_request',source:'schedule',lang:lang,phone:$('aph').value,design:S.design,tier:S.tier});
-    $('talkBlock').innerHTML='<div class="box ok"><div class="bh ok">'+(lang==='es'?'¡Gracias!':'Thanks!')+'</div><p>'+T[lang].done+'</p></div>'; }
-
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape'){closeModal();$('popmsg').classList.remove('show');} });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'){closeModal();$('popmsg').classList.remove('show');$('notice').classList.remove('show');} });
+  setSiteLang('en');
 </script>
 </body>
 </html>
