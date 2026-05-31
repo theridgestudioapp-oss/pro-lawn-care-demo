@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>MT Slate &middot; A holdings company for the long view.</title>
+<!--
+  MT Slate brand landing. Per operating-standards §10.17.
+  Palette: Charcoal #1F2428 · Off-White #F0EBE0 · Matte Gold #B99A5A · Deep Sage #4A5A4A.
+  Motif: elevation, layers, perspectives, mountains, terraces, summits — TOPOGRAPHIC.
+  Hero motion: contour map drifting at 2% speed. Almost imperceptible.
+  Restraint per §10.18: one motion per screen, no audio, premium = restraint.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --charcoal:#1F2428;
+    --charcoal-2:#181C1F;
+    --bone:#F0EBE0;
+    --mute:rgba(240,235,224,.6);
+    --line:rgba(240,235,224,.10);
+    --gold:#B99A5A;
+    --gold-d:#967A3C;
+    --sage:#708070;
+    --sage-d:#4A5A4A;
+  }
+  html,body{background:var(--charcoal);color:var(--bone);font-family:'Inter',system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.02em;line-height:1.05}
+  .mono{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
+
+  /* ── NAV ── */
+  .topbar{position:fixed;top:0;inset-inline:0;z-index:30;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;background:rgba(31,36,40,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line);transition:padding .3s ease}
+  .topbar.shrunk{padding:10px 32px}
+  .topbar .mk{display:flex;align-items:center;gap:11px}
+  .topbar .mk .glyph{width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+  .topbar .mk .glyph svg{width:100%;height:100%}
+  .topbar .mk .wd{font-family:'Fraunces',serif;font-weight:600;font-size:17px;letter-spacing:.04em;color:var(--bone)}
+  .topbar nav{display:flex;gap:28px;align-items:center}
+  .topbar nav a{color:var(--mute);text-decoration:none;font-size:13.5px;font-weight:500;transition:.18s ease;letter-spacing:.01em}
+  .topbar nav a:hover{color:var(--bone)}
+  .topbar .inq{color:var(--charcoal);background:var(--bone);padding:7px 14px;border-radius:4px;font-weight:600;font-size:13px}
+  .topbar .inq:hover{background:#fff;color:var(--charcoal)}
+  @media(max-width:680px){.topbar nav a:not(.inq){display:none}}
+
+  /* ── TOPOGRAPHIC HERO ── */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:120px 32px 80px;overflow:hidden}
+  .topo{position:absolute;inset:-12%;z-index:0;opacity:.55;animation:topoDrift 110s ease-in-out infinite alternate}
+  @keyframes topoDrift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-2%,1%) scale(1.02)}100%{transform:translate(1%,-1%) scale(1.01)}}
+  .topo svg{position:absolute;inset:0;width:100%;height:100%}
+  .topo path{stroke:var(--gold);stroke-width:1;fill:none;opacity:.16}
+  .topo path:nth-child(odd){stroke:var(--sage);opacity:.13}
+  .topo .summit{stroke-width:1.3;opacity:.34}
+
+  /* light grain over the topo */
+  .grain{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.4;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");background-size:200px 200px}
+
+  .hero-inner{position:relative;z-index:5;max-width:1180px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.05fr .95fr;gap:80px;align-items:center}
+  @media(max-width:920px){.hero-inner{grid-template-columns:1fr;gap:40px}}
+
+  .hero .kick{display:inline-flex;align-items:center;gap:14px;color:var(--gold)}
+  .hero .kick::before{content:'';width:30px;height:1px;background:var(--gold)}
+  .hero h1{font-size:clamp(46px,7.5vw,88px);margin-top:24px;color:var(--bone)}
+  .hero h1 em{font-style:italic;color:var(--gold);font-weight:400}
+  .hero .lede{margin-top:30px;font-size:clamp(16px,1.6vw,19px);color:var(--mute);max-width:520px;line-height:1.55}
+  .hero .lede strong{color:var(--bone);font-weight:500}
+  .hero .cta{margin-top:36px;display:inline-flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:4px;font-weight:600;font-size:14px;text-decoration:none;cursor:pointer;transition:.18s;border:none;font-family:inherit;letter-spacing:.01em}
+  .btn-pri{background:var(--bone);color:var(--charcoal)} .btn-pri:hover{background:#fff}
+  .btn-ghost{background:transparent;color:var(--bone);border:1px solid rgba(240,235,224,.2)} .btn-ghost:hover{border-color:var(--bone)}
+
+  /* Elevation diagram on the right */
+  .elev{position:relative;aspect-ratio:5/4;background:rgba(24,28,31,.55);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .elev svg{position:absolute;inset:0;width:100%;height:100%}
+
+  /* ── PORTFOLIO SECTION ── */
+  section{position:relative;padding:120px 32px;border-top:1px solid var(--line)}
+  section.sage{background:#16201A}
+  section .sec-inner{max-width:1180px;margin:0 auto}
+  section .head{display:grid;grid-template-columns:160px 1fr;gap:40px;align-items:start;margin-bottom:60px}
+  @media(max-width:760px){section .head{grid-template-columns:1fr;gap:14px;margin-bottom:48px}}
+  section .head .label{color:var(--gold)}
+  section .head h2{font-size:clamp(32px,4.4vw,52px);color:var(--bone)}
+  section .head h2 em{color:var(--gold);font-style:italic;font-weight:400}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}}
+  .card{background:rgba(24,28,31,.55);border:1px solid var(--line);border-radius:6px;padding:24px;display:flex;flex-direction:column;transition:.22s ease}
+  .card:hover{border-color:rgba(185,154,90,.5);transform:translateY(-2px)}
+  .card .row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .card .row .gl{font-family:'Fraunces',serif;font-size:13px;font-weight:600;color:var(--gold);letter-spacing:.04em;background:rgba(185,154,90,.12);padding:3px 10px;border-radius:99px}
+  .card .row .st{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase}
+  .card .row .st.live{color:#7CB87C}
+  .card .row .st.dev{color:var(--gold)}
+  .card .row .st.stealth{color:var(--mute)}
+  .card h3{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--bone)}
+  .card p{margin-top:8px;font-size:13.5px;color:var(--mute);line-height:1.55;flex:1}
+
+  /* ── THESIS ── */
+  .thesis{padding:120px 32px;border-top:1px solid var(--line);text-align:center}
+  .thesis-inner{max-width:760px;margin:0 auto}
+  .thesis .label{color:var(--gold);margin-bottom:30px;display:inline-block}
+  .thesis blockquote{font-family:'Fraunces',serif;font-size:clamp(22px,2.6vw,32px);line-height:1.4;color:var(--bone);font-weight:400;letter-spacing:-.01em}
+  .thesis blockquote em{color:var(--gold);font-style:italic}
+  .thesis .signoff{margin-top:42px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+
+  /* ── CONTACT ── */
+  .contact{padding:120px 32px;border-top:1px solid var(--line);background:#181C1F}
+  .contact-inner{max-width:760px;margin:0 auto;text-align:center}
+  .contact h2{font-size:clamp(36px,5vw,56px);color:var(--bone)}
+  .contact h2 em{color:var(--gold);font-style:italic;font-weight:400}
+  .contact p{margin-top:18px;color:var(--mute);max-width:480px;margin-inline:auto;font-size:16px}
+  .contact .ways{margin-top:36px;display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:600px;margin-left:auto;margin-right:auto}
+  @media(max-width:540px){.contact .ways{grid-template-columns:1fr}}
+  .contact .way{padding:24px;background:rgba(31,36,40,.6);border:1px solid var(--line);border-radius:6px;text-align:left}
+  .contact .way .l{color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase}
+  .contact .way .v{margin-top:8px;color:var(--bone);font-size:16px;font-weight:500}
+  .contact .way a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(240,235,224,.2);padding-bottom:1px}
+  .contact .way a:hover{border-color:var(--bone)}
+
+  /* ── FOOTER ── */
+  footer{padding:36px 32px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);flex-wrap:wrap;gap:18px}
+  footer a{color:var(--mute);text-decoration:none;margin-right:18px}
+  footer a:last-child{margin-right:0}
+  footer a:hover{color:var(--bone)}
+
+  @media(prefers-reduced-motion:reduce){.topo{animation:none}}
+</style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <div class="topbar" id="topbar">
+    <a class="mk" href="#" style="text-decoration:none">
+      <span class="glyph">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M3 19 L8 12 L12 16 L16 8 L21 19" stroke="#B99A5A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="wd">MT&nbsp;SLATE</span>
+    </a>
+    <nav>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#thesis">Thesis</a>
+      <a href="#contact">Contact</a>
+      <a href="#contact" class="inq">Inquiries</a>
+    </nav>
+  </div>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="topo" aria-hidden="true">
+      <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+        <!-- Concentric topographic contour lines representing a summit -->
+        <path d="M600 400 q-220 -180 -260 -260 q-30 -200 280 -240 q310 40 280 240 q-40 80 -260 260 q-20 0 -40 0z" />
+        <path d="M600 400 q-180 -150 -220 -220 q-25 -160 240 -200 q265 40 240 200 q-40 70 -220 220 q-20 0 -40 0z" />
+        <path d="M600 400 q-150 -120 -180 -180 q-20 -130 200 -160 q220 30 200 160 q-30 60 -180 180 q-15 0 -40 0z" />
+        <path d="M600 400 q-120 -90 -140 -140 q-15 -100 160 -120 q175 20 160 120 q-20 50 -140 140 q-15 0 -40 0z" />
+        <path d="M600 400 q-90 -60 -100 -100 q-10 -70 120 -84 q130 14 120 84 q-10 40 -100 100 q-15 0 -40 0z" class="summit" />
+        <path d="M600 400 q-60 -30 -60 -60 q-5 -40 80 -50 q85 10 80 50 q0 30 -60 60 q-15 0 -40 0z" class="summit" />
+        <path d="M600 400 q-30 -10 -30 -30 q-3 -20 40 -26 q43 6 40 26 q0 20 -30 30 q-10 0 -20 0z" class="summit" />
+        <!-- Secondary peak left -->
+        <path d="M280 540 q-100 -50 -120 -90 q-10 -70 100 -90 q120 20 100 90 q-20 40 -100 90 q-10 0 -20 0z" />
+        <path d="M280 540 q-70 -32 -80 -60 q-7 -45 70 -60 q80 15 70 60 q-15 28 -80 60 q-10 0 -10 0z" />
+        <path d="M280 540 q-40 -16 -45 -30 q-4 -22 45 -36 q45 14 45 36 q-10 14 -45 30 q-5 0 -5 0z" class="summit" />
+        <!-- Tertiary ridge right -->
+        <path d="M960 580 q-130 -40 -140 -90 q-12 -80 110 -110 q130 30 110 110 q-15 50 -110 90 q-15 0 -30 0z" />
+        <path d="M960 580 q-90 -26 -100 -60 q-8 -56 75 -75 q88 19 75 75 q-12 34 -75 60 q-10 0 -25 0z" />
+      </svg>
+    </div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <div>
+        <span class="kick mono">A holdings company</span>
+        <h1>Built to last.<br><em>Built to grow.</em></h1>
+        <p class="lede">
+          <strong>MT Slate</strong> is the parent company behind a portfolio of software, services, and creative ventures — built for ownership, durability, and the long view. We build, we own, and we stay close to the work.
+        </p>
+        <div class="cta">
+          <a class="btn btn-pri" href="#portfolio">See the portfolio →</a>
+          <a class="btn btn-ghost" href="#thesis">The thesis</a>
+        </div>
+      </div>
+
+      <!-- Elevation diagram echo -->
+      <div class="elev" aria-hidden="true">
+        <svg viewBox="0 0 500 400" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#B99A5A" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#B99A5A" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <!-- Layered terraces -->
+          <path d="M0 320 L0 320 L70 320 L120 280 L200 280 L260 230 L340 230 L400 180 L500 180 L500 400 L0 400 Z" fill="url(#gold)" opacity=".18"/>
+          <path d="M0 320 L70 320 L120 280 L200 280 L260 230 L340 230 L400 180 L500 180" stroke="#B99A5A" stroke-width="1.2" fill="none"/>
+          <!-- summit marker -->
+          <circle cx="400" cy="180" r="3" fill="#B99A5A"/>
+          <path d="M400 180 L400 60" stroke="#B99A5A" stroke-width="1" stroke-dasharray="2 4"/>
+          <text x="400" y="50" font-family="JetBrains Mono" font-size="9" fill="#B99A5A" letter-spacing="1.5" text-anchor="middle">SUMMIT</text>
+          <!-- terrace labels -->
+          <text x="35" y="345" font-family="JetBrains Mono" font-size="8" fill="#70807055" letter-spacing="1" text-anchor="middle">FOUNDATION</text>
+          <text x="160" y="305" font-family="JetBrains Mono" font-size="8" fill="#70807055" letter-spacing="1" text-anchor="middle">PRODUCT</text>
+          <text x="300" y="255" font-family="JetBrains Mono" font-size="8" fill="#70807055" letter-spacing="1" text-anchor="middle">MARKET</text>
+          <text x="450" y="205" font-family="JetBrains Mono" font-size="8" fill="#70807055" letter-spacing="1" text-anchor="middle">SCALE</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PORTFOLIO ── -->
+  <section id="portfolio">
+    <div class="sec-inner">
+      <div class="head">
+        <span class="label mono">The portfolio</span>
+        <h2>Real businesses,<br><em>not products.</em></h2>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="row"><span class="gl">Empty Slates</span><span class="st live">Live</span></div>
+          <h3>Empty Slates</h3>
+          <p>Operational software and websites for small service businesses. The service brand — we build it, you own it.</p>
+        </div>
+
+        <div class="card">
+          <div class="row"><span class="gl">CultChair</span><span class="st live">Live</span></div>
+          <h3>CultChair</h3>
+          <p>Marketplace and tools for at-home stylists, braiders, and hair professionals. The community moat.</p>
+        </div>
+
+        <div class="card">
+          <div class="row"><span class="gl">Ridge Studio</span><span class="st dev">In development</span></div>
+          <h3>Ridge Studio</h3>
+          <p>Recording studio operations + booking tools for independent producers, songwriters, and artists.</p>
+        </div>
+
+        <div class="card">
+          <div class="row"><span class="gl">BenChecker</span><span class="st dev">In development</span></div>
+          <h3>BenChecker</h3>
+          <p>Benefits-decoder for the people who never get to read their own plan documents. Built from years on the Medicare front lines.</p>
+        </div>
+
+        <div class="card">
+          <div class="row"><span class="gl">DeedVault</span><span class="st dev">In development</span></div>
+          <h3>DeedVault</h3>
+          <p>Property document storage with notary-grade audit trail. For homeowners and small operators who don't trust a shoebox.</p>
+        </div>
+
+        <div class="card">
+          <div class="row"><span class="gl">Iris AI</span><span class="st dev">In development</span></div>
+          <h3>Iris</h3>
+          <p>An assistant that learns the small details of your operation. Quiet, durable, in your name — not ours.</p>
+        </div>
+
+        <div class="card">
+          <div class="row"><span class="gl">Workshop</span><span class="st dev">In development</span></div>
+          <h3>Workshop</h3>
+          <p>SaaS for small construction and contractor crews. Bids, dispatch, time, paid.</p>
+        </div>
+
+        <div class="card">
+          <div class="row"><span class="gl">CollabX</span><span class="st dev">In development</span></div>
+          <h3>CollabX</h3>
+          <p>Collaboration scaffolding for distributed creative teams. The structure that lets people make things together.</p>
+        </div>
+
+        <div class="card">
+          <div class="row"><span class="gl">SENTINEL</span><span class="st stealth">Stealth</span></div>
+          <h3>Sentinel</h3>
+          <p>Counter-swarm, intelligence, and detection work. Pursuing the clearances and partnerships required.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── THESIS ── -->
+  <section class="thesis" id="thesis">
+    <div class="thesis-inner">
+      <span class="label mono">The thesis</span>
+      <blockquote>
+        We build companies the way a small town builds itself — <em>slowly, intentionally, and to last.</em><br><br>
+        Patient enough to compound. Close enough to the work to care. We own what we build so the people we serve don't have to rent their business from anyone.
+      </blockquote>
+      <div class="signoff">— Daniel Picazzo, founder &middot; Nashville</div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <h2>For partners, investors,<br><em>and the curious.</em></h2>
+      <p>If you're interested in a particular venture, the holdings, or how we build, we'd love to hear from you. We reply within two business days.</p>
+      <div class="ways">
+        <div class="way">
+          <div class="l">Inquiries</div>
+          <div class="v"><a href="mailto:hello@mtslate.com">hello@mtslate.com</a></div>
+        </div>
+        <div class="way">
+          <div class="l">Studio</div>
+          <div class="v">Nashville, TN</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <span>MT Slate &middot; &copy; 2026</span>
+    <div>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#thesis">Thesis</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </footer>
+
+<script>
+  // Sticky shrink (animation #3 — header micro-state) per operating-standards §10.18
+  var bar=document.getElementById('topbar');
+  window.addEventListener('scroll',function(){
+    if(window.scrollY>40) bar.classList.add('shrunk'); else bar.classList.remove('shrunk');
+  },{passive:true});
+</script>
+</body>
+</html>
