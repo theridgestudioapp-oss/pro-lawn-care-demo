@@ -227,6 +227,9 @@
           <button class="vm" data-i18n="included" onclick="event.stopPropagation();openPkg('enterprise')">What's included →</button>
         </div>
       </div>
+      <div class="upgrade-note" style="margin-top:16px;padding:12px 14px;background:rgba(60,80,57,.08);border-left:3px solid #3C5039;border-radius:0 8px 8px 0;font-size:13px;color:#3D4348;line-height:1.5" data-i18n="upgradeNote">
+        <b>Start with what you need.</b> You can upgrade anytime — your work transfers, you never start over.
+      </div>
       <div class="nav"><button class="back" data-i18n="back" onclick="go('look')">← Back</button><button class="next" id="nx-package" data-i18n="next" onclick="go('details')" disabled>Next →</button></div>
     </div>
 
@@ -297,7 +300,7 @@
   var L={
    en:{h1:"Look like the most<br>established crew in town.",lede:"A few quick picks and you'll have your price — your design, your package, yours to own.",start:"Start →",talkLink:"Prefer to talk first? Request a call",talkLink2:"Prefer to talk first? Request a call",
      step1:"Step 1 of 4",step2:"Step 2 of 4",step3:"Step 3 of 4",step4:"Step 4 of 4",lookT:"Pick your look",lookS:'Tap "See it live" to walk through each one.',pkgT:"Pick your package",pkgS:"Start where you are — each one builds on the last.",qT:"Two quick things",totalT:"Your total",
-     seelive:"See it live & details →",included:"What's included →",applied:"Already taken off every price",mil:"Military appreciation",ff:"Friends & Family",onetime:"one-time",onetimeCap:"One-time",popular:"Best value",plusBasic:"Everything in Basic, plus:",plusOps:"Everything in Operations, plus:",
+     seelive:"See it live & details →",included:"What's included →",applied:"Already taken off every price",mil:"Military appreciation",ff:"Friends & Family",onetime:"one-time",onetimeCap:"One-time",popular:"Best value",plusBasic:"Everything in Basic, plus:",plusOps:"Everything in Operations, plus:",upgradeNote:"<b>Start with what you need.</b> You can upgrade anytime — your work transfers, you never start over.",
      qDomain:"Do you already own a domain?",qQR:"Do you already have a QR code?",yesHave:"Yes, I have one",no:"No",back:"← Back",next:"Next →",seetotal:"See my total →",yourBuild:"Your build",totalHint:"Total is one-time — not including monthly platform costs (hosting, domain), which we go over at setup.",buildit:"Let's build it →",
      youPicked:"Here's what you picked:",phName:"Your name",phContact:"Best phone or email",sendit:"Send it →",backLink:"← back",viewagain:"view it again",
      talkH:"Want a call? We've got you.",talkP:"Leave your number and we'll reach out within 24 hours — in your language.",phNum:"Best number",consent:"Yes, you have my permission to reach out about this.",reqCall:"Request a call →",reqCallShort:"Request a call",gotit:"Got it.",reach24:"We'll reach out within 24 hours.",
@@ -307,7 +310,7 @@
      thanks:function(n){return "Thanks "+n+" — I'll text you the short list of what I need and we'll get started. Talk soon.";},done:"Got it — we'll reach out within 24 hours, in your language. Talk soon."},
    es:{h1:"Luce como el<br>equipo más establecido de la zona.",lede:"Unas cuantas selecciones y tendrás tu precio — tu diseño, tu paquete, tuyo para siempre.",start:"Empezar →",talkLink:"¿Prefieres hablar primero? Pide una llamada",talkLink2:"¿Prefieres hablar primero? Pide una llamada",
      step1:"Paso 1 de 4",step2:"Paso 2 de 4",step3:"Paso 3 de 4",step4:"Paso 4 de 4",lookT:"Elige tu estilo",lookS:'Toca "Ver en vivo" para recorrer cada uno.',pkgT:"Elige tu paquete",pkgS:"Empieza donde estás — cada uno se basa en el anterior.",qT:"Dos cosas rápidas",totalT:"Tu total",
-     seelive:"Ver en vivo y detalles →",included:"Qué incluye →",applied:"Ya descontado de cada precio",mil:"Agradecimiento militar",ff:"Amigos y familia",onetime:"pago único",onetimeCap:"Pago único",popular:"Mejor valor",plusBasic:"Todo lo de Basic, más:",plusOps:"Todo lo de Operations, más:",
+     seelive:"Ver en vivo y detalles →",included:"Qué incluye →",applied:"Ya descontado de cada precio",mil:"Agradecimiento militar",ff:"Amigos y familia",onetime:"pago único",onetimeCap:"Pago único",popular:"Mejor valor",plusBasic:"Todo lo de Basic, más:",plusOps:"Todo lo de Operations, más:",upgradeNote:"<b>Empieza con lo que necesitas.</b> Puedes subir de nivel cuando quieras — tu trabajo se transfiere, nunca empiezas de cero.",
      qDomain:"¿Ya tienes un dominio?",qQR:"¿Ya tienes un código QR?",yesHave:"Sí, tengo uno",no:"No",back:"← Atrás",next:"Siguiente →",seetotal:"Ver mi total →",yourBuild:"Tu proyecto",totalHint:"El total es de pago único — no incluye los costos mensuales de las plataformas (hosting, dominio), que vemos al configurarlo.",buildit:"Construyámoslo →",
      youPicked:"Esto es lo que elegiste:",phName:"Tu nombre",phContact:"Mejor teléfono o correo",sendit:"Enviar →",backLink:"← atrás",viewagain:"verlo de nuevo",
      talkH:"¿Quieres una llamada? Aquí estamos.",talkP:"Deja tu número y te contactamos dentro de 24 horas — en tu idioma.",phNum:"Mejor número",consent:"Sí, tienes mi permiso para contactarme sobre esto.",reqCall:"Pedir una llamada →",reqCallShort:"Pedir una llamada",gotit:"¡Listo!",reach24:"Te contactaremos dentro de 24 horas.",
@@ -317,7 +320,7 @@
      thanks:function(n){return "Gracias "+n+" — te enviaré la lista corta de lo que necesito y empezamos. Hablamos pronto.";},done:"Listo — te contactaremos dentro de 24 horas, en tu idioma. Hablamos pronto."},
    ar:{h1:"اظهر كأكثر<br>طاقم راسخ في المدينة.",lede:"بضع اختيارات سريعة وستحصل على سعرك — تصميمك، باقتك، ملك لك.",start:"ابدأ →",talkLink:"تفضل التحدث أولاً؟ اطلب مكالمة",talkLink2:"تفضل التحدث أولاً؟ اطلب مكالمة",
      step1:"الخطوة 1 من 4",step2:"الخطوة 2 من 4",step3:"الخطوة 3 من 4",step4:"الخطوة 4 من 4",lookT:"اختر مظهرك",lookS:'اضغط "شاهد مباشرة" لتصفح كل واحد.',pkgT:"اختر باقتك",pkgS:"ابدأ من حيث أنت — كل باقة تبني على السابقة.",qT:"أمران سريعان",totalT:"إجماليك",
-     seelive:"شاهد مباشرة والتفاصيل →",included:"ما المتضمن →",applied:"مخصوم من كل سعر",mil:"تقدير عسكري",ff:"الأصدقاء والعائلة",onetime:"دفعة واحدة",onetimeCap:"دفعة واحدة",popular:"أفضل قيمة",plusBasic:"كل ما في Basic، بالإضافة إلى:",plusOps:"كل ما في Operations، بالإضافة إلى:",
+     seelive:"شاهد مباشرة والتفاصيل →",included:"ما المتضمن →",applied:"مخصوم من كل سعر",mil:"تقدير عسكري",ff:"الأصدقاء والعائلة",onetime:"دفعة واحدة",onetimeCap:"دفعة واحدة",popular:"أفضل قيمة",plusBasic:"كل ما في Basic، بالإضافة إلى:",plusOps:"كل ما في Operations، بالإضافة إلى:",upgradeNote:"<b>ابدأ بما تحتاجه.</b> يمكنك الترقية في أي وقت — يُنقل عملك معك، ولا تبدأ من الصفر أبداً.",
      qDomain:"هل تملك نطاقاً بالفعل؟",qQR:"هل لديك رمز QR بالفعل؟",yesHave:"نعم، لدي واحد",no:"لا",back:"← رجوع",next:"التالي →",seetotal:"شاهد إجماليي →",yourBuild:"مشروعك",totalHint:"الإجمالي دفعة واحدة — لا يشمل التكاليف الشهرية للمنصات (الاستضافة، النطاق)، نراجعها عند الإعداد.",buildit:"لنبنِه →",
      youPicked:"هذا ما اخترته:",phName:"اسمك",phContact:"أفضل هاتف أو بريد",sendit:"إرسال →",backLink:"← رجوع",viewagain:"شاهده مجدداً",
      talkH:"تريد مكالمة؟ نحن هنا.",talkP:"اترك رقمك وسنتواصل خلال 24 ساعة — بلغتك.",phNum:"أفضل رقم",consent:"نعم، لديك إذني للتواصل معي بشأن هذا.",reqCall:"اطلب مكالمة →",reqCallShort:"اطلب مكالمة",gotit:"تم.",reach24:"سنتواصل خلال 24 ساعة.",
